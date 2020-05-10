@@ -19,8 +19,13 @@ class estudianteControl extends Controller{
 
 
         function validarEstudiante($url=null){
-          //echo $this->model->verificarEstudiante($url[0], $url[1], url[2]);
-          echo $url[0];
+          $resultado = $this->model->verificarEstudiante($url[0], $url[1], $url[2]);
+          if(empty($resultado)){
+            echo "0";
+            return;
+          }
+          echo $resultado->getcodigoEstudiante();
+          //echo $url[0];
         }
 
        

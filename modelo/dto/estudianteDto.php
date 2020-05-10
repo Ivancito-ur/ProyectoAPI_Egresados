@@ -2,25 +2,21 @@
 
 class estudianteDto{
     public $codigoEstudiante;
-    public $idEstudiante;
+    public $contrasena;
+    public $documento;
+    public $egresado;
+    public $correoInstitucional;
     public $semestreCursado;
-    public $tipo;
-    public $sexo;
-    public $correo;
-    public $idOferta;
+    public $fechaIngreso;
+    public $fechaEgreso;
     public $idHistorial;
 
 
-    public function __construct($codigoEstudiante, $idEstudiante, $semestreCursado, $tipo, $sexo, $correo, $idOferta, $idHistorial){
-        $this->codigoEstudiante = $codigoEstudiante;
-        $this->idEstudiante = $idEstudiante;
-        $this->semestreCursado = $semestreCursado;
-        $this->tipo = $tipo;
-        $this->sexo = $sexo;
-        $this->correo = $correo;
-        $this->idOferta = $idOferta;
-        $this->idHistorial = $idHistorial;
+    public function __construct(){
     }
+
+   
+
 
     public function getcodigoEstudiante(){
         return $this->codigoEstudiante;
@@ -30,12 +26,36 @@ class estudianteDto{
         $this ->codigoEstudiante = $codigoEstudiante;
     }
 
-    public function getidEstudiante(){
-        return $this->idEstudiante;
+    public function getContrasena(){
+        return $this->contrasena;
     }
 
-    public function setidEstudiante($idEstudiante){
-        $this ->idEstudiante = $idEstudiante;
+    public function setContrasena($contrasena){
+        $this ->contrasena = $contrasena;
+    }
+
+    public function getDocumento(){
+        return $this->documento;
+    }
+
+    public function setDocumento($documento){
+        $this ->documento = $documento;
+    }
+
+    public function getEgresado(){
+        return $this->egresado;
+    }
+
+    public function setEgresado($egresado){
+        $this ->egresado = $egresado;
+    }
+
+    public function getCorreo(){
+        return $this->correoInstitucional;
+    }
+
+    public function setCorreo($correoInstitucional){
+        $this ->correoInstitucional = $correoInstitucional;
     }
 
     public function getsemestreCursado(){
@@ -46,36 +66,20 @@ class estudianteDto{
         $this ->semestreCursado = $semestreCursado;
     }
 
-    public function getTipo(){
-        return $this->tipo;
+    public function getfechaIngreso(){
+        return $this->fechaIngreso;
     }
 
-    public function setTipo($tipo){
-        $this ->tipo = $tipo;
+    public function setfechaIngreso($fechaIngreso){
+        $this ->fechaIngreso = $fechaIngreso;
     }
 
-    public function getSexo(){
-        return $this->sexo;
+    public function getfechaEgreso(){
+        return $this->fechaEgreso;
     }
 
-    public function setSexo($sexo){
-        $this ->sexo = $sexo;
-    }
-
-    public function getCorreo(){
-        return $this->correo;
-    }
-
-    public function setCorreo($correo){
-        $this ->correo = $correo;
-    }
-
-    public function getidOferta(){
-        return $this->idOferta;
-    }
-
-    public function setidOferta($idOferta){
-        $this ->idOferta = $idOferta;
+    public function setfechaEgreso($fechaEgreso){
+        $this ->fechaEgreso = $fechaEgreso;
     }
 
     public function getidHistorial(){

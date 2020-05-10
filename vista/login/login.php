@@ -26,7 +26,9 @@
 	
 	<link rel="shortcut icon" href="<?php echo constant('URL')?>public/img/agro.png" />
 
-    <link rel="stylesheet" href="<?php echo constant('URL')?>public/css/login/estiloLogin.css">
+  <link rel="stylesheet" href="<?php echo constant('URL')?>public/css/login/estiloLogin.css">
+
+
 </head>
 
 <body class="text-center">
@@ -64,6 +66,9 @@
         <button type="submit" class="btn btn-danger btn-block btn-flat" id="ingresar">Iniciar Sesión</button>
 
       </form>
+    <div class="alert alert-danger" role="alert">
+                        <p class="respuesta" ></p>
+    </div>
     </div>
     <div class="col-xs-12 center-block" style="margin-bottom: 10px;">
       <a href="#" class="text-danger" data-toggle="modal">¿Olvidaste tu clave?</a>
@@ -73,15 +78,15 @@
         <a onclick="loadE()" href="#"><img src="<?php echo constant('URL')?>public/img/student.png" /></a>
       </div>
       <div class="col-md-4 col-sm-4 col-xs-4" style="margin-top: 10px;">
-        <a onclick="loadA()" href="#"><img src="<?php echo constant('URL')?>public//img/admin.png" /></a>
+        <a onclick="loadA()" href="#"><img src="<?php echo constant('URL')?>public/img/admin.png" /></a>
       </div>
       <div class="col-md-4 col-sm-4 col-xs-4" style="margin-top: 10px;">
-        <a onclick="loadEm()" href="#"><img src="<?php echo constant('URL')?>public//img/empire.png" /></a>
+        <a onclick="loadEm()" href="#"><img src="<?php echo constant('URL')?>public/img/empire.png" /></a>
       </div>
     </div>
 
   </div>
 
 </body>
-  <script src="<?php echo constant('URL')?>public/js/login/login.js"></script> 
+<script src="<?php echo constant('URL')?>public/js/login/login.js"></script> 
 </html>

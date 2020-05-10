@@ -11,8 +11,6 @@ class Controller{
 
         if(file_exists($url)){
             require $url;
-          
-
             $modelName = $model.'Dao';
             $this->model = new $modelName();
 
