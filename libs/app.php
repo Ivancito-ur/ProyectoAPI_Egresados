@@ -44,6 +44,11 @@
             $controller = new $url[0];
             $url[0] = rtrim($url[0], 'Control');
             //echo $url[0];
+
+            if($url[0]=="direc"){
+                $url[0]="director";
+            }
+
             $controller->loadModel($url[0]);
             //numero de elentos del arreglo
             $nparam = sizeof($url);

@@ -1,5 +1,7 @@
 
 const URLD = "http://localhost/faseBeta/";
+
+
   function loadE() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
@@ -7,7 +9,7 @@ const URLD = "http://localhost/faseBeta/";
         document.getElementById("contenedor").innerHTML = this.responseText;
       }
     };
-    xhttp.open("GET", "loginE.html", true);
+    xhttp.open("GET", "vista/login/loginE.php", true);
     xhttp.send();
   }
 
@@ -18,7 +20,7 @@ const URLD = "http://localhost/faseBeta/";
         document.getElementById("contenedor").innerHTML = this.responseText;
       }
     };
-    xhttp.open("GET", "loginA.html", true);
+    xhttp.open("GET", "vista/login/loginA.php", true);
     xhttp.send();
   }
 
@@ -29,12 +31,13 @@ const URLD = "http://localhost/faseBeta/";
         document.getElementById("contenedor").innerHTML = this.responseText;
       }
     };
-    xhttp.open("GET", "loginEm.html", true);
+    xhttp.open("GET", "vista/login/loginEm.php", true);
     xhttp.send();
   }
 
 
   $(document).ready(function(){
+    $('.alert').hide();
     //METODO PARA LA VERIFICACION DE DATOS DE PERSONA
     $("#ingresar").click(function(e){
         var codigo =$('#inpCodigo').val();
@@ -46,7 +49,16 @@ const URLD = "http://localhost/faseBeta/";
         }   
         httpRequest(URLD + "estudianteControl/validarEstudiante/" + codigo + "/" + documento + "/" + contraseña,function(){
           
-          console.log("volvi: " + " " + this.responseText);
+          var resp = this.responseText;
+
+          if(resp=="0"){
+            $('.respuesta').text("Datos incorrectos!");
+            $('.alert').show();
+            return;
+          }else{
+            $('.alert').hide();
+          }
+
         });      
       e.preventDefault();
     });   

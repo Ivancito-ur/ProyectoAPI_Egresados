@@ -10,15 +10,22 @@ class estudianteDao extends Model{
 
     public function verificarEstudiante($codigo, $documento, $contraseña){
         try{
-            $statement = $this->db->connect()->prepare("");
+            $statement = $this->db->connect()->prepare("SELECT codigoEstudiante, documento, contrasena FROM estudiante WHERE  codigoEstudiante = :codigoEstudiante AND documento = :documento AND contrasena = :contrasena ");
             $statement->execute(array(
-                ':' => $codigo,
-                ':' => $documento,
-                ':' => $contraseña 
+                ':codigoEstudiante' => $codigo,
+                ':documento' => $documento,
+                ':contrasena' => $contraseña 
             ));
-            return  true;
+            $resultado = $statement->fetch();
+            $solu = null;
+            if(!empty($resultado)){
+                $solu = new estudianteDto();
+                $solu->setcodigoEstudiante($resultado['codigoEstudiante']);
+              
+            }
+            return $solu;
         }catch(PDOException $e){
-            return false;
+            return null;
         }
     }
 
