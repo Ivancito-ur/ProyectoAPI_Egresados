@@ -1,6 +1,6 @@
 <?php
 
-define('URL', 'http://localhost/faseBeta/');
+define('URL', 'http://localhost/ProyectoAPI_Egresados/');
 
 define('HOST', 'localhost');
 define('DB', 'egresados_agroindustrial');

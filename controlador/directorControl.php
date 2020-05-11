@@ -7,6 +7,10 @@ class directorControl extends Controller{
 
         function __construct(){
           parent::__construct();
+          if(!isset($_SESSION['administrador'])){
+            header('Location: ' . constant('URL'). 'loginControl');   
+            return;
+          }
         }
                     
         function render($ubicacion = null){
@@ -14,7 +18,7 @@ class directorControl extends Controller{
           if(isset($ubicacion[0])){
           $this->view->render($constr , $ubicacion[0]);
           }else{
-          $this->view->render($constr, 'excel');}
+          $this->view->render($constr, 'perfilA');}
         }
 
 
@@ -27,6 +31,8 @@ class directorControl extends Controller{
             $archivo = $_FILES["archivo"]["name"];
             $archivo_copiado = $_FILES["archivo"]["tmp_name"];
             $archivo_guardado = "archivos/copia_" . $archivo;
+
+        
         
             // echo $archivo_guardado;
             // echo $archivo_copiado;
@@ -34,13 +40,14 @@ class directorControl extends Controller{
             $info = new SplFileInfo($archivo_guardado); //Informacion del archivo OBJECT
             $extension = $info->getExtension();
         
-            echo "<br/>" . $extension;
+           
         
             if ($extension == "xlsx" || $extension == "xls") {
                 if (copy($archivo_copiado, $archivo_guardado)) {
-                    echo "<br/> Se copió correctamente";
+                    echo "true";
                 } else {
-                    echo "<br/> Hubo error";
+                    echo " " . $extension;
+                    echo "Hubo error";
                 }
                 if (file_exists($archivo_guardado)) {
         
@@ -152,7 +159,7 @@ class directorControl extends Controller{
                               $this->model->insertar_historial($materias_aprobadas, $promedio, $codigo_icfes_11, $codigo_icfes_pro, $codigo, $conexion);
                             }
                             $id_temp_historial =  $this->model->traer_id_historial($codigo, $conexion);
-                            echo  "xxxxxxxxxxxxxxxxxx". $id_temp_historial . "    xxxxxxxxxxxxxxxxxxx         ";
+                           // echo  "xxxxxxxxxxxxxxxxxx". $id_temp_historial . "    xxxxxxxxxxxxxxxxxxx         ";
                             $this->model->insertar_estudiante($codigo, $correo_institucional, $documento, $semestre_cursado, $fecha_ingreso, $fecha_egreso, $egresado, $contraseña, $id_temp_historial, $conexion);
                         }
                     }

@@ -7,7 +7,7 @@ require_once 'libs/model.php';
 require_once 'libs/app.php';
 require_once 'config/config.php';
 require_once "utils/PHPOffice/PHPExcel/Classes/PHPExcel/IOFactory.php";
-//session_start();  
+session_start();  
 $app = new App();
 
 ?>

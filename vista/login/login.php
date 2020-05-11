@@ -9,6 +9,7 @@
   
 
   <title>Ingenieria Agroindustrial</title>
+  
 
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
     integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
@@ -55,10 +56,10 @@
         <p class="login-box-msg">Ingresa tus datos para iniciar sesión</p>
 
         <label for="inputEmail" class="sr-only">Codigo</label>
-        <input type="text" id="inpCodigo" class="form-control" placeholder="Codigo" required autofocus>
+        <input type="text" id="inpCodigo" class="form-control" placeholder="Codigo" value="1151612" required autofocus>
 
         <label for="inputPassword" class="sr-only">Documento</label>
-        <input type="password" id="inputDocumento" class="form-control" placeholder="Documento" required>
+        <input type="password" id="inputDocumento" class="form-control" placeholder="Documento" value="1052253" required>
 
         <label for="inputPassword" class="sr-only">Contraseña</label>
         <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" required>
@@ -75,18 +76,18 @@
     </div>
     <div class="row login-link" style="border-top: 3px solid #dd4b39;">
       <div class="col-md-4 col-sm-4 col-xs-4" style="margin-top: 10px;">
-        <a onclick="loadE()" href="#"><img src="<?php echo constant('URL')?>public/img/student.png" /></a>
+        <a onclick="return loadE()" href=""><img src="<?php echo constant('URL')?>public/img/student.png" /></a>
       </div>
       <div class="col-md-4 col-sm-4 col-xs-4" style="margin-top: 10px;">
-        <a onclick="loadA()" href="#"><img src="<?php echo constant('URL')?>public/img/admin.png" /></a>
+        <a onclick="return loadA()"; return false; href=""><img src="<?php echo constant('URL')?>public/img/admin.png"  /></a>
       </div>
       <div class="col-md-4 col-sm-4 col-xs-4" style="margin-top: 10px;">
-        <a onclick="loadEm()" href="#"><img src="<?php echo constant('URL')?>public/img/empire.png" /></a>
+        <a onclick="return loadEm()" href=""><img src="<?php echo constant('URL')?>public/img/empire.png" /></a>
       </div>
     </div>
 
   </div>
-
+  <script src="<?php echo constant('URL')?>public/js/login/login.js"></script> 
 </body>
-<script src="<?php echo constant('URL')?>public/js/login/login.js"></script> 
+
 </html>
