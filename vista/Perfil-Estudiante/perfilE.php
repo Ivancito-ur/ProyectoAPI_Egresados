@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
 //require_once '../../metodos/hoja_vida/hojaVida.php';
-$codigoEstudiante =1151612;
+$codigoEstudiante =1151612; //Se Cambia por el codigo que este en la sesion
 $varArchivo="../../hojasDeVida/$codigoEstudiante".".pdf";
 ?>
 
