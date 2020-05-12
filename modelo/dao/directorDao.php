@@ -164,13 +164,7 @@ class directorDao extends Model{
             {
 
                 $error =
-                    "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
-            <strong>Archivo invalido</strong> Tiene que se EXCEL (xlsx o xls)
-            <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-            <span aria-hidden='true'>&times;</span>
-            </button>
-            </div>
-            ";
+                    "  Archivo invalido ,  Tiene que se EXCEL (xlsx o xls)";
 
                 return $error;
             }

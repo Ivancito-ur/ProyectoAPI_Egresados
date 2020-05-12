@@ -8,26 +8,34 @@ class estudianteDao extends Model{
         parent::__construct();
     }
 
-    public function verificarEstudiante($codigo, $documento, $contraseña){
+    public function getEstudiante($codigo){
         try{
-            $statement = $this->db->connect()->prepare("SELECT codigoEstudiante, documento, contrasena FROM estudiante WHERE  codigoEstudiante = :codigoEstudiante AND documento = :documento AND contrasena = :contrasena ");
+            $statement = $this->db->connect()->prepare("SELECT * FROM estudiante e INNER JOIN persona p ON e.documento= p.documento WHERE e.codigoEstudiante=:codigoEstudiante" );
             $statement->execute(array(
-                ':codigoEstudiante' => $codigo,
-                ':documento' => $documento,
-                ':contrasena' => $contraseña 
+                ':codigoEstudiante' => $codigo
             ));
             $resultado = $statement->fetch();
-            $solu = null;
-            if(!empty($resultado)){
-                $solu = new estudianteDto();
-                $solu->setcodigoEstudiante($resultado['codigoEstudiante']);
-              
-            }
-            return $solu;
+            return $resultado;
         }catch(PDOException $e){
             return null;
         }
     }
+
+    public function updateDatos($item){
+        try{
+            $query = $this->db->connect()->prepare('UPDATE estudiante e INNER JOIN persona p ON e.documento = :documento SET p.telefono = :telefono, p.direccion= :direccion , p.correo= :correo');
+            $query->execute([
+                ':documento' => $item['documento'],
+                ':telefono' => $item['telefono'],
+                ':direccion' => $item['direccion'],
+                ':correo' => $item['correo']
+            ]);
+            return true;
+        }catch(PDOException $e){
+            return false;
+        }
+    }
+
 
 
 

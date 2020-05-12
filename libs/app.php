@@ -8,13 +8,15 @@
 
 
         $url = isset($_GET['url']) ? $_GET['url'] : null;
+        $dir = $url;
         $url = rtrim( $url, '/');
         //dividimos los parametros
         $url = explode('/',  $url);
 
+
         if(empty($url[0])){
             $this->defecto();
-        }else if(!empty($url[0])){      
+        }else if(!empty($url[0])){  
             $this->busqueda($url);
         }
         
@@ -23,13 +25,13 @@
     }
 
     function defecto(){
-            $url[0]='estudiante';
-            $archivoController = 'controlador/estudianteControl.php';
+            $url[0]='login';
+            $archivoController = 'controlador/loginControl.php';
             require_once $archivoController;
-            $controller = new  estudianteControl();
+            $controller = new  loginControl();
             $controller->loadModel($url[0]);
             $controller->render(null);        
-            header('Location: ' . constant('URL'). 'estudianteControl');   
+            header('Location: ' . constant('URL'). 'loginControl');   
             return;
     }
 
@@ -47,6 +49,9 @@
 
             if($url[0]=="direc"){
                 $url[0]="director";
+            }
+            if($url[0]=="logi"){
+                $url[0]="login";
             }
 
             $controller->loadModel($url[0]);
