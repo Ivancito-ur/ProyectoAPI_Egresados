@@ -1,5 +1,7 @@
 
 const URLD = "http://localhost/ProyectoAPI_Egresados/";
+$('#alert').hide();   
+$('#alert2').hide();   
 
 function loadAc() {
 
@@ -17,6 +19,69 @@ function loadAc() {
   function loadPe() {
     $("#contenedor").load("vista/estudiante/perfilE.php");
   }
+
+//CARGAR EL PDF DEL ESTUDIANTE
+
+
+$(document).ready(function(){  
+ 
+     $(".formularioEstudiante").submit(function (e) {
+           e.preventDefault();
+            var parametros=new FormData($(this)[0]);
+           $.ajax({
+               type: "POST",
+               url: URLD + "estudianteControl/cargarPDF" ,
+               data: parametros,
+               contentType: false, 
+               processData: false,
+               success: function (data) {
+                 console.log(data);
+                 if(data=="0"){
+                  $('.respuesta').text("seleccione un archivo .pdf");
+                  $('#alert2').hide();  
+                  $('#alert').show();
+                 }else if(data=="2"){
+                  $('#alert').hide();  
+                  $('#alert2').show();
+                  window.location.href = URLD + "estudianteControl" ;
+                  return;
+                 }
+               },
+               error: function (r) {
+                   alert("Error del servidor");
+               }
+           });
+       });
+});
+
+$(document).on('change','input[type="file"]',function(){
+	// this.files[0].size recupera el tamaño del archivo
+	// alert(this.files[0].size);
+	
+	var fileName = this.files[0].name;
+  var fileSize = this.files[0].size;
+  var res = fileName.substring(0, 30);
+  $('.nameArchivo').text(res);
+		// recuperamos la extensión del archivo
+    var ext = fileName.split('.').pop();
+    console.log(fileName);
+		
+		// Convertimos en minúscula porque 
+		// la extensión del archivo puede estar en mayúscula
+		ext = ext.toLowerCase();
+    
+		// console.log(ext);
+		switch (ext) {
+			case 'pdf': break;
+			default:
+        $('.respuesta').text("error de extension, " + ext + "  "  + "Por favor seleccione un archivo .pdf");
+        $('#alert2').hide();  
+        $('#alert').show();
+				this.value = ''; // reset del valor
+				this.files[0].name = '';
+	}
+	
+});
 
 
 function actualizarDatos(e){

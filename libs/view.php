@@ -6,8 +6,8 @@
            
 
             function __construct(){
-            
-                
+        
+     
             }
 
             function render($const ,$nombre){
