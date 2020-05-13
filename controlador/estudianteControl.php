@@ -7,28 +7,43 @@ class estudianteControl extends Controller{
 
         function __construct(){
           parent::__construct();
+          if(!isset($_SESSION['usuario'])){
+            header('Location: ' . constant('URL'). 'loginControl');   
+            return;
+          }
+          $this->view->datos = [];
+         
         }
                     
         function render($ubicacion = null){
-          $constr = "login";
+          if(!isset($ubicacion[1])){
+            $constr = "estudiante";
+          }else{
+            $constr = $ubicacion[1];
+          }
+          
+          $this->getDatos();
           if(isset($ubicacion[0])){
           $this->view->render($constr , $ubicacion[0]);
           }else{
-          $this->view->render($constr, 'login');}
+          $this->view->render($constr, 'perfilE');}
+        }
+
+        function getDatos(){
+             $codigo = $_SESSION['usuario'];
+             $this->view->datos = $this->model->getEstudiante($codigo);
         }
 
 
-        function validarEstudiante($url=null){
-          $resultado = $this->model->verificarEstudiante($url[0], $url[1], $url[2]);
-          if(empty($resultado)){
-            echo "0";
-            return;
-          }
-          echo $resultado->getcodigoEstudiante();
-          //echo $url[0];
+        function actualizarDatos($param = null){
+         if($param == null)return;
+         $this->model->updateDatos([ 'documento' => $_SESSION['documento'], 'telefono' => $param[0], 'direccion' => $param[1], 'correo' =>$param[2] ]);
+         echo "holis";
         }
 
        
+
+        
 
         
 

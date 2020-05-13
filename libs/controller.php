@@ -8,7 +8,7 @@ class Controller{
 
     function loadModel($model){
         $url = 'modelo/dao/'.$model.'Dao.php';
-
+        
         if(file_exists($url)){
             require $url;
             $modelName = $model.'Dao';

@@ -2,14 +2,14 @@
 
 class directorDto{
     public $codigoDirector;
-    public $nombre;
+    public $contraseña;
     public $correo;
+    public $documneto;
 
 
-    public function __construct($codigoDirector, $nombre, $correo){
-        $this->codigoDirector = $codigoDirector;
-        $this->nombre = $nombre;
-        $this->correo = $correo;
+
+    public function __construct(){
+       
     }
 
     public function getcodigoDirector(){
@@ -20,12 +20,20 @@ class directorDto{
         $this ->codigoDirector = $codigoDirector;
     }
 
-    public function getNombre(){
-        return $this->nombre;
+    public function getDocumento(){
+        return $this->documneto;
     }
 
-    public function setNombre($nombre){
-        $this ->nombre = $nombre;
+    public function setDocumento($documneto){
+        $this ->documneto = $documneto;
+    }
+
+    public function getContraseña(){
+        return $this->contraseña;
+    }
+
+    public function setcontraseña($contraseña){
+        $this ->contraseña = $contraseña;
     }
 
     public function getCorreo(){
