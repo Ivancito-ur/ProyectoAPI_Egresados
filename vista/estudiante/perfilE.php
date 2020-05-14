@@ -26,6 +26,7 @@
   
 
 </head>
+<?php $codigo=$_SESSION['usuario']; ?>
 
 <body style="background-color: #ecf0f5;">
     <nav class="navbar navbar-light" style="background-color: #dd4b39; z-index: 1001;">
@@ -101,30 +102,47 @@
                 <br>
                 <div style="border-top: 3px solid #3c8dbc; background-color: white;">
                     <h4 style="padding-left: 10px;">Seleccionar Hoja de Vida</h4>
-                    <form>
+                    <form action="" class="formularioEstudiante" method="" enctype="multipart/form-data">
+                    <div class="form-group" style="display: none">
+                            <label for="nombre">Codigo</label>
+                            <input type="text" class="form-control" name="codigo" value="<?php echo $codigo?>" readonly>
+                        </div>
                         <div class="input-group mb-3"
                             style="padding-left: 10px; padding-right: 10px; padding-bottom: 10px;">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="inputGroupFileAddon01">Cargar</span>
                             </div>
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="inputGroupFile01"
+                                <input type="file" name="hojaVida" id="hojaVida" class="custom-file-input" id="inputGroupFile01"
                                     aria-describedby="inputGroupFileAddon01">
-                                <label class="custom-file-label" for="inputGroupFile01">...</label>
+                                <label class="custom-file-label" for="inputGroupFile01"><p class="nameArchivo">...</p></label>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary"
                             style="background-color: #dd4b39; border-color: #dd4b39;">Cargar</button>
+                            <div style="text-align:center; padding:10px ; margin-top:15px" id="alert"class="alert alert-danger" role="alert">
+                        <p class="respuesta" id="respuesta" ></p></div>
+                        <div style="text-align:center; padding:10px ; margin-top:15px" id="alert2" class="alert alert-success" role="alert">
+                        Cargado Correctamente
+                        </div>
                     </form>
+                    
                 </div>
                 <br>
                 <div id="hojav" style="border-top: 3px solid #3c8dbc; background-color: white;">
                     <div class="form-group">
                         <h4 class="control-label" style="padding-left: 10px;">Visualizar Hoja de Vida</h4>
+                        <?php if($this->direccion!=null): ?>
                         <div class="embed-responsive embed-responsive-16by9" id="pdf">
-                            <iframe class="embed-responsive-item" src="<?php echo constant('URL')?>public/img/elementary os.pdf"
+                            <iframe class="embed-responsive-item" src="<?php echo constant('URL') .  $this->direccion['archivo'] ?> "
                                 allowfullscreen></iframe>
                         </div>
+                        <?php else: ?>
+                            <div class="embed-responsive embed-responsive-16by9" id="pdf">
+                            <iframe class="embed-responsive-item" src=""
+                                allowfullscreen></iframe>
+                        </div>
+                        <?php endif ?>
                     </div>
                 </div>
             </div>
@@ -135,5 +153,6 @@
 
     </footer>
 </body>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="<?php echo constant('URL')?>public/js/estudiante/perfilE.js"></script>
 </html>

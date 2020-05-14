@@ -108,9 +108,9 @@
                         </div>
                         <button type="submit" class="btn btn-primary"
                             style="background-color: #dd4b39; border-color: #dd4b39;" name="enviar">Cargar</button>
-                        <div style="text-align:center; padding:10px ; margin-top:15px" id="alert"class="alert alert-danger" role="alert">
+                        <div style="display:none; text-align:center; padding:10px ; margin-top:15px" id="alert"class="alert alert-danger" role="alert">
                         <p class="respuesta" id="respuesta" ></p></div>
-                        <div style="text-align:center; padding:10px ; margin-top:15px" id="alert2" class="alert alert-success" role="alert">
+                        <div style="display:none; text-align:center; padding:10px ; margin-top:15px" id="alert2" class="alert alert-success" role="alert">
                         Cargado Correctamente
                         </div>
                         
