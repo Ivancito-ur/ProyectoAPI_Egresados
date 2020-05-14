@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-05-2020 a las 23:21:44
+-- Tiempo de generación: 14-05-2020 a las 14:22:10
 -- Versión del servidor: 10.3.15-MariaDB
 -- Versión de PHP: 7.2.19
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `egresados_agroindustral`
+-- Base de datos: `egresados_agroindustrial`
 --
 
 -- --------------------------------------------------------
@@ -34,6 +34,13 @@ CREATE TABLE `director` (
   `correoInstitucional` varchar(100) NOT NULL,
   `documento` int(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `director`
+--
+
+INSERT INTO `director` (`codigoDirector`, `contrasena`, `correoInstitucional`, `documento`) VALUES
+(114, '114', '114', 114);
 
 -- --------------------------------------------------------
 
@@ -87,6 +94,7 @@ CREATE TABLE `estudiante` (
 --
 
 INSERT INTO `estudiante` (`codigoEstudiante`, `contrasena`, `documento`, `egresado`, `correoInstitucional`, `semestreCursado`, `fechaIngreso`, `fechaEgreso`, `id_historial`) VALUES
+(1111111, '1111111', 777777, 0, '17@ufps.edu.co', '8', '2000-05-05', '2000-05-05', 4),
 (1151612, '1254818', 1052253, 0, 'ivan@ufps.edu.co', '9', '2015-01-01', '2006-04-02', 1);
 
 -- --------------------------------------------------------
@@ -109,7 +117,9 @@ CREATE TABLE `historial` (
 --
 
 INSERT INTO `historial` (`id`, `materiasAprobadas`, `promedio`, `idSaberPro`, `idSaber11`, `codigoEstudiante`) VALUES
-(1, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612);
+(1, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(3, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(4, 117, 3.5, '1313', '1212', 1111111);
 
 -- --------------------------------------------------------
 
@@ -121,6 +131,13 @@ CREATE TABLE `hojavida` (
   `archivo` varchar(100) NOT NULL,
   `codigoEstudiante` int(7) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `hojavida`
+--
+
+INSERT INTO `hojavida` (`archivo`, `codigoEstudiante`) VALUES
+('almacen/hojasDeVida/1151612.pdf', 1151612);
 
 -- --------------------------------------------------------
 
@@ -161,6 +178,8 @@ CREATE TABLE `persona` (
 --
 
 INSERT INTO `persona` (`documento`, `nombres`, `apellidos`, `celular`, `correo`, `telefono`, `tipo_documento`, `direccion`) VALUES
+(114, '114', '114', '114', '114@gmail.com', '114', '114', '114'),
+(777777, 'Siete', 'Numero', '171717171', '17@gmail.com', '717171', 'CC', 'Aven 7 con 7'),
 (1052253, 'Ivan', 'Uribe Ramirez', '313542825', 'ivan@gmail.com', '541525', 'CC', 'Av 12 E RG cols');
 
 -- --------------------------------------------------------
@@ -184,6 +203,7 @@ CREATE TABLE `pruebassaber11` (
 --
 
 INSERT INTO `pruebassaber11` (`idSaber11`, `lectura_critica`, `matematica`, `sociales_ciudadanas`, `naturales`, `ingles`, `archivo_url`) VALUES
+('1212', 70, 70, 70, 70, 70, ''),
 ('ACDNAIS15', 70, 70, 70, 70, 70, '');
 
 -- --------------------------------------------------------
@@ -207,6 +227,7 @@ CREATE TABLE `pruebassaberpro` (
 --
 
 INSERT INTO `pruebassaberpro` (`idSaberPro`, `lectura_critica`, `razonamiento_cuantitativo`, `competencias_ciudadana`, `comunicacion_escrita`, `ingles`, `archivo_url`) VALUES
+('1313', 61, 61, 61, 61, 71, ''),
 ('FGSIANS', 60, 60, 60, 60, 70, '');
 
 -- --------------------------------------------------------
@@ -217,9 +238,29 @@ INSERT INTO `pruebassaberpro` (`idSaberPro`, `lectura_critica`, `razonamiento_cu
 
 CREATE TABLE `tesis` (
   `archivo` varchar(100) NOT NULL,
-  `codigoEstudiante` int(7) NOT NULL,
-  `titulo` varchar(50) NOT NULL
+  `id_estudiante_tesis` int(7) NOT NULL,
+  `titulo` varchar(50) NOT NULL,
+  `id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `tesis`
+--
+
+INSERT INTO `tesis` (`archivo`, `id_estudiante_tesis`, `titulo`, `id`) VALUES
+('xvideos.com/178123', 1151612, 'qwer', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tesis_estudiante`
+--
+
+CREATE TABLE `tesis_estudiante` (
+  `id` int(11) NOT NULL,
+  `codigoEstudiante` int(11) NOT NULL,
+  `id_tesis` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Índices para tablas volcadas
@@ -298,8 +339,16 @@ ALTER TABLE `pruebassaberpro`
 -- Indices de la tabla `tesis`
 --
 ALTER TABLE `tesis`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `codigoEstudiante` (`id_estudiante_tesis`);
+
+--
+-- Indices de la tabla `tesis_estudiante`
+--
+ALTER TABLE `tesis_estudiante`
   ADD PRIMARY KEY (`codigoEstudiante`),
-  ADD KEY `codigoEstudiante` (`codigoEstudiante`);
+  ADD KEY `codigoEstudiante` (`codigoEstudiante`),
+  ADD KEY `id_tesis` (`id_tesis`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -309,7 +358,13 @@ ALTER TABLE `tesis`
 -- AUTO_INCREMENT de la tabla `historial`
 --
 ALTER TABLE `historial`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de la tabla `tesis`
+--
+ALTER TABLE `tesis`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Restricciones para tablas volcadas
@@ -352,13 +407,14 @@ ALTER TABLE `hojavida`
 -- Filtros para la tabla `ofertalaboral`
 --
 ALTER TABLE `ofertalaboral`
-  ADD CONSTRAINT `nitEmpresa` FOREIGN KEY (`nitEmpresa`) REFERENCES `empresa` (`nitEmpresa`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `nitEmpresa` FOREIGN KEY (`nitEmpresa`) REFERENCES `egresados_agroindustral`.`empresa` (`nitEmpresa`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `tesis`
+-- Filtros para la tabla `tesis_estudiante`
 --
-ALTER TABLE `tesis`
-  ADD CONSTRAINT `tesis_ibfk_1` FOREIGN KEY (`codigoEstudiante`) REFERENCES `estudiante` (`codigoEstudiante`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `tesis_estudiante`
+  ADD CONSTRAINT `tesis_estudiante_ibfk_1` FOREIGN KEY (`codigoEstudiante`) REFERENCES `estudiante` (`codigoEstudiante`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tesis_estudiante_ibfk_2` FOREIGN KEY (`id_tesis`) REFERENCES `tesis` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

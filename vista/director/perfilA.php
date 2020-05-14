@@ -31,10 +31,11 @@
             <span style="color: white;" class="navbar-brand mb-0 h1">ADMINISTRATIVO</span>
             <a data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
                 aria-controls="collapseExample">
-                <img src="./img/toggle.png" alt="">
+                <img src="<?php echo constant('URL')?>public/img/toggle.png" alt="">
+                
             </a>
         </div>
-        <div><a href="#"><img src="./img/out.png" alt=""></a></div>
+        <div><a href="<?php echo constant('URL')?>loginControl/cerrarSesionAdministrativo"><img src="<?php echo constant('URL')?>public/img/out.png" alt=""></a></div>
     </nav>
     <div>
         <div class="collapse" id="collapseExample" style="width: 250px; position: fixed; z-index: 1000;">
