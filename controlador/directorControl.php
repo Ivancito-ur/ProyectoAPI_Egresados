@@ -18,7 +18,7 @@ class directorControl extends Controller{
           if(isset($ubicacion[0])){
           $this->view->render($constr , $ubicacion[0]);
           }else{
-          $this->view->render($constr, 'perfilA');}
+          $this->view->render($constr, 'indexA');}
         }
 
 
