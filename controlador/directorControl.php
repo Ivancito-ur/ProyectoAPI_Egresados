@@ -11,14 +11,18 @@ class directorControl extends Controller{
             header('Location: ' . constant('URL'). 'loginControl');   
             return;
           }
+          $this->view->datos =[];
         }
+
+
                     
         function render($ubicacion = null){
           $constr = "director";
+          $this->cargaEstudianteTesis();
           if(isset($ubicacion[0])){
           $this->view->render($constr , $ubicacion[0]);
           }else{
-          $this->view->render($constr, 'perfilA');}
+          $this->view->render($constr, 'indexA');}
         }
 
 
@@ -44,7 +48,7 @@ class directorControl extends Controller{
         
             if ($extension == "xlsx" || $extension == "xls") {
                 if (copy($archivo_copiado, $archivo_guardado)) {
-                    echo "true";
+                    echo "si";
                 } else {
                     echo " " . $extension;
                     echo "Hubo error";
@@ -171,15 +175,113 @@ class directorControl extends Controller{
             }
             
         
-      }
+      }  
 
+    function cargaEstudianteTesis(){
+        $this->view->datos = $this->model->cargarEstuTesis();
+
+    }
+
+    function ListarEstudiante(){
+        $estudiante = $this->model->listarEstudiantes();
+        $json = array();
+        foreach($estudiante as $est){
+            $json[] = array(
+                'codigoEstudiante'=> $est['codigoEstudiante'],
+                'documento' => $est['documento'],
+                'nombres' => $est['nombres'],
+                'apellidos' => $est['apellidos'],
+                'celular' => $est['celular'],
+                'correoInstitucional' => $est['correoInstitucional'],
+                'fechaIngreso' => $est['fechaIngreso'],
+                'fechaEgreso' => $est['fechaEgreso']
+            );
+
+        }
+        $JString = json_encode($json);
+        echo $JString;
 
        
 
-       
+    }
 
+    function buscarCodigo($param = null){
+        $codigo = $param[0];
+        $resultado = $this->model->getDatos($codigo);
+        if(empty($resultado)){
+            echo "0";
+            return;
+        }
+        $json[] = array(
+            'codigoEstudiante'=> $resultado['codigoEstudiante'],
+            'nombres' => $resultado['nombres'],
+            'fechaIngreso' => $resultado['fechaIngreso'],
+            'fechaEgreso' => $resultado['fechaEgreso']
+        );
         
 
-      
+        $JString = json_encode($json);
+        echo $JString;
+
+  
+    }
+
+     
+
+
+      function actualizarFecha($param = null){
+        $fecha = $param[0];
+        $codigo = $param[1];
+        $formato = "0000-00-00";
+
+        $año = substr($fecha,0,4);
+        $mes = substr($fecha,5,2);
+        $dia = substr($fecha,8,2);
+
+        $añoF = substr($formato,0,4);
+        $mesF = substr($formato,5,2);
+        $diaF = substr($formato,8,2);
+
+        if((strlen($añoF)==strlen($año)) && (strlen($mes)==strlen($mesF)) && (strlen($dia)==strlen($diaF)) ){
+            $this->model->uptadeFechaegreso($fecha, $codigo);
+            echo "0";
+        
+        }else{
+            echo "1";
+        }
+
+       
+     
+
+    }
+
+
+    function buscarEstudiante($param=null){
+        $codigo = $param[0];
+        $resultado = $this->model->buscarEstudiantes($codigo);
+        $json = array();
+        foreach($resultado as $est){
+            $json[] = array(
+                'codigoEstudiante'=> $est['codigoEstudiante'],
+                'documento' => $est['documento'],
+                'nombres' => $est['nombres'],
+                'apellidos' => $est['apellidos'],
+                'celular' => $est['celular'],
+                'correoInstitucional' => $est['correoInstitucional'],
+                'fechaIngreso' => $est['fechaIngreso'],
+                'fechaEgreso' => $est['fechaEgreso']
+            );
+
+        }
+        $JString = json_encode($json);
+        echo $JString;
+    }
+
 }
+
+ 
+   
+    
 ?>
+
+

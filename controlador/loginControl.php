@@ -61,6 +61,12 @@ class loginControl extends Controller{
           session_destroy();
           header('Location: ' . constant('URL'). 'loginControl');  
       }
+        function cerrarSesionAdministrativo(){
+          unset($_SESSION['administrador']);
+          unset($_SESSION['documentoAdmin']);
+          session_destroy();
+          header('Location: ' . constant('URL'). 'loginControl');  
+      }
 
        
 

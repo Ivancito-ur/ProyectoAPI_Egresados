@@ -161,13 +161,79 @@ class directorDao extends Model{
     }
 
         function error_archivo_incorrecto()
-            {
+        {
 
                 $error =
                     "  Archivo invalido ,  Tiene que se EXCEL (xlsx o xls)";
 
                 return $error;
+        }
+
+        public function getDatos($codigo){
+            try{
+                $statement = $this->db->connect()->prepare("SELECT e.codigoEstudiante, p.nombres, e.fechaIngreso, e.fechaEgreso FROM estudiante e INNER JOIN persona p ON e.documento= p.documento WHERE e.codigoEstudiante=:codigoEstudiante");
+                $statement->execute(array(
+                    ':codigoEstudiante' =>  $codigo
+                ));
+                $resultado = $statement->fetch();
+                return  $resultado;
+            }catch(PDOException $e){
+                return null;
             }
+        }
+
+        //carga a los estudiante con tesis
+        function cargarEstuTesis(){
+            try{
+                $statement = $this->db->connect()->prepare("SELECT  p.nombres, p.apellidos, e.codigoEstudiante FROM estudiante e INNER JOIN persona p ON e.documento = p.documento INNER JOIN tesis_estudiante et ON e.codigoEstudiante = et.codigoEstudiante  ORDER BY(e.codigoEstudiante)");
+                $statement->execute();
+                $resultado = $statement->fetchAll(PDO::FETCH_ASSOC); 
+                return $resultado;
+            }catch(PDOException $e){
+                return null;
+            }
+        }
+
+
+        function uptadeFechaegreso($fecha, $codigo){
+            try{
+                $query = $this->db->connect()->prepare('UPDATE estudiante SET fechaEgreso = :fecha WHERE codigoEstudiante = :codigoEstudiante');
+                 $query->execute([
+                     ':codigoEstudiante' => $codigo,
+                     ':fecha' => $fecha
+                 ]);
+                 
+                 $aux =  $query->rowCount(); 
+                 return substr($aux,0,1);
+             }catch(PDOException $e){
+                 return false;
+             }
+        }
+
+
+        function listarEstudiantes(){
+            try{
+                $statement = $this->db->connect()->prepare("SELECT e.codigoEstudiante, e.documento, p.nombres, p.apellidos, p.celular, e.correoInstitucional, e.fechaIngreso, e.fechaEgreso FROM estudiante e INNER JOIN persona p ON e.documento= p.documento");
+                $statement->execute();
+                $resultado = $statement->fetchAll(PDO::FETCH_ASSOC);
+                return  $resultado;
+            }catch(PDOException $e){
+                return null;
+            }
+        }
+
+
+        function buscarEstudiantes($codigo){
+            try{
+                $statement = $this->db->connect()->prepare("SELECT e.codigoEstudiante, e.documento, p.nombres, p.apellidos, p.celular, e.correoInstitucional, e.fechaIngreso, e.fechaEgreso FROM estudiante e INNER JOIN persona p ON e.documento= p.documento WHERE e.codigoEstudiante LIKE '$codigo%' ");
+                $statement->execute();
+                $resultado = $statement->fetchAll(PDO::FETCH_ASSOC);
+                return  $resultado;
+            }catch(PDOException $e){
+                return null;
+            }
+        }
+
 
 
 
