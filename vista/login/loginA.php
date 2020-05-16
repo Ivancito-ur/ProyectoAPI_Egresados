@@ -1,5 +1,5 @@
 ﻿<div id="contenedor" >
-       <form class="form-signin">
+   <form class="form-signin">
 
       <p class="login-box-msg">ADMINISTRATIVO</p>
       <p class="login-box-msg">Ingresa tus datos para iniciar sesión</p>
