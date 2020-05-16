@@ -221,7 +221,7 @@
           <ul class="navbar-nav align-items-center ml-auto ml-md-0 ">
            
             <li class="nav-item dropdown">
-              <a class="nav-link" href="<?php echo constant('URL') ?>loginControl/cerrarSesionAdministrativo"" role="button">
+              <a class="nav-link" href="<?php echo constant('URL') ?>loginControl/cerrarSesionAdministrativo" role="button">
                 <i class="ni ni-button-power"></i>
               </a>
             </li>
