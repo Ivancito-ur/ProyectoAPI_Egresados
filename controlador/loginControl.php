@@ -1,5 +1,7 @@
 <?php
-  class loginControl extends Controller{
+   
+
+class loginControl extends Controller{
        
         
 
