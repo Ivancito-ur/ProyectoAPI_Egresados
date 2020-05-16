@@ -1,5 +1,5 @@
-
-const URLD = "http://localhost/ProyectoAPI_Egresados/";
+﻿
+const URLD =  "http://localhost/ProyectoAPI_Egresados/";
 $('.alert').hide();
   $(document).ready(function(){
     $('.alert').hide();
