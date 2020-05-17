@@ -57,7 +57,7 @@
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
   <style type="text/css">
-    /* Chart.js */
+  
     @keyframes chartjs-render-animation {
       from {
         opacity: .99

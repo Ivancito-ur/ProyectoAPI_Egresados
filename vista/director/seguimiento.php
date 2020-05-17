@@ -12,6 +12,7 @@
         </div>
         <div class="card-body">
 
+        
             <form>
                 <div class="form-group">
                     <label for="correo">Correo</label>

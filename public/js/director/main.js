@@ -259,17 +259,6 @@ function loadSe() {
 
   }
 
-
-  
-
-    
-    /*if ($('#buscador').val()) {
-     
-    }*/
-  
-
-
-
   function httpRequest(url, callback){
     const http = new XMLHttpRequest();
     http.open("GET", url);
