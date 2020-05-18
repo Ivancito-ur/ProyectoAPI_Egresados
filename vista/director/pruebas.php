@@ -10,6 +10,14 @@
         </div>
  
         <div class="card-body">
+
+            <div class="row">
+                <div class="col">
+                    <div class="input-group mb-3">
+                        <input type="text" id="buscarPrueba"class="form-control" placeholder="Codigo Estudiante" aria-label="Recipient's username" aria-describedby="button-addon2">
+                        <div class="input-group-append">
+                            <button onclick="getPrueba()" class="btn btn-outline-secondary" type="button" id="button-addon2" style="background-color: #dd4b39; border-color: #dd4b39; color: white;">Buscar</button>
+
             
 
             <div class="row">
@@ -18,26 +26,60 @@
                         <input type="text" class="form-control" placeholder="Codigo Estudiante" aria-label="Recipient's username" aria-describedby="button-addon2">
                         <div class="input-group-append">
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2" style="background-color: #dd4b39; border-color: #dd4b39; color: white;">Buscar</button>
+
                         </div>
                     </div>
                 </div>
             </div>
+
+            <div style=" display:none" id="alert"class="alert alert-danger" role="alert">
+                        <p class="respuesta" id="cargaPrueba" ></p></div>
+                        <div style=" display:none"id="alert2" class="alert alert-success" role="alert">
+                        <p class="cargaPrueba2"></p>
+                        </div>
+
             <div class="row">
                 <div class="col">
                     <div style="border-top: 3px solid #3c8dbc; background-color: white; padding-bottom: 10px;">
                         <br>
                         <h4 style="padding-left: 10px;">ICFES</h4>
+
+                        <div id="C1" style="margin: auto; width: 400px !important; height: 400px !important; display: none;">
+                            <canvas id="myChart"  ></canvas>
+                        </div>
+
     
+
                     </div>
                 </div>
                 <div class="col">
                     <div style="border-top: 3px solid #3c8dbc; background-color: white; padding-bottom: 10px;">
                         <br>
                         <h4 style="padding-left: 10px;">Saber PRO</h4>
+
+                        <div id="C2" style="margin: auto; width: 400px !important; height: 400px !important; display: none;">
+                            <canvas id="myChart11"  ></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+            <div class="col">
+                    <div style="border-top: 3px solid #3c8dbc; background-color: white; padding-bottom: 10px;">
+                        <br>
+                        <h4 style="padding-left: 10px;">Comparacion</h4>
+                        <div id="C3" style="margin: auto; width: 800px !important; height: 400px !important; display: none;">
+                            <canvas id="myChart12"  ></canvas>
+                        </div>
+
                     </div>
                 </div>
             </div>
         </div>
 
     </div>
+
 </div>
+
+</div>
+

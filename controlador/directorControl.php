@@ -257,6 +257,9 @@ class directorControl extends Controller{
 
 
     function buscarEstudiante($param=null){
+
+        if($param==null)return;
+
         $codigo = $param[0];
         $resultado = $this->model->buscarEstudiantes($codigo);
         $json = array();
@@ -276,6 +279,36 @@ class directorControl extends Controller{
         $JString = json_encode($json);
         echo $JString;
     }
+
+
+
+    function getPrueba($param = null){
+    if($param==null)return;
+        $codigo=$param[0];
+        $aux = $this->model->getDatos($codigo);
+        if(empty($aux)){
+            echo "0";
+            return;
+        }
+        $resultado = $this->model->getPruebaE($codigo);
+        $json = array();
+            $json[] = array(
+                'lecturaPP'=> $resultado['lecturaPP'],
+                'razonamientoPP' => $resultado['razonamientoPP'],
+                'comunicacionPP' => $resultado['comunicacionPP'],
+                'competenciasPP' => $resultado['competenciasPP'],
+                'inglesPP' => $resultado['inglesPP'],
+                'lecturaP11' => $resultado['lecturaP11'],
+                'razonamientoP11' => $resultado['razonamientoP11'],
+                'naturalesP11' => $resultado['naturalesP11'],
+                'competenciasP11' => $resultado['competenciasP11'],
+                'inglesP11' => $resultado['inglesP11']
+            );
+        $JString = json_encode($json);
+        echo $JString;
+
+    }
+
 
 }
 
