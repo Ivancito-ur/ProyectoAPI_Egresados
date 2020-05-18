@@ -224,6 +224,7 @@ class directorDao extends Model{
 
 
         function buscarEstudiantes($codigo){
+           
             try{
                 $statement = $this->db->connect()->prepare("SELECT e.codigoEstudiante, e.documento, p.nombres, p.apellidos, p.celular, e.correoInstitucional, e.fechaIngreso, e.fechaEgreso FROM estudiante e INNER JOIN persona p ON e.documento= p.documento WHERE e.codigoEstudiante LIKE '$codigo%' ");
                 $statement->execute();
@@ -233,6 +234,21 @@ class directorDao extends Model{
                 return null;
             }
         }
+
+
+        function getPruebaE($codigo){
+            try{
+                $statement = $this->db->connect()->prepare("SELECT pp.lectura_critica as lecturaPP, pp.razonamiento_cuantitativo as razonamientoPP , pp.comunicacion_escrita as comunicacionPP, pp.competencias_ciudadana as competenciasPP, pp.ingles as inglesPP 
+                , p11.lectura_critica as lecturaP11, p11.matematica as razonamientoP11 , p11.naturales as naturalesP11, p11.sociales_ciudadanas as competenciasP11, p11.ingles as inglesP11 FROM pruebassaberpro pp, pruebassaber11 p11 WHERE pp.idSaberPro =((SELECT h.idSaberPro FROM historial h INNER JOIN estudiante e ON h.codigoEstudiante=e.codigoEstudiante 
+                WHERE e.codigoEstudiante=$codigo LIMIT 1)) AND p11.idSaber11 =((SELECT h.idSaber11 FROM historial h INNER JOIN estudiante e ON h.codigoEstudiante=e.codigoEstudiante WHERE e.codigoEstudiante=$codigo LIMIT 1)) ");
+                $statement->execute();
+                $resultado = $statement->fetch(PDO::FETCH_ASSOC);
+                return  $resultado;
+            }catch(PDOException $e){
+                return null;
+            }
+        }
+
 
 
 

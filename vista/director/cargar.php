@@ -46,6 +46,7 @@
                     <div style="width:80%; margin:auto;display:none;  text-align:center; padding:10px ; margin-top:15px; margin-bottom:15px" id="actu2" class="alert alert-success" role="alert">
                     Actualizado Correctamente
                     </div>
+                    
                     <button type="submit" class="btn btn-primary"
                         id="botonActualizar" style="background-color: #dd4b39; border-color: #dd4b39;"  onclick="return actualizarFecha(event)">Actualizar </button>
                 </form>

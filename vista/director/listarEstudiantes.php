@@ -22,6 +22,7 @@
             <th>Correo Institucional</th>
             <th>Fecha Ingreso</th>
             <th>Fecha Egreso</th>
+            
           </tr>
         </thead>
         <tbody id="estudiantesCarga">
