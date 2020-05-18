@@ -224,7 +224,7 @@ class directorDao extends Model{
 
 
         function buscarEstudiantes($codigo){
-           
+
             try{
                 $statement = $this->db->connect()->prepare("SELECT e.codigoEstudiante, e.documento, p.nombres, p.apellidos, p.celular, e.correoInstitucional, e.fechaIngreso, e.fechaEgreso FROM estudiante e INNER JOIN persona p ON e.documento= p.documento WHERE e.codigoEstudiante LIKE '$codigo%' ");
                 $statement->execute();
@@ -234,6 +234,7 @@ class directorDao extends Model{
                 return null;
             }
         }
+
 
 
         function getPruebaE($codigo){
@@ -248,6 +249,7 @@ class directorDao extends Model{
                 return null;
             }
         }
+
 
 
 

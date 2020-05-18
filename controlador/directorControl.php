@@ -257,7 +257,9 @@ class directorControl extends Controller{
 
 
     function buscarEstudiante($param=null){
+
         if($param==null)return;
+
         $codigo = $param[0];
         $resultado = $this->model->buscarEstudiantes($codigo);
         $json = array();
@@ -277,6 +279,7 @@ class directorControl extends Controller{
         $JString = json_encode($json);
         echo $JString;
     }
+
 
 
     function getPrueba($param = null){
@@ -305,6 +308,7 @@ class directorControl extends Controller{
         echo $JString;
 
     }
+
 
 }
 

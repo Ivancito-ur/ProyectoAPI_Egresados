@@ -18,7 +18,6 @@
 
   
 
-  
     
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
@@ -39,7 +38,9 @@
   <link rel="stylesheet" href="<?php echo constant('URL') ?>public/css/director/estiloAdm.css">
 
   
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+
 
 </head>
 
@@ -136,7 +137,15 @@
           <!-- Search form -->
           <form class="navbar-search navbar-search-light form-inline mr-sm-3" id="navbar-search-main">
             <div class="form-group mb-0">
+
               
+              <div class="input-group input-group-alternative input-group-merge">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-search"></i></span>
+                </div>
+                <input class="form-control" placeholder="Search" type="text">
+              </div>
+
             </div>
             <button type="button" class="close" data-action="search-close" data-target="#navbar-search-main"
              aria-label="Close">
@@ -298,7 +307,7 @@
     </div>
     <!-- Page content -->
     <div class="container-fluid mt--6" id="contenedor">
-    
+
       <div id="container">
         <div class="row">
           <div class="col-xl-5">
@@ -314,7 +323,7 @@
                 </div>
               </div>
 
-             
+
               <div class="table-responsive" style="margin-bottom:20px">
                 <!-- Projects table -->
                 <table class="table align-items-center table-flush">
@@ -344,7 +353,7 @@
               </div>
 
 
-           
+
 
             </div>
           </div>
