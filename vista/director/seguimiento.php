@@ -16,7 +16,7 @@
             <form>
                 <div class="form-group">
                     <label for="correo">Asunto</label>
-                    <input type="email" class="form-control" id="asunto" required>
+                    <input type="text" class="form-control" id="asunto" required>
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlTextarea1">Mensaje</label>
