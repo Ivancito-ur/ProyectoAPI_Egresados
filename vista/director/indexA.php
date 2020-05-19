@@ -352,35 +352,33 @@
       </div>
       <!-- Footer -->
       
-      <footer class="footer pt-0 container">
-        <div class="row align-items-center justify-content-lg-between">
-          <div class="col-lg-4">
-            <div class="copyright text-center  text-lg-left  text-muted">
-              &copy; 2020 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Universidad Francisco de Paula Santander</a>
-            </div>
-          </div>
-          
-              <div class="col-lg-8">
-                <ul class="nav nav-footer justify-content-center justify-content-lg-end">
-                  <li class="nav-item">
-                    <a href="https://www.creative-tim.com" class="nav-link" target="_blank">UFPS Tic's</a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="https://www.creative-tim.com/presentation" class="nav-link" target="_blank">Sobre
-                      nosotros</a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="http://blog.creative-tim.com" class="nav-link" target="_blank">Paginas</a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="https://github.com/creativetimofficial/argon-dashboard/blob/master/LICENSE.md" class="nav-link" target="_blank">Open Sources</a>
-                  </li>
-                </ul>
-              </div>
-        </div>
-      </footer>
     </div>
   </div>
+          <footer class="footer pt-0 container main-footer" style="padding-left: 25%">
+            <div class="row align-items-center justify-content-lg-between">
+              <div class="col-lg-6">
+                <div class="copyright text-center  text-lg-left  text-muted">
+                  &copy; 2020 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Universidad Francisco de Paula Santander</a>
+                </div>
+              </div>
+              
+                  <div class="col-lg-6">
+                    <ul class="nav nav-footer justify-content-center justify-content-lg-end">
+                      <li class="nav-item">
+                        <a href="https://www.creative-tim.com" class="nav-link" target="_blank">UFPS Tic's</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="https://www.creative-tim.com/presentation" class="nav-link" target="_blank">Sobre
+                          nosotros</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="http://blog.creative-tim.com" class="nav-link" target="_blank">Paginas</a>
+                      </li>
+                        
+                    </ul>
+                  </div>
+            </div>
+          </footer>
 
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>

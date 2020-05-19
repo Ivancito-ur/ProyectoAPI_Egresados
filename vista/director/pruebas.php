@@ -13,7 +13,7 @@
             <div class="row">
                 <div class="col">
                     <div class="input-group mb-3">
-                        <input type="text" id="buscarPrueba"class="form-control" placeholder="Codigo Estudiante" aria-label="Recipient's username" aria-describedby="button-addon2">
+                        <input type="number" id="buscarPrueba"class="form-control" placeholder="Codigo Estudiante" aria-label="Recipient's username" aria-describedby="button-addon2">
                         <div class="input-group-append">
                             <button onclick="getPrueba()" class="btn btn-outline-secondary" type="button" id="button-addon2" style="background-color: #dd4b39; border-color: #dd4b39; color: white;">Buscar</button>
                         </div>

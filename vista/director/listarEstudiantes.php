@@ -14,7 +14,7 @@
       <p class="lead">
 
           <h3>Estudiantes</h3>
-          <input class="form-control col-md-3 light-table-filter" data-table="order-table" type="text" id="buscador" placeholder="Bucar por codigo.." onkeyup="capturar(event)">
+          <input class="form-control col-md-3 light-table-filter" data-table="order-table" type="number" id="buscador" placeholder="Bucar por codigo.." onkeyup="capturar(event)">
           <hr>
           <!-- -->
         <div class="container">
