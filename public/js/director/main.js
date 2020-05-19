@@ -141,9 +141,6 @@ function cargarExcel(e, p){
 });
 }
 
-
-
-
 function loadSe() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
@@ -186,19 +183,19 @@ function loadSe() {
     };
     xhttp.open("GET", "vista/director/pruebas.php", true);
     xhttp.send();
+
+    //pruebaICFES("myChart");
   }
 
 
   
   function loadLi() {
-    console.log("1");
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
         document.getElementById("contenedor").innerHTML = this.responseText;
       }
     };
-    console.log("2");
     xhttp.open("GET", "vista/director/listarEstudiantes.php", true);
     xhttp.send();
 
@@ -248,15 +245,7 @@ function loadSe() {
       //console.log(template);
       $('tbody').html(template);
       }
-    
-
-
-
     });
-       
-        
-      
-
   }
 
   function httpRequest(url, callback){
@@ -270,5 +259,171 @@ function loadSe() {
     }
   }
   
+//COMPRACION DE LAS GRAFICAS GRAFICAS 
 
+function getPrueba(){
+    var busquedaCodigo = $('#buscarPrueba').val();
+    if(busquedaCodigo==""){
+     $('#alert').show();
+     $('#alert2').hide();
+     $('#cargaPrueba').text("Por favor, Introduzca el codigo estudiante que desea buscar.");
+     $('#C1').hide();
+     $('#C2').hide();
+     $('#C3').hide(); 
+      return;
+    }
+    httpRequest(URLD + "directorControl/getPrueba/" + busquedaCodigo ,function(){
+      const resp = this.responseText;
+      var aux = resp.split("\n").join("");
+      if(aux==="0"){
+        $('#alert').show();
+        $('#alert2').hide();
+        $('#cargaPrueba').text("Codigo de estudiante no encontrado, por favor verifique la informacion."); 
+        $('#C1').hide();
+        $('#C2').hide();
+        $('#C3').hide(); 
+       return;
+      }
+      $('#alert').hide();
+      $('#C1').show();
+      $('#C2').show();
+      $('#C3').show();
+      let ta = JSON.parse(resp);
+      pruebaPRO(ta[0].lecturaPP, ta[0].razonamientoPP, ta[0].comunicacionPP, ta[0].competenciasPP, ta[0].inglesPP); 
+      prueba11(ta[0].lecturaP11, ta[0].razonamientoP11, ta[0].naturalesP11, ta[0].competenciasP11, ta[0].inglesPP); 
+      comparacionPruebas(ta[0].lecturaPP, ta[0].lecturaP11, ta[0].razonamientoPP, ta[0].razonamientoP11,ta[0].competenciasPP, ta[0].competenciasP11, ta[0].inglesPP, ta[0].inglesP11 );
+      console.log("si");
+    });   
+  
+}
+
+function prueba11(lectura, razon, natu, compet, ingles){
+  var ctx = document.getElementById('myChart11').getContext('2d');
+  console.log(ctx);
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Lectura', 'Razonamiento', 'Naturales', 'Competencia', 'Ingles'],
+        datasets: [{
+            label: 'Puntaje ICFES',
+            data: [lectura, razon, natu, compet, ingles],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+}
+
+function pruebaPRO(lectura, razon, comuni, compet, ingles){
+  var ctx = document.getElementById('myChart').getContext('2d');
+  console.log(ctx);
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Lectura', 'Razonamiento', 'Comunicacion', 'Competencia', 'Ingles'],
+        datasets: [{
+            label: 'Puntaje ICFES',
+            data: [lectura, razon, comuni, compet, ingles],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+}
+
+function comparacionPruebas(lectu1, lectu2, razo1, razo2, compe1, compe2, ingles1, ingles2){
+  var densityCanvas = document.getElementById("myChart12");
+
+Chart.defaults.global.defaultFontFamily = "Lato";
+Chart.defaults.global.defaultFontSize = 18;
+
+var saberPro = {
+  label: 'Resultados Pruebas SaberPro',
+  data: [lectu1, razo1, compe1, ingles1],
+  backgroundColor: 'rgba(0, 99, 132, 0.6)',
+  borderWidth: 0,
+  yAxisID: "y-axis-density"
+};
+
+var saber11 = {
+  label: 'Resultados Pruebas Saber11',
+  data: [lectu2, razo2, compe2, ingles2],
+  backgroundColor: 'rgba(99, 132, 0, 0.6)',
+  borderWidth: 0,
+  yAxisID: "y-axis-gravity"
+};
+
+var planetData = {
+  labels: ["Lectura", "Razonamiento",  "Competencia", "Ingles"],
+  datasets: [saberPro, saber11]
+};
+
+var chartOptions = {
+  scales: {
+    xAxes: [{
+      barPercentage: 1,
+      categoryPercentage: 0.6
+    }],
+    yAxes: [{
+      id: "y-axis-density"
+    }, {
+      id: "y-axis-gravity"
+    }]
+  }
+};
+
+var barChart = new Chart(densityCanvas, {
+  type: 'bar',
+  data: planetData,
+  options: chartOptions
+});
+}
   

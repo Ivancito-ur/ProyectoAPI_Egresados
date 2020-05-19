@@ -1,18 +1,4 @@
-<!--
-=========================================================
-* Argon Dashboard - v1.2.0
-=========================================================
-* Product Page: https://www.creative-tim.com/product/argon-dashboard
 
-
-* Copyright  Creative Tim (http://www.creative-tim.com)
-* Coded by www.creative-tim.com
-
-
-
-=========================================================
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
--->
 <!DOCTYPE html>
 <html>
 
@@ -29,6 +15,8 @@
   <!-- Bootstrap core CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
   integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+  
 
   
     
@@ -52,7 +40,7 @@
   <link rel="stylesheet" href="<?php echo constant('URL') ?>public/css/director/estiloAdm.css">
 
   
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
 
 </head>
 
@@ -289,6 +277,7 @@
     </div>
     <!-- Page content -->
     <div class="container-fluid mt--6" id="contenedor">
+    
       <div id="container">
         <div class="row">
           <div class="col-xl-5">
@@ -303,6 +292,7 @@
                   </div>
                 </div>
               </div>
+
               <div class="table-responsive" style="margin-bottom:20px">
                 <!-- Projects table -->
                 <table class="table align-items-center table-flush">
@@ -336,6 +326,7 @@
       </div>
       <!-- Footer -->
       
+
       <footer class="footer pt-0 container">
         <div class="row align-items-center justify-content-lg-between">
           <div class="col-lg-4">
@@ -347,8 +338,34 @@
               </div>
         </div>
       </footer>
+
     </div>
   </div>
+          <footer class="footer pt-0 container main-footer" style="padding-left: 25%">
+            <div class="row align-items-center justify-content-lg-between">
+              <div class="col-lg-6">
+                <div class="copyright text-center  text-lg-left  text-muted">
+                  &copy; 2020 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Universidad Francisco de Paula Santander</a>
+                </div>
+              </div>
+              
+                  <div class="col-lg-6">
+                    <ul class="nav nav-footer justify-content-center justify-content-lg-end">
+                      <li class="nav-item">
+                        <a href="https://www.creative-tim.com" class="nav-link" target="_blank">UFPS Tic's</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="https://www.creative-tim.com/presentation" class="nav-link" target="_blank">Sobre
+                          nosotros</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="http://blog.creative-tim.com" class="nav-link" target="_blank">Paginas</a>
+                      </li>
+                        
+                    </ul>
+                  </div>
+            </div>
+          </footer>
 
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
