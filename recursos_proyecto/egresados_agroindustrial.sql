@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-05-2020 a las 14:22:10
--- Versión del servidor: 10.3.15-MariaDB
--- Versión de PHP: 7.2.19
+-- Tiempo de generación: 19-05-2020 a las 05:34:46
+-- Versión del servidor: 10.4.6-MariaDB
+-- Versión de PHP: 7.3.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -95,7 +95,7 @@ CREATE TABLE `estudiante` (
 
 INSERT INTO `estudiante` (`codigoEstudiante`, `contrasena`, `documento`, `egresado`, `correoInstitucional`, `semestreCursado`, `fechaIngreso`, `fechaEgreso`, `id_historial`) VALUES
 (1111111, '1111111', 777777, 0, '17@ufps.edu.co', '8', '2000-05-05', '2000-05-05', 4),
-(1151612, '1254818', 1052253, 0, 'ivan@ufps.edu.co', '9', '2015-01-01', '2006-04-02', 1);
+(1151612, '1254818', 1052253, 0, 'ivan@ufps.edu.co', '9', '2015-01-01', '2006-01-09', 1);
 
 -- --------------------------------------------------------
 
@@ -119,7 +119,64 @@ CREATE TABLE `historial` (
 INSERT INTO `historial` (`id`, `materiasAprobadas`, `promedio`, `idSaberPro`, `idSaber11`, `codigoEstudiante`) VALUES
 (1, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
 (3, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
-(4, 117, 3.5, '1313', '1212', 1111111);
+(4, 117, 3.5, '1313', '1212', 1111111),
+(5, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(6, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(7, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(8, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(9, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(10, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(11, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(12, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(13, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(14, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(15, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(16, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(17, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(18, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(19, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(20, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(21, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(22, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(23, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(24, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(25, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(26, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(27, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(28, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(29, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(30, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(31, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(32, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(33, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(34, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(35, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(36, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(37, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(38, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(39, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(40, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(41, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(42, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(43, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(44, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(45, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(46, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(47, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(48, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(49, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(50, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(51, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(52, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(53, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(54, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(55, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(56, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(57, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(58, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(59, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(60, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612),
+(61, 50, 3.47, 'FGSIANS', 'ACDNAIS15', 1151612);
 
 -- --------------------------------------------------------
 
@@ -137,6 +194,7 @@ CREATE TABLE `hojavida` (
 --
 
 INSERT INTO `hojavida` (`archivo`, `codigoEstudiante`) VALUES
+('almacen/hojasDeVida/1111111.pdf', 1111111),
 ('almacen/hojasDeVida/1151612.pdf', 1151612);
 
 -- --------------------------------------------------------
@@ -178,9 +236,9 @@ CREATE TABLE `persona` (
 --
 
 INSERT INTO `persona` (`documento`, `nombres`, `apellidos`, `celular`, `correo`, `telefono`, `tipo_documento`, `direccion`) VALUES
-(114, '114', '114', '114', '114@gmail.com', '114', '114', '114'),
-(777777, 'Siete', 'Numero', '171717171', '17@gmail.com', '717171', 'CC', 'Aven 7 con 7'),
-(1052253, 'Ivan', 'Uribe Ramirez', '313542825', 'ivan@gmail.com', '541525', 'CC', 'Av 12 E RG cols');
+(114, '114', '114', '114', 'ha@com', '314', '114', 'hola@com'),
+(777777, 'Siete', 'Numero', '171717171', 'ha@com', '314', 'CC', 'hola@com'),
+(1052253, 'Ivan', 'Uribe Ramirez', '313542825', 'ha@com', '314', 'CC', 'hola@com');
 
 -- --------------------------------------------------------
 
@@ -261,6 +319,14 @@ CREATE TABLE `tesis_estudiante` (
   `codigoEstudiante` int(11) NOT NULL,
   `id_tesis` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `tesis_estudiante`
+--
+
+INSERT INTO `tesis_estudiante` (`id`, `codigoEstudiante`, `id_tesis`) VALUES
+(2, 1111111, 1),
+(1, 1151612, 1);
 
 --
 -- Índices para tablas volcadas
@@ -358,7 +424,7 @@ ALTER TABLE `tesis_estudiante`
 -- AUTO_INCREMENT de la tabla `historial`
 --
 ALTER TABLE `historial`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT de la tabla `tesis`
@@ -402,12 +468,6 @@ ALTER TABLE `historial`
 --
 ALTER TABLE `hojavida`
   ADD CONSTRAINT `hojavida_ibfk_1` FOREIGN KEY (`codigoEstudiante`) REFERENCES `estudiante` (`codigoEstudiante`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `ofertalaboral`
---
-ALTER TABLE `ofertalaboral`
-  ADD CONSTRAINT `nitEmpresa` FOREIGN KEY (`nitEmpresa`) REFERENCES `egresados_agroindustral`.`empresa` (`nitEmpresa`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `tesis_estudiante`
