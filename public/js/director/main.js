@@ -1,9 +1,9 @@
 const URLD="http://localhost/ProyectoAPI_Egresados/";
 
+
+function cargaHojaVida(){
 $(document).on('change','input[type="file"]',function(){
-	// this.files[0].size recupera el tamaño del archivo
-	// alert(this.files[0].size);
-	
+
 	var fileName = this.files[0].name;
   var fileSize = this.files[0].size;
   var res = fileName.substring(0, 30);
@@ -11,12 +11,7 @@ $(document).on('change','input[type="file"]',function(){
 		// recuperamos la extensión del archivo
     var ext = fileName.split('.').pop();
     console.log(fileName);
-		
-		// Convertimos en minúscula porque 
-		// la extensión del archivo puede estar en mayúscula
 		ext = ext.toLowerCase();
-    
-		// console.log(ext);
 		switch (ext) {
       case 'xlsx':
       case 'xls': 
@@ -33,6 +28,33 @@ $(document).on('change','input[type="file"]',function(){
 	}
 	
 });
+}
+
+
+
+function cargaTesis(){
+  $(document).on('change','input[type="file"]',function(){
+	var fileName = this.files[0].name;
+  var res = fileName.substring(0, 30);
+  $('.nameArchivoTesis').text(res);
+    var ext = fileName.split('.').pop();
+    console.log(fileName);
+		ext = ext.toLowerCase();
+		switch (ext) {
+      case 'pdf': 
+      $('.respuestaTesis2').text("Cargado Correctamente");
+      $('#alertTesis').hide();  
+      $('#alertTesis2').show();
+      break;
+			default:
+        $('.respuestaTesis').text("error de extension, " + ext + "  "  + "Por favor seleccione un archivo .pdf");
+        $('#alertTesis2').hide();  
+        $('#alertTesis').show();
+				this.value = ''; 
+				this.files[0].name = '';
+	}
+});
+}
 
 function cargaDatos(e){
   $('#actu2').hide();
@@ -45,9 +67,6 @@ function cargaDatos(e){
       return;
     }
     httpRequest(URLD + "directorControl/buscarCodigo/" + busquedaCodigo ,function(){
-     
-    
-      
       const resp = this.responseText;
       var aux = resp.split("\n").join("");
       console.log(aux);
@@ -282,7 +301,7 @@ function getPrueba(){
     httpRequest(URLD + "directorControl/getPrueba/" + busquedaCodigo ,function(){
       const resp = this.responseText;
       var aux = resp.split("\n").join("");
-      if(aux===0){
+      if(aux==0){
         $('#alert').show();
         $('#alert2').hide();
         $('#cargaPrueba').text("Codigo de estudiante no encontrado, por favor verifique la informacion."); 

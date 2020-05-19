@@ -62,9 +62,9 @@
                             <span class="input-group-text"  id="inputGroupFileAddon01">Cargar</span>
                         </div>
                         <div class="custom-file">
-                            <input type="file" style="display:none"class="custom-file-input" id="inputGroupFile01"
+                            <input onchange="cargaHojaVida()" type="file" style="display:none"class="custom-file-input" id="inputGroupFile01"
                                 aria-describedby="inputGroupFileAddon01"  name="archivo">
-                            <label class="custom-file-label" for="inputGroupFile01"><p class="nameArchivo">...</p></label>
+                            <label  class="custom-file-label" for="inputGroupFile01"><p class="nameArchivo">...</p></label>
                         </div>
                     </div>
                     <button type="button" id="guardaExcel" class=" btn btn-primary" onclick="cargarExcel(event, '#guardaExcel')"
