@@ -292,10 +292,6 @@
                   </div>
                 </div>
               </div>
-<<<<<<< HEAD
-=======
-
->>>>>>> 568289226e8a6ea5beda60542a8817b3f678c58b
               <div class="table-responsive" style="margin-bottom:20px">
                 <!-- Projects table -->
                 <table class="table align-items-center table-flush">
