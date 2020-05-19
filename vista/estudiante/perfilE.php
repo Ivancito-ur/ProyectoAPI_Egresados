@@ -44,7 +44,8 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <title>Director Agroindustrial</title>
   <!-- Favicon -->
-  <link rel="icon" href="<?php echo constant('URL') ?>public/assets/img/brand/favicon.png" type="image/png">
+  <!--<link rel="icon" href="<?php echo constant('URL') ?>public/assets/img/brand/favicon.png" type="image/png">-->
+  <link rel="shortcut icon" href="<?php echo constant('URL')?>public/img/agro.png" />
   <!-- Fonts -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
   <!-- Icons -->
@@ -55,55 +56,6 @@
   <link rel="stylesheet" href="<?php echo constant('URL') ?>public/assets/css/argon.css?v=1.2.0" type="text/css">
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-
-  <style type="text/css">
-  
-    @keyframes chartjs-render-animation {
-      from {
-        opacity: .99
-      }
-
-      to {
-        opacity: 1
-      }
-    }
-
-    .chartjs-render-monitor {
-      animation: chartjs-render-animation 1ms
-    }
-
-    .chartjs-size-monitor,
-    .chartjs-size-monitor-expand,
-    .chartjs-size-monitor-shrink {
-      position: absolute;
-      direction: ltr;
-      left: 0;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      overflow: hidden;
-      pointer-events: none;
-      visibility: hidden;
-      z-index: -1
-    }
-
-    .chartjs-size-monitor-expand>div {
-      position: absolute;
-      width: 1000000px;
-      height: 1000000px;
-      left: 0;
-      top: 0
-    }
-
-    .chartjs-size-monitor-shrink>div {
-      position: absolute;
-      width: 200%;
-      height: 200%;
-      left: 0;
-      top: 0
-    }
-  </style>
-  
 
 </head>
 <?php $codigo=$_SESSION['usuario']; ?>
@@ -126,13 +78,13 @@
           <ul class="navbar-nav">
             <li class="nav-item">
               <a class="nav-link active" href="">
-                <i class="ni ni-tv-2 text-primary"></i>
+                <i class="fas fa-id-badge"></i>
                 <span class="nav-link-text">Perfil</span>
               </a>
             </li>
             <li class="nav-item">
               <a onclick="loadAc()" class="nav-link" href="#">
-                <i class="ni ni-pin-3 text-primary"></i>
+                <i class="fas fa-edit"></i>
                 <span class="nav-link-text">Actualizar Datos</span>
               </a>
             </li>
@@ -177,9 +129,18 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <!-- Search form -->
           <!-- Navbar links -->
-          
-
           <ul class="navbar-nav align-items-center    ml-md-auto " >
+
+          <li class="nav-item d-xl-none">
+              <!-- Sidenav toggler -->
+              <div class="pr-3 sidenav-toggler sidenav-toggler-dark" data-action="sidenav-pin" data-target="#sidenav-main">
+                <div class="sidenav-toggler-inner">
+                  <i class="sidenav-toggler-line"></i>
+                  <i class="sidenav-toggler-line"></i>
+                  <i class="sidenav-toggler-line"></i>
+                </div>
+              </div>
+            </li>
 
             <li class="nav-item dropdown">
               <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -188,7 +149,7 @@
                     <img alt="Image placeholder" src="<?php echo constant('URL') ?>public/assets/img/ufps/logo_agroindustrial.png">
                   </span>
                   <div class="media-body  ml-2  d-none d-lg-block">
-                    <span class="mb-0 text-sm  font-weight-bold">Estudiante Agroindustrial</span>
+                    <span class="mb-0 text-sm  font-weight-bold">Egresado Agroindustrial</span>
                   </div>
                 </div>
               </a>
@@ -212,6 +173,11 @@
       <div class="container-fluid">
         <div class="header-body">
           <div class="row align-items-center py-4">
+          <div class="col-lg-6 col-7">
+              <h6 class="h2 text-white d-inline-block mb-0">Bienvenido</h6>
+              <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+              </nav>
+            </div>
           </div>
           <!-- Card stats -->
           <div class="row">
@@ -222,7 +188,7 @@
                   <div class="row">
                     <div class="col">
                       <h5 class="card-title text-uppercase text-muted mb-0">Fecha</h5>
-                      <span class="h2 font-weight-bold mb-0"><?=date('m/d/y');?></span>
+                      <span class="h2 font-weight-bold mb-0"><?=date('d/m/y');?></span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
