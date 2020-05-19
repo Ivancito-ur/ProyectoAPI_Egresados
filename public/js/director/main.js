@@ -1,5 +1,5 @@
 const URLD="http://localhost/ProyectoAPI_Egresados/";
-
+var lista = [];
 
 function cargaHojaVida(){
 $(document).on('change','input[type="file"]',function(){
@@ -27,32 +27,6 @@ $(document).on('change','input[type="file"]',function(){
 				this.files[0].name = '';
 	}
 	
-});
-}
-
-
-
-function cargaTesis(){
-  $(document).on('change','input[type="file"]',function(){
-	var fileName = this.files[0].name;
-  var res = fileName.substring(0, 30);
-  $('.nameArchivoTesis').text(res);
-    var ext = fileName.split('.').pop();
-    console.log(fileName);
-		ext = ext.toLowerCase();
-		switch (ext) {
-      case 'pdf': 
-      $('.respuestaTesis2').text("Cargado Correctamente");
-      $('#alertTesis').hide();  
-      $('#alertTesis2').show();
-      break;
-			default:
-        $('.respuestaTesis').text("error de extension, " + ext + "  "  + "Por favor seleccione un archivo .pdf");
-        $('#alertTesis2').hide();  
-        $('#alertTesis').show();
-				this.value = ''; 
-				this.files[0].name = '';
-	}
 });
 }
 
@@ -94,7 +68,7 @@ function cargaDatos(e){
 }
 
 function actualizarFecha(e){
- 
+  e.preventDefault();
     var fechae = $('#fechae').val();
     var codigo = $("#codigo").val();
     if(fechae==""  || !$('#exampleCheck1').is(':checked')){
@@ -125,7 +99,7 @@ function actualizarFecha(e){
 
      
     });
-    e.preventDefault();
+    
     return false;
  
 }
@@ -231,6 +205,7 @@ function loadSe() {
       const task = JSON.parse(aux);
       let template = '';
       task.forEach(ta => {
+        console.log(ta.nombres);
         template += `<tr>
         <td >${ta.codigoEstudiante}</td>
         <td >${ta.documento}</td>
@@ -243,7 +218,7 @@ function loadSe() {
         </tr>`
       });
       //console.log(template);
-      $('tbody').html(template);
+      $('#estudiantesCarga').html(template);
 
     });
   }
@@ -486,4 +461,63 @@ function enviarCorreo(e){
   });
   return false;
 }
+
+
+
+function cargaTesis(){
+  $(document).on('change','input[type="file"]',function(){
+	var fileName = this.files[0].name;
+  var res = fileName.substring(0, 30);
+  $('.nameArchivoTesis').text(res);
+    var ext = fileName.split('.').pop();
+    console.log(fileName);
+		ext = ext.toLowerCase();
+		switch (ext) {
+      case 'pdf': 
+      $('.respuestaTesis2').text("Cargado Correctamente");
+      $('#alertTesis').hide();  
+      $('#alertTesis2').show();
+      break;
+			default:
+        $('.respuestaTesis').text("error de extension, " + ext + "  "  + "Por favor seleccione un archivo .pdf");
+        $('#alertTesis2').hide();  
+        $('#alertTesis').show();
+				this.value = ''; 
+				this.files[0].name = '';
+	}
+});
+}
+
+
+function guardarTesis(e){
+  e.preventDefault();
+  var codigo = $('#codigo').val();
+  var titulo = $('#titulo').val();
+  var gropu = $('#inputGroupFile01').val();
+  if(codigo=="" || titulo =="" || gropu ==""){
+    $('#alertTesis2').hide();
+    $('#alertTesis').show();
+    $('#respuestaTesis').text("Por favor, Llene todos los campos antes de cargar.");
+    return;
+  }
+  //httpRequest(URLD + "directorControl/hola/" + lista + "/" + titulo + "/" + gropu,function(){
+    //console.log(this.responseText);
+    //return;
+  //});
+
+
+  $('#alertTesis').hide();
+  $('#alertTesis2').show();
+  
+
+  return false;
+}
+
+
+function explodeCodigo(){
+  var codigo = $('#codigo').val();
+ 
+}
+
+
   

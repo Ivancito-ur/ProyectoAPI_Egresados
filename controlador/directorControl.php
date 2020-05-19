@@ -294,6 +294,19 @@ class directorControl extends Controller{
         
     }
 
+
+    function hola($param=null){
+    if($param==null)return;
+
+    echo $param[0];
+    echo $param[1];
+    echo $param[2];
+
+
+
+
+    }
+
 }
 
  
