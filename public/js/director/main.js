@@ -459,8 +459,11 @@ function enviarCorreo(e){
   e.preventDefault();
   var cuerpo = $('#cuerpo').val();
   var asunto = $('#asunto').val();
-  if(cuerpo=="" || asunto ==""){
 
+  opcion = $('input:radio[name=envio]:checked').val(); //Obtiene el valor sobre a quienes se envías
+  // 0 para todos ; 1 para egresados ; 2 para estudiantes
+
+  if(cuerpo=="" || asunto ==""){
     $('#alertCorreo2').hide();
     $('#alertCorreo').show();
     $('#respuestaCorreo').text("Por favor, Llene todos los campos antes de enviar.");
@@ -469,7 +472,7 @@ function enviarCorreo(e){
   $("body").css('cursor','wait');
   $('#alertCorreo2').show();
   $('#respuestaCorreo2').text("Enviando...");
-  httpRequest(URLD + "directorControl/enviarCorreos/" + asunto + "/" + cuerpo ,function(){
+  httpRequest(URLD + "directorControl/enviarCorreos/" + asunto + "/" + cuerpo + "/" + opcion,function(){
   $("body").css('cursor','default');
   const resp = this.responseText;
   $('#alertCorreo2').show();
@@ -478,7 +481,7 @@ function enviarCorreo(e){
   $('#cuerpo').val("");
   $('#asunto').val("");
   setTimeout(function() {
-    $("#respuestaCorreo2").fadeOut(1500);
+    $("#alertCorreo2").fadeOut(1500);
     },3000)
   });
   return false;

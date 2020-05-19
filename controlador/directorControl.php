@@ -288,7 +288,7 @@ class directorControl extends Controller{
 
     function enviarCorreos($param=null){
         require_once "utils/correo/Correo.php";
-        $resultado = $this->model->getCorreos();
+        $resultado = $this->model->getCorreos($param[2]);
         $email = new Correo();
         $email->cargaCorreo($resultado, $param[0], $param[1]);
         

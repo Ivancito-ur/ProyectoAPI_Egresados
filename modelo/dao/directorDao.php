@@ -251,7 +251,20 @@ class directorDao extends Model{
 
 
 
-        function getCorreos(){
+        function getCorreos($opcion){
+
+            if ($opcion==1) {
+                $statement = $this->db->connect()->prepare("SELECT correoInstitucional FROM estudiante WHERE egresado=0");
+                $statement->execute();
+                $resultado = $statement->fetchAll(PDO::FETCH_ASSOC);
+                return  $resultado;
+            }
+            elseif ($opcion==2) {
+                $statement = $this->db->connect()->prepare("SELECT correoInstitucional FROM estudiante WHERE egresado=1");
+                $statement->execute();
+                $resultado = $statement->fetchAll(PDO::FETCH_ASSOC);
+                return  $resultado;
+            }
             try{
                 $statement = $this->db->connect()->prepare("SELECT correoInstitucional FROM estudiante");
                 $statement->execute();
