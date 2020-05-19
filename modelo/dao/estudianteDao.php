@@ -24,10 +24,12 @@ class estudianteDao extends Model{
 
     public function updateDatos($item){
         try{
-            $query = $this->db->connect()->prepare('UPDATE estudiante e INNER JOIN persona p ON e.documento = :documento SET p.telefono = :telefono, p.direccion= :direccion , p.correo= :correo');
+            $query = $this->db->connect()->prepare('UPDATE estudiante e INNER JOIN persona p ON e.documento = :documento
+             SET p.telefono = :telefono, p.celular=:celular , p.direccion= :direccion , p.correo= :correo WHERE p.documento=e.documento');
             $query->execute([
                 ':documento' => $item['documento'],
                 ':telefono' => $item['telefono'],
+                ':celular' => $item['celular'],
                 ':direccion' => $item['direccion'],
                 ':correo' => $item['correo']
             ]);
