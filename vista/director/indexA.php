@@ -38,7 +38,8 @@
 
   <title>Director Agroindustrial</title>
   <!-- Favicon -->
-  <link rel="icon" href="<?php echo constant('URL') ?>public/assets/img/brand/favicon.png" type="image/png">
+  <!--<link rel="icon" href="<?php echo constant('URL') ?>public/assets/img/brand/favicon.png" type="image/png">-->
+  <link rel="shortcut icon" href="<?php echo constant('URL')?>public/img/agro.png" />
   <!-- Fonts -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
   <!-- Icons -->
@@ -72,13 +73,13 @@
           <ul class="navbar-nav">
             <li class="nav-item">
               <a class="nav-link active" href="">
-                <i class="ni ni-tv-2 text-primary"></i>
+              <i class="fas fa-home"></i>
                 <span class="nav-link-text">Principal</span>
               </a>
             </li>
             <li class="nav-item">
               <a onclick="loadCa()" class="nav-link" id="cargaEstudiantes" href="#">
-                <i class="ni ni-single-02 text-orange"></i>
+              <i class="fas fa-users"></i>
                 <span class="nav-link-text">Cargar estudiantes</span>
               </a>
             </li>
@@ -91,13 +92,13 @@
             
             <li class="nav-item">
               <a onclick="loadTe()" class="nav-link" href="#">
-                <i class="ni ni-pin-3 text-primary"></i>
+              <i class="fas fa-file-upload"></i>
                 <span class="nav-link-text">Subir tesis de grado</span>
               </a>
             </li>
             <li class="nav-item">
               <a onclick="loadSe()" class="nav-link" href="#">
-                <i class="ni ni-planet text-yellow"></i>
+              <i class="fas fa-envelope"></i>
                 <span class="nav-link-text">Envío de correos electronicos</span>
               </a>
             </li>
@@ -146,23 +147,7 @@
       <div class="container-fluid">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <!-- Search form -->
-          <form class="navbar-search navbar-search-light form-inline mr-sm-3" id="navbar-search-main">
-            <div class="form-group mb-0">
-              <div class="input-group input-group-alternative input-group-merge">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fas fa-search"></i></span>
-                </div>
-                <input class="form-control" placeholder="Search" type="text">
-              </div>
-            </div>
-            <button type="button" class="close" data-action="search-close" data-target="#navbar-search-main"
-             aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-          </form>
           <!-- Navbar links -->
-          
-
           <ul class="navbar-nav align-items-center    ml-md-auto " >
 
           <li class="nav-item d-xl-none">
@@ -211,11 +196,6 @@
             <div class="col-lg-6 col-7">
               <h6 class="h2 text-white d-inline-block mb-0">Sistema de Control Egresados</h6>
               <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
-                <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
-                  <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
-                  <li class="breadcrumb-item"><a href="#">Principal</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">SCE</li>
-                </ol>
               </nav>
             </div>
             <div class="col-lg-6 col-5 text-right">
@@ -236,13 +216,11 @@
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
-                        <i class="ni ni-active-40"></i>
+                      <i class="fas fa-graduation-cap"></i>
                       </div>
                     </div>
                   </div>
                   <p class="mt-3 mb-0 text-sm">
-                    <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 0%</span>
-                    <span class="text-nowrap">En el ultimo mes</span>
                   </p>
                 </div>
               </div>
@@ -258,13 +236,11 @@
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-gradient-orange text-white rounded-circle shadow">
-                        <i class="ni ni-chart-pie-35"></i>
+                      <i class="fas fa-building"></i>
                       </div>
                     </div>
                   </div>
                   <p class="mt-3 mb-0 text-sm">
-                    <span class="text-success mr-2"><i class="fa fa-arrow-up"></i>0%</span>
-                    <span class="text-nowrap">En el ultimo mes</span>
                   </p>
                 </div>
               </div>
@@ -280,13 +256,11 @@
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
-                        <i class="ni ni-money-coins"></i>
+                      <i class="fas fa-file-pdf"></i>
                       </div>
                     </div>
                   </div>
                   <p class="mt-3 mb-0 text-sm">
-                    <span class="text-success mr-2"><i class="fa fa-arrow-up"></i>%</span>
-                    <span class="text-nowrap">En el ultimo mes</span>
                   </p>
                 </div>
               </div>
@@ -298,11 +272,11 @@
                   <div class="row">
                     <div class="col">
                       <h5 class="card-title text-uppercase text-muted mb-0">Fecha</h5>
-                      <span class="h2 font-weight-bold mb-0"><?=date('m/d/y');?></span>
+                      <span class="h2 font-weight-bold mb-0"><?=date('d/m/y');?></span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
-                        <i class="ni ni-chart-bar-32"></i>
+                      <i class="fas fa-table"></i>
                       </div>
                     </div>
                   </div>
@@ -329,9 +303,6 @@
                   </div>
                 </div>
               </div>
-
-
-
               <div class="table-responsive" style="margin-bottom:20px">
                 <!-- Projects table -->
                 <table class="table align-items-center table-flush">
@@ -359,10 +330,6 @@
                   </tbody>
                 </table>
               </div>
-
-
-
-
             </div>
           </div>
         </div>
@@ -373,25 +340,10 @@
         <div class="row align-items-center justify-content-lg-between">
           <div class="col-lg-4">
             <div class="copyright text-center  text-lg-left  text-muted">
-              &copy; 2020 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Universidad Francisco de Paula Santander</a>
+              &copy; 2020 <a href="https://ww2.ufps.edu.co/" class="font-weight-bold ml-1" target="_blank">Universidad Francisco de Paula Santander</a>
             </div>
           </div>
               <div class="col-lg-8">
-                <ul class="nav nav-footer justify-content-center justify-content-lg-end">
-                  <li class="nav-item">
-                    <a href="https://www.creative-tim.com" class="nav-link" target="_blank">UFPS Tic's</a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="https://www.creative-tim.com/presentation" class="nav-link" target="_blank">Sobre
-                      nosotros</a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="http://blog.creative-tim.com" class="nav-link" target="_blank">Paginas</a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="https://github.com/creativetimofficial/argon-dashboard/blob/master/LICENSE.md" class="nav-link" target="_blank">Open Sources</a>
-                  </li>
-                </ul>
               </div>
         </div>
       </footer>
