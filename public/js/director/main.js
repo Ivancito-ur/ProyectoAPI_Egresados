@@ -141,7 +141,6 @@ function cargarExcel(e, p){
 });
 }
 
-
 function loadSe() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
@@ -185,6 +184,7 @@ function loadSe() {
     xhttp.open("GET", "vista/director/pruebas.php", true);
     xhttp.send();
 
+    //pruebaICFES("myChart");
   }
 
 
@@ -247,18 +247,7 @@ function loadSe() {
       //console.log(template);
       $('tbody').html(template);
       }
-
     });
-
-    
-
-
-
-    });
-       
-        
-      
-
   }
 
   function httpRequest(url, callback){
@@ -272,7 +261,6 @@ function loadSe() {
     }
   }
   
-
 //COMPRACION DE LAS GRAFICAS GRAFICAS 
 
 function getPrueba(){
@@ -440,5 +428,4 @@ var barChart = new Chart(densityCanvas, {
   options: chartOptions
 });
 }
-
   
