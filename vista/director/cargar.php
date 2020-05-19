@@ -6,7 +6,7 @@
                 <br>
                 <h4 style="padding-left: 10px;">Actualizar Estudiante</h4>
                 <div class="input-group mb-3" style="padding-left: 10px; padding-right: 10px;">
-                        <input type="text" id="busquedaCodigo" class="form-control" placeholder="Codigo Estudiante"
+                        <input type="number" id="busquedaCodigo" class="form-control" placeholder="Codigo Estudiante"
                             aria-label="Recipient's username" aria-describedby="button-addon2">
                         <div class="input-group-append">
                             <button onclick="cargaDatos(event)" class="btn btn-outline-secondary" type="button" id="button-addon2" style="background-color: #dd4b39; border-color: #dd4b39; color: white;">Buscar</button>

@@ -34,7 +34,7 @@
                     </form>
 
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-4" style="border-radius:5%;border-color: red;">
                     <div class="card border-danger mb-3" style="max-width: 18rem;">
                         <div class="card-header">Envío</div>
                         <div class="card-body text-danger">
