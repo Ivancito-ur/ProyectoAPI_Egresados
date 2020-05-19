@@ -23,16 +23,21 @@
                             <span class="input-group-text" id="inputGroupFileAddon01">Cargar</span>
                         </div>
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-                            <label class="custom-file-label" for="inputGroupFile01">...</label>
+                            <input onchange="cargaTesis()" style="display:none"type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                            <label class="custom-file-label" for="inputGroupFile01"><p class="nameArchivoTesis">...</p></label>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary" style="background-color: #dd4b39; border-color: #dd4b39;">Cargar</button>
+                    <div style="display:none; text-align:center; padding:10px ; margin-top:15px" id="alertTesis"class="alert alert-danger" role="alert">
+                        <p class="respuestaTesis" id="respuestaTesis" ></p></div>
+                        <div style="display:none; text-align:center; padding:10px ; margin-top:15px" id="alertTesis2" class="alert alert-success" role="alert">
+                        <p class="respuestaTesis2"></p>
+                        </div>
                 </form>
             </div>
             <br>
             <div style="border-top: 3px solid #3c8dbc; background-color: white; padding-bottom: 10px;">
-                <div class="card-group">
+                <div style="margin-bottom:10px"class="card-group">
                     <div class="card">
                         <div class="form-group">
                             <div class="embed-responsive embed-responsive-16by9" id="pdf">
@@ -67,6 +72,8 @@
                         </div>
                     </div>
                 </div>
+                
+                
             </div>
         </div>
     </div>

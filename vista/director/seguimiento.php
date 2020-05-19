@@ -15,14 +15,20 @@
         
             <form>
                 <div class="form-group">
-                    <label for="correo">Correo</label>
-                    <input type="email" class="form-control" id="correo" required>
+                    <label for="correo">Asunto</label>
+                    <input type="email" class="form-control" id="asunto" required>
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlTextarea1">Mensaje</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" style="resize: none; height: 300px;"></textarea>
+                    <textarea id="cuerpo" class="form-control" id="exampleFormControlTextarea1" rows="3" style="resize: none; height: 300px;"></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary" style="background-color: #dd4b39; border-color: #dd4b39;">Enviar</button>
+                <div style="width:80%;margin:auto; display:none; text-align:center; padding:10px " id="alertCorreo" class="alert alert-danger" role="alert">
+                     <p class="respuesta" id="respuestaCorreo"></p>
+                 </div>
+                <div style="width:80%; margin:auto;display:none;  text-align:center; padding:10px ; " id="alertCorreo2" class="alert alert-success" role="alert">
+                <p class="respuesta" id="respuestaCorreo2"></p>
+                 </div>
+                 <button type="submit" onclick="return enviarCorreo(event)" id="enviarCo" class="btn btn-primary" style="background-color: #dd4b39; border-color: #dd4b39;">Enviar</button>
             </form>
         </div>
     </div>
