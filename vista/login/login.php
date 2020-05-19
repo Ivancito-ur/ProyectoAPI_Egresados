@@ -45,14 +45,14 @@
 
   <div style="background: white; width: 400px; position: fixed; border-top: 5px solid #dd4b39;" class="login-box-body">
   
-	<p class="login-box-msg">PORTAL DE EGRESADOS</p>
+	<p class="login-box-msg"><h5>PORTAL DE EGRESADOS</h5></p>
 	
     <img src="<?php echo constant('URL')?>public/img/agro.png" class="rounded">
 
     <div id="contenedor">
       <form class="form-signin">
 
-        <p class="login-box-msg">ESTUDIANTE</p>
+        <p class="login-box-msg">EGRESADO</p>
         <p class="login-box-msg">Ingresa tus datos para iniciar sesión</p>
 
         <label for="inputEmail" class="sr-only">Codigo</label>
