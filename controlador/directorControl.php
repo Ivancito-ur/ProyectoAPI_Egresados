@@ -3,8 +3,6 @@
 
 class directorControl extends Controller{
        
-        
-
         function __construct(){
           parent::__construct();
           if(!isset($_SESSION['administrador'])){
@@ -209,7 +207,7 @@ class directorControl extends Controller{
         $codigo = $param[0];
         $resultado = $this->model->getDatos($codigo);
         if(empty($resultado)){
-            echo "0";
+            echo 1;
             return;
         }
         $json[] = array(
@@ -225,33 +223,13 @@ class directorControl extends Controller{
 
   
     }
-
-     
-
-
       function actualizarFecha($param = null){
         $fecha = $param[0];
         $codigo = $param[1];
-        $formato = "0000-00-00";
 
-        $año = substr($fecha,0,4);
-        $mes = substr($fecha,5,2);
-        $dia = substr($fecha,8,2);
-
-        $añoF = substr($formato,0,4);
-        $mesF = substr($formato,5,2);
-        $diaF = substr($formato,8,2);
-
-        if((strlen($añoF)==strlen($año)) && (strlen($mes)==strlen($mesF)) && (strlen($dia)==strlen($diaF)) ){
-            $this->model->uptadeFechaegreso($fecha, $codigo);
-            echo "0";
-        
-        }else{
-            echo "1";
-        }
-
-       
-     
+        $this->model->uptadeFechaegreso($fecha, $codigo);
+        echo 0;
+        return;
 
     }
 
@@ -284,7 +262,7 @@ class directorControl extends Controller{
         $codigo=$param[0];
         $aux = $this->model->getDatos($codigo);
         if(empty($aux)){
-            echo "0";
+            echo 0;
             return;
         }
         $resultado = $this->model->getPruebaE($codigo);
@@ -304,6 +282,16 @@ class directorControl extends Controller{
         $JString = json_encode($json);
         echo $JString;
 
+    }
+
+
+
+    function enviarCorreos($param=null){
+        require_once "utils/correo/Correo.php";
+        $resultado = $this->model->getCorreos();
+        $email = new Correo();
+        $email->cargaCorreo($resultado, $param[0], $param[1]);
+        
     }
 
 }

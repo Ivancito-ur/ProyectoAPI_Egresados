@@ -51,12 +51,14 @@ function cargaDatos(e){
       const resp = this.responseText;
       var aux = resp.split("\n").join("");
       console.log(aux);
-      if(aux==="0"){
+     
+      if(aux==1){
        $('.respuesta').text("Codigo no registrado!");
        $('#alert2Codigo').hide();
        $('#alertCodigo').show();
        return;
       }
+       
       
       const task = JSON.parse(resp);
       $("#nombre").val(task[0].nombres);
@@ -90,14 +92,17 @@ function actualizarFecha(e){
       const resp = this.responseText;
       var aux = resp.split("\n").join("");
       console.log(aux);
-      if(aux=="0"){
+      if(aux==0){
+        console.log("entre");
        $('#actu2').show();
        $('#actu1').hide();
+       $('#alert2Codigo').hide();
+       setTimeout(function() {
+        $("#actu2").fadeOut(1500);
+        },3000)
        return;
       }
-      $('#respuestaActualizar').text("Recuerda:(año-mes-dia) Formato de fecha");
-      $('#actu2').hide();
-      $('#actu1').show();
+     
 
      
     });
@@ -105,6 +110,8 @@ function actualizarFecha(e){
     return false;
  
 }
+
+
 
 function cargarExcel(e, p){
   e.preventDefault();
@@ -275,7 +282,7 @@ function getPrueba(){
     httpRequest(URLD + "directorControl/getPrueba/" + busquedaCodigo ,function(){
       const resp = this.responseText;
       var aux = resp.split("\n").join("");
-      if(aux==="0"){
+      if(aux===0){
         $('#alert').show();
         $('#alert2').hide();
         $('#cargaPrueba').text("Codigo de estudiante no encontrado, por favor verifique la informacion."); 
@@ -425,5 +432,36 @@ var barChart = new Chart(densityCanvas, {
   data: planetData,
   options: chartOptions
 });
+}
+
+
+
+function enviarCorreo(e){
+  e.preventDefault();
+  var cuerpo = $('#cuerpo').val();
+  var asunto = $('#asunto').val();
+  if(cuerpo=="" || asunto ==""){
+
+    $('#alertCorreo2').hide();
+    $('#alertCorreo').show();
+    $('#respuestaCorreo').text("Por favor, Llene todos los campos antes de enviar.");
+    return;
+  }
+  $("body").css('cursor','wait');
+  $('#alertCorreo2').show();
+  $('#respuestaCorreo2').text("Enviando...");
+  httpRequest(URLD + "directorControl/enviarCorreos/" + asunto + "/" + cuerpo ,function(){
+  $("body").css('cursor','default');
+  const resp = this.responseText;
+  $('#alertCorreo2').show();
+  $('#alertCorreo').hide();
+  $('#respuestaCorreo2').text("Enviado Correctamente");
+  $('#cuerpo').val("");
+  $('#asunto').val("");
+  setTimeout(function() {
+    $("#respuestaCorreo2").fadeOut(1500);
+    },3000)
+  });
+  return false;
 }
   

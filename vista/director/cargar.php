@@ -18,7 +18,7 @@
             <div style="width:80%; margin:auto;display:none;  text-align:center; padding:10px ; margin-top:15px" id="alert2Codigo" class="alert alert-success" role="alert">
               Cargado Correctamente
             </div>
-                <form>
+                <form id="fcargaDatos">
                     <div class="form-group">
                         <label for="nombre">Nombre</label>
                         <input type="text" class="form-control" id="nombre" readonly>
