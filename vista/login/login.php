@@ -52,7 +52,7 @@
     <div id="contenedor">
       <form class="form-signin">
 
-        <p class="login-box-msg">EGRESADO</p>
+        <p class="login-box-msg"><h6>EGRESADO</h6></p>
         <p class="login-box-msg">Ingresa tus datos para iniciar sesión</p>
 
         <label for="inputEmail" class="sr-only">Codigo</label>
@@ -73,7 +73,7 @@
     </div>
     </div>
     <div class="col-xs-12 center-block" style="margin-bottom: 10px;">
-      <a href="#" class="text-danger" data-toggle="modal">¿Olvidaste tu clave?</a>
+      <a onclick="return loadCo()" href="" class="text-danger">¿Olvidaste tu Contraseña?</a>
     </div>
     <div class="row login-link" style="border-top: 3px solid #dd4b39;">
       <div class="col-md-4 col-sm-4 col-xs-4" style="margin-top: 10px;">

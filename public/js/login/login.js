@@ -124,3 +124,29 @@ function verificarVacio(param){
   }
   return true;
 }
+
+
+
+function loadCo() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("contenedor").innerHTML = this.responseText;
+    }
+  };
+  xhttp.open("GET","vista/login/contraseña.php", true);
+  xhttp.send();
+  return false;
+}
+
+function loadF() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("contenedor").innerHTML = this.responseText;
+    }
+  };
+  xhttp.open("GET", "vista/login/final.php", true);
+  xhttp.send();
+  return false;
+}

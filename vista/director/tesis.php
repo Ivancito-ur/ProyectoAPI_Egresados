@@ -18,14 +18,52 @@
                 <br>
                 <h4 style="padding-left: 10px;">Seleccionar Archivo</h4>
                 <form>
-                    <div class="form-group">
-                        <label for="codigo">Codigo</label>
-                        <input onkeyup="explodeCodigo()" type="text" class="form-control" id="codigo" required>
+                    <label for="codigo">Codigo</label>
+                    <div class="input-group mb-3">
+                        <input onkeyup="explodeCodigo()" type="text" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2" required>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button" id="button-addon2" style="background-color: #dd4b39; color: white;">Agregar</button>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="titulo">Titulo Tesis</label>
                         <input type="text" class="form-control" id="titulo" required>
                     </div>
+                    <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Codigo</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Apellido</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>Otto</td>
+                        <td><a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true"
+                                style="background-color: #dd4b39; border-color: #dd4b39;">Remover</a></td>
+                    </tr>
+                    <tr>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>Thornton</td>
+                        <td><a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true"
+                                style="background-color: #dd4b39; border-color: #dd4b39;">Remover</a></td>
+                    </tr>
+                    <tr>
+                        <td>Larry</td>
+                        <td>the Bird</td>
+                        <td>the Bird</td>
+                        <td><a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true"
+                                style="background-color: #dd4b39; border-color: #dd4b39;">Remover</a></td>
+                    </tr>
+                </tbody>
+            </table>
+                </form>
+                <form>
                     <div class="input-group mb-3" style="padding-left: 10px; padding-right: 10px;">
                         <div class="input-group-prepend">
                             <span  class="input-group-text" id="inputGroupFileAddon01">Cargar</span>

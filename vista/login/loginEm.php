@@ -1,7 +1,7 @@
 <div id="contenedor" >
     <form class="form-signin">
 
-      <p class="login-box-msg">EMPRESA</p>
+      <p class="login-box-msg"><h6>EMPRESA</h6></p>
       <p class="login-box-msg">Ingresa tus datos para iniciar sesión</p>
 
       <label for="inputEmail" class="sr-only">Nit</label>

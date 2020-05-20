@@ -20,7 +20,7 @@
 
         <div class="container">
 
-          <table class="table table-bordered order-table ">
+          <table class="table table-responsive order-table">
             <thead>
               <tr>
                 <th>Codigo</th>

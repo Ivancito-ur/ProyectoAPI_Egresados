@@ -92,7 +92,7 @@
             </li>
             <li class="nav-item">
               <a onclick="loadPr()" class="nav-link" href="#">
-                <i class="ni ni-bullet-list-67 text-default"></i>
+              <i class="fas fa-pen"></i>
                 <span class="nav-link-text">Pruebas de estado</span>
               </a>
             </li>
@@ -107,7 +107,7 @@
           <ul class="navbar-nav mb-md-3">
             <li class="nav-item">
               <a class="nav-link" href="https://ww2.ufps.edu.co/" target="_blank">
-                <i class="ni ni-spaceship"></i>
+              <i class="fas fa-university"></i>
                 <span class="nav-link-text">UFPS</span>
               </a>
             </li>
