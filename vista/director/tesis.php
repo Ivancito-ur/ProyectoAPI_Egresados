@@ -18,16 +18,24 @@
                 <br>
                 <h4 style="padding-left: 10px;">Seleccionar Archivo</h4>
                 <form>
+                    <div class="form-group">
+                        <label for="codigo">Codigo</label>
+                        <input onkeyup="explodeCodigo()" type="text" class="form-control" id="codigo" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="titulo">Titulo Tesis</label>
+                        <input type="text" class="form-control" id="titulo" required>
+                    </div>
                     <div class="input-group mb-3" style="padding-left: 10px; padding-right: 10px;">
                         <div class="input-group-prepend">
-                            <span class="input-group-text" id="inputGroupFileAddon01">Cargar</span>
+                            <span  class="input-group-text" id="inputGroupFileAddon01">Cargar</span>
                         </div>
                         <div class="custom-file">
                             <input onchange="cargaTesis()" style="display:none"type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
                             <label class="custom-file-label" for="inputGroupFile01"><p class="nameArchivoTesis">...</p></label>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary" style="background-color: #dd4b39; border-color: #dd4b39;">Cargar</button>
+                    <button onclick=" return guardarTesis(event)" type="submit" class="btn btn-primary" style="background-color: #dd4b39; border-color: #dd4b39;">Cargar</button>
                     <div style="display:none; text-align:center; padding:10px ; margin-top:15px" id="alertTesis"class="alert alert-danger" role="alert">
                         <p class="respuestaTesis" id="respuestaTesis" ></p></div>
                         <div style="display:none; text-align:center; padding:10px ; margin-top:15px" id="alertTesis2" class="alert alert-success" role="alert">
