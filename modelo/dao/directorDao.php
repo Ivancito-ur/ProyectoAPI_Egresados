@@ -1,12 +1,16 @@
 <?php
 
 
-require 'modelo/dto/directorDto.php';
-class directorDao extends Model
-{
 
-    public function __construct()
-    {
+require 'modelo/dto/directorDto.php'; 
+require 'modelo/dto/tesisDto.php'; 
+require 'modelo/dto/tesisEstudianteDto.php'; 
+
+
+class directorDao extends Model{
+    
+    public function __construct(){
+
         parent::__construct();
     }
 
@@ -198,18 +202,22 @@ class directorDao extends Model
         }
     }
 
-    //carga a los estudiante con tesis
-    function cargarEstuTesis()
-    {
-        try {
-            $statement = $this->db->connect()->prepare("SELECT  p.nombres, p.apellidos, e.codigoEstudiante FROM estudiante e INNER JOIN persona p ON e.documento = p.documento INNER JOIN tesis_estudiante et ON e.codigoEstudiante = et.codigoEstudiante  ORDER BY(e.codigoEstudiante)");
-            $statement->execute();
-            $resultado = $statement->fetchAll(PDO::FETCH_ASSOC);
-            return $resultado;
-        } catch (PDOException $e) {
-            return null;
+
+        //carga a los estudiante sin tesis
+        function cargarEstuTesis(){
+            try{
+                $statement = $this->db->connect()->prepare("SELECT p.nombres, p.apellidos, e.codigoEstudiante FROM estudiante e INNER JOIN persona p ON e.documento = p.documento WHERE e.codigoEstudiante NOT IN (SELECT et.codigoEstudiante FROM tesis_estudiante et)");
+                $statement->execute();
+                $resultado = $statement->fetchAll(PDO::FETCH_ASSOC); 
+                return $resultado;
+            }catch(PDOException $e){
+                return null;
+            }
         }
     }
+
+    
+
 
 
     function uptadeFechaegreso($fecha, $codigo)
@@ -255,6 +263,18 @@ class directorDao extends Model
         }
     }
 
+        function verificarEstudiantes($codigo){
+           
+            try{
+                $statement = $this->db->connect()->prepare("SELECT e.codigoEstudiante, p.nombres, p.apellidos FROM estudiante e INNER JOIN persona p ON e.documento= p.documento WHERE e.codigoEstudiante=$codigo ");
+                $statement->execute();
+                $resultado = $statement->fetch(PDO::FETCH_ASSOC);
+                return  $resultado;
+            }catch(PDOException $e){
+                return null;
+            }
+        }
+
 
     function getPruebaE($codigo)
     {
@@ -269,6 +289,81 @@ class directorDao extends Model
             return null;
         }
     }
+
+
+        function insertTesis($destino, $titulo){
+           $tesis = new tesisDto($destino,"", $titulo);
+           $query = $this->db->connect()->prepare("INSERT INTO tesis (archivo, titulo)
+           values (:archivo,:titulo)");
+           try{
+               $query->execute([
+                   ':archivo' => $tesis->getArchivo(),
+                   ':titulo' => $tesis->getTitulo()
+               ]);
+               $resultado = $query->fetchAll();
+               return true;
+           }catch(PDOException $e){
+               return false;
+           }
+
+        }
+
+        function getMaxIdTesis(){
+            $query = $this->db->connect()->prepare("SELECT MAX(id) as id FROM tesis");
+            try{
+                $query->execute();
+                $resultado = $query->fetch();
+                return  $resultado;
+            }catch(PDOException $e){
+                return false;
+            }
+ 
+         }
+
+         function getCodigosTesis($codigo){
+            $query = $this->db->connect()->prepare("SELECT id_tesis  FROM tesis_estudiante WHERE codigoEstudiante = $codigo");
+            try{
+                $query->execute();
+                $resultado = $query->fetch();
+                return  $resultado;
+            }catch(PDOException $e){
+                return false;
+            }
+ 
+         }
+
+        function insertEstudiante_Tesis($id_tesis, $fecha, $codigo){
+            $tesis = new tesisEstudianteDto($id_tesis,$fecha, $codigo);
+            $query = $this->db->connect()->prepare("INSERT INTO tesis_estudiante (fecha_asignacion, codigoEstudiante, id_tesis)
+            values (:fecha_asignacion,:codigoEstudiante,:id_tesis)");
+            try{
+                $query->execute([
+                    ':fecha_asignacion' => $tesis->getFecha(),
+                    ':codigoEstudiante' => $tesis->getCodigo(),
+                    ':id_tesis' => $tesis->getIdtesis()
+                ]);
+                $resultado = $query->fetchAll();
+                return $resultado;
+            }catch(PDOException $e){
+                return false;
+            }
+ 
+         }
+
+
+         public function getTesis(){
+            try{
+                $statement = $this->db->connect()->prepare("SELECT t.titulo, t.archivo FROM tesis t ");
+                $statement->execute();
+                $resultado = $statement->fetchAll(PDO::FETCH_ASSOC);
+                return $resultado;
+            }catch(PDOException $e){
+                return null;
+            }
+        }
+
+      
+
 
 
 

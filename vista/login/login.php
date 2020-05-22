@@ -72,7 +72,7 @@
                         <p class="respuesta" ></p>
     </div>
     </div>
-    <div class="col-xs-12 center-block" style="margin-bottom: 10px;">
+    <div id="recuContra" class="col-xs-12 center-block" style="margin-bottom: 10px;">
       <a onclick="return loadCo()" href="" class="text-danger">¿Olvidaste tu Contraseña?</a>
     </div>
     <div class="row login-link" style="border-top: 3px solid #dd4b39;">

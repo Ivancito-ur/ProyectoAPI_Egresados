@@ -16,6 +16,9 @@ function loadAc() {
     return false;
   }
 
+
+ 
+
   function loadPe() {
     $("#contenedor").load("vista/estudiante/perfilE.php");
   }
@@ -83,6 +86,7 @@ $(document).on('change','input[type="file"]',function(){
 	
 });
 
+//actualizar los datos de un estudiante
 
 function actualizarDatos(e){
   e.preventDefault();
@@ -103,6 +107,8 @@ function actualizarDatos(e){
 
   });     
 }
+
+
 
 function httpRequest(url, callback){
   const http = new XMLHttpRequest();

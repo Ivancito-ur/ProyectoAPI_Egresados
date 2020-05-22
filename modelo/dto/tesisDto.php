@@ -2,13 +2,16 @@
 
 class tesisDto{
     public $archivo;
-    public $codigoEstudiante;
+    public $id;
+    public $titulo;
 
 
-    public function __construct($archivo, $codigoEstudiante){
+    public function __construct($archivo, $id, $titulo){
         $this->archivo = $archivo;
-        $this->codigoEstudiante = $codigoEstudiante;
+        $this->id = $id;
+        $this->titulo = $titulo;
     }
+    
 
     public function getArchivo(){
         return $this->archivo;
@@ -18,13 +21,22 @@ class tesisDto{
         $this ->archivo = $archivo;
     }
 
-    public function getcodigoEstudiante(){
-        return $this->codigoEstudiante;
+    public function getId(){
+        return $this->id;
     }
 
-    public function setcodigoEstudiante($codigoEstudiante){
-        $this ->codigoEstudiante = $codigoEstudiante;
+    public function setId($id){
+        $this ->id = $id;
     }
+
+    public function getTitulo(){
+        return $this->titulo;
+    }
+
+    public function setTitulo($titulo){
+        $this ->titulo = $titulo;
+    }
+
 
 
 }

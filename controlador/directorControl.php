@@ -10,6 +10,10 @@ class directorControl extends Controller
         if (!isset($_SESSION['administrador'])) {
             header('Location: ' . constant('URL') . 'loginControl');
             return;
+
+          }
+          $this->view->datos =[];
+          $this->view->cantidad = [];
         }
         $this->view->datos = [];
     }
@@ -219,11 +223,6 @@ class directorControl extends Controller
         }
     }
 
-    function cargaEstudianteTesis()
-    {
-        $this->view->datos = $this->model->cargarEstuTesis();
-    }
-
     function ListarEstudiante()
     {
         $estudiante = $this->model->listarEstudiantes();
@@ -243,9 +242,14 @@ class directorControl extends Controller
         $JString = json_encode($json);
         echo $JString;
     }
+    function cargaEstudianteTesis(){
+        $this->view->datos = $this->model->cargarEstuTesis();
+        $this->view->cantidad = $this->model->listarEstudiantes();
 
-    function buscarCodigo($param = null)
-    {
+
+    }
+    function buscarCodigo($param = null){
+
         $codigo = $param[0];
         $resultado = $this->model->getDatos($codigo);
         if (empty($resultado)) {
@@ -296,6 +300,31 @@ class directorControl extends Controller
         echo $JString;
     }
 
+    //tare los datos codigo, nombre y apeliidos
+    function verificarEstudiante($param=null){
+        if($param==null)return;
+        $codigo = $param[0];
+        $resultado = $this->model->verificarEstudiantes($codigo);
+        if($resultado==null){
+            echo 0;
+            return;
+        }
+        $cos = $this->model->getCodigosTesis($codigo);
+        if($cos!=null){
+            echo 1;
+            return;
+        }
+        
+        $json = array();
+            $json[] = array(
+                'codigoEstudiante'=> $resultado['codigoEstudiante'],
+                'nombres' => $resultado['nombres'],
+                'apellidos' => $resultado['apellidos']
+            );
+        $JString = json_encode($json);
+        echo $JString;
+    }
+
 
     function getPrueba($param = null)
     {
@@ -331,16 +360,73 @@ class directorControl extends Controller
         require_once "utils/correo/Correo.php";
         $resultado = $this->model->getCorreos($param[2]);
         $email = new Correo();
-        $email->cargaCorreo($resultado, $param[0], $param[1]);
+        $email->cargaCorreo($resultado, $param[0], $param[1], 0);
+        
     }
 
 
-    function hola($param = null)
-    {
-        if ($param == null) return;
+    function insertTesis($param = null){
+        //$resultado = $this->model->insertTesis($codigo);
+        $listCodigos = $_POST['codigo'];
+        $titulo = $_POST['titulo'];
+        $ruta = $_FILES['archivo']['tmp_name'];
+        $nombre = $_FILES['archivo']['name'];
+
+        $array = explode("/", $listCodigos);
+        
+
+        $destino = "almacen/tesis/" . $nombre;
+
+        
+        $maxArray = sizeof($array);
+
+    
+
+       if ($ruta != "") {
+            if (copy($ruta, $destino)) { //Se copia el archivo de la ruta a la carpeta del server
+
+               
+                $this->model->insertTesis($destino,$titulo);
+                $max = $this->model->getMaxIdTesis();
+
+                
+                for ($i=0; $i < $maxArray ; $i++) { 
+                    $this->model->insertEstudiante_Tesis($max['id'], date('d/m/y') , $array[$i]);
+                   
+
+                }
+
+
+            } else {
+                echo 1;
+            }
+        }
+
+        echo 0;
+      
+        
+       
+    }
+
+    function getTesis(){
+        
+        $resultado = $this->model->getTesis();
+        $json = array();
+        foreach($resultado as $est){
+            $json[] = array(
+                'titulo'=> $est['titulo'],
+                'archivo' => $est['archivo'],
+
+            );
+
+        }
+        $JString = json_encode($json);
+        echo $JString;
+
 
         echo $param[0];
         echo $param[1];
         echo $param[2];
     }
+
 }
