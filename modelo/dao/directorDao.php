@@ -210,8 +210,6 @@ class directorDao extends Model{
                 return null;
             }
         }
-    }
-
     
 
 
@@ -387,3 +385,4 @@ class directorDao extends Model{
         }
     }
 
+}
