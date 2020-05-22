@@ -10,12 +10,10 @@ class directorControl extends Controller
         if (!isset($_SESSION['administrador'])) {
             header('Location: ' . constant('URL') . 'loginControl');
             return;
-          }
-          $this->view->datos =[];
-          $this->view->cantidad = [];
         }
+        $this->view->datos = [];
+        $this->view->cantidad = [];
     }
-
 
 
     function render($ubicacion = null)
@@ -84,10 +82,10 @@ class directorControl extends Controller
                             return;
                         }
                     }
-
-
-                    if ($id_saberPro != "") {
-                        $this->model->insertar_saber_pro($id_saberPro, $lectura, $razonamiento, $sociales, $comunicacion, $ingles, $conexion);
+                    if ($i != 1) {
+                        if ($id_saberPro != "") {
+                            $this->model->insertar_saber_pro($id_saberPro, $lectura, $razonamiento, $sociales, $comunicacion, $ingles, $conexion);
+                        }
                     }
                 }
 
@@ -120,10 +118,13 @@ class directorControl extends Controller
                             return;
                         }
                     }
+                    if ($i != 1) {
 
-                    if ($id_saber11 != "") {
+                        if ($id_saber11 != "") {
+                            # code...
+                            $this->model->insertar_saber_11($id_saber11, $lectura, $matematica, $sociales, $naturales, $ingles, $conexion);
+                        }
                         # code...
-                        $this->model->insertar_saber_11($id_saber11, $lectura, $matematica, $sociales, $naturales, $ingles, $conexion);
                     }
                 }
 
@@ -180,13 +181,15 @@ class directorControl extends Controller
                     $codigo_icfes_11 = $objPHPExcel->getActiveSheet()->getCell('R' . $i);
                     $codigo_icfes_pro = $objPHPExcel->getActiveSheet()->getCell('S' . $i);
 
-                 
+
                     if ($i == 1) {
-                        if ($codigo != "CODIGO" || $nombres != "NOMBRE" || $apellidos != "APELLIDOS" || $documento != "CEDULA" || $celular != "CELULAR"
+                        if (
+                            $codigo != "CODIGO" || $nombres != "NOMBRE" || $apellidos != "APELLIDOS" || $documento != "CEDULA" || $celular != "CELULAR"
                             || $telefono != "TELEFONO" || $direccion != "DIRECCION" || $tipo_documento != "TIPO DOCUMENTO" || $correo_institucional != "CORREO INSTITUCIONAL"
                             || $correo != "CORREO" || $semestre_cursado != "SEMESTRE CURSADO" || $fecha_ingreso_g != "FECHA INGRESO" || $fecha_egreso_g != "FECHA EGRESO"
                             || $contraseña != "CONTRASENA" || $materias_aprobadas != "MATERIAS APROBADAS" || $promedio != "PROMEDIO" || $codigo_icfes_11 != "CODIGO ICFES 11"
-                            || $codigo_icfes_pro != "CODIGO ICFES PRO" || $egresado != "EGRESADO") {
+                            || $codigo_icfes_pro != "CODIGO ICFES PRO" || $egresado != "EGRESADO"
+                        ) {
 
                             echo  $this->model->falla_formato(3);
                             return;
@@ -195,22 +198,23 @@ class directorControl extends Controller
                         # code...
                     }
 
+                    if ($i != 1) {
 
-
-                    if ($documento != "") {
-                        $this->model->insertar_persona($nombres, $apellidos, $documento, $celular, $telefono, $direccion, $correo, $tipo_documento, $conexion);
-                    }
-
-
-                    if ($codigo != "") {
-                        # code... 
-                        $aux = $this->model->validar_historial($codigo, $conexion);
-                        if ($aux  == "true") {
-                            $this->model->insertar_historial($materias_aprobadas, $promedio, $codigo_icfes_11, $codigo_icfes_pro, $codigo, $conexion);
+                        if ($documento != "") {
+                            $this->model->insertar_persona($nombres, $apellidos, $documento, $celular, $telefono, $direccion, $correo, $tipo_documento, $conexion);
                         }
-                        $id_temp_historial =  $this->model->traer_id_historial($codigo, $conexion);
-                        // echo  "xxxxxxxxxxxxxxxxxx". $id_temp_historial . "    xxxxxxxxxxxxxxxxxxx         ";
-                        $this->model->insertar_estudiante($codigo, $correo_institucional, $documento, $semestre_cursado, $fecha_ingreso, $fecha_egreso, $egresado, $contraseña, $id_temp_historial, $conexion);
+
+
+                        if ($codigo != "") {
+                            # code... 
+                            $aux = $this->model->validar_historial($codigo, $conexion);
+                            if ($aux  == "true") {
+                                $this->model->insertar_historial($materias_aprobadas, $promedio, $codigo_icfes_11, $codigo_icfes_pro, $codigo, $conexion);
+                            }
+                            $id_temp_historial =  $this->model->traer_id_historial($codigo, $conexion);
+                            // echo  "xxxxxxxxxxxxxxxxxx". $id_temp_historial . "    xxxxxxxxxxxxxxxxxxx         ";
+                            $this->model->insertar_estudiante($codigo, $correo_institucional, $documento, $semestre_cursado, $fecha_ingreso, $fecha_egreso, $egresado, $contraseña, $id_temp_historial, $conexion);
+                        }
                     }
                 }
                 // echo $char++;    --> Esto para si no se sabe desde que parte del excel se encuentra especificar cordenadas 
@@ -240,12 +244,13 @@ class directorControl extends Controller
         $JString = json_encode($json);
         echo $JString;
     }
-    function cargaEstudianteTesis(){
+    function cargaEstudianteTesis()
+    {
         $this->view->datos = $this->model->cargarEstuTesis();
         $this->view->cantidad = $this->model->listarEstudiantes();
-
     }
-    function buscarCodigo($param = null){
+    function buscarCodigo($param = null)
+    {
         $codigo = $param[0];
         $resultado = $this->model->getDatos($codigo);
         if (empty($resultado)) {
@@ -297,26 +302,27 @@ class directorControl extends Controller
     }
 
     //tare los datos codigo, nombre y apeliidos
-    function verificarEstudiante($param=null){
-        if($param==null)return;
+    function verificarEstudiante($param = null)
+    {
+        if ($param == null) return;
         $codigo = $param[0];
         $resultado = $this->model->verificarEstudiantes($codigo);
-        if($resultado==null){
+        if ($resultado == null) {
             echo 0;
             return;
         }
         $cos = $this->model->getCodigosTesis($codigo);
-        if($cos!=null){
+        if ($cos != null) {
             echo 1;
             return;
         }
-        
+
         $json = array();
-            $json[] = array(
-                'codigoEstudiante'=> $resultado['codigoEstudiante'],
-                'nombres' => $resultado['nombres'],
-                'apellidos' => $resultado['apellidos']
-            );
+        $json[] = array(
+            'codigoEstudiante' => $resultado['codigoEstudiante'],
+            'nombres' => $resultado['nombres'],
+            'apellidos' => $resultado['apellidos']
+        );
         $JString = json_encode($json);
         echo $JString;
     }
@@ -357,11 +363,11 @@ class directorControl extends Controller
         $resultado = $this->model->getCorreos($param[2]);
         $email = new Correo();
         $email->cargaCorreo($resultado, $param[0], $param[1], 0);
-        
     }
 
 
-    function insertTesis($param = null){
+    function insertTesis($param = null)
+    {
         //$resultado = $this->model->insertTesis($codigo);
         $listCodigos = $_POST['codigo'];
         $titulo = $_POST['titulo'];
@@ -369,57 +375,47 @@ class directorControl extends Controller
         $nombre = $_FILES['archivo']['name'];
 
         $array = explode("/", $listCodigos);
-        
+
 
         $destino = "almacen/tesis/" . $nombre;
 
-        
+
         $maxArray = sizeof($array);
 
-    
 
-       if ($ruta != "") {
+
+        if ($ruta != "") {
             if (copy($ruta, $destino)) { //Se copia el archivo de la ruta a la carpeta del server
 
-               
-                $this->model->insertTesis($destino,$titulo);
+
+                $this->model->insertTesis($destino, $titulo);
                 $max = $this->model->getMaxIdTesis();
 
-                
-                for ($i=0; $i < $maxArray ; $i++) { 
-                    $this->model->insertEstudiante_Tesis($max['id'], date('d/m/y') , $array[$i]);
-                   
 
+                for ($i = 0; $i < $maxArray; $i++) {
+                    $this->model->insertEstudiante_Tesis($max['id'], date('d/m/y'), $array[$i]);
                 }
-
-
             } else {
                 echo 1;
             }
         }
 
         echo 0;
-      
-        
-       
     }
 
-    function getTesis($param){
-        
+    function getTesis()
+    {
+
         $resultado = $this->model->getTesis();
         $json = array();
-        foreach($resultado as $est){
+        foreach ($resultado as $est) {
             $json[] = array(
-                'titulo'=> $est['titulo'],
+                'titulo' => $est['titulo'],
                 'archivo' => $est['archivo'],
 
             );
-
         }
         $JString = json_encode($json);
         echo $JString;
-
-        echo $param[0];
-        echo $param[1];
-        echo $param[2];
     }
+}
