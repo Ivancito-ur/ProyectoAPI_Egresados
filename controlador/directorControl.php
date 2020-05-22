@@ -405,7 +405,6 @@ class directorControl extends Controller
 
     function getTesis()
     {
-
         $resultado = $this->model->getTesis();
         $json = array();
         foreach ($resultado as $est) {
