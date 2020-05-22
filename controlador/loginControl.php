@@ -11,7 +11,10 @@
           } else if(isset($_SESSION['administrador'])){
             header('Location: ' . constant('URL'). 'directorControl');   
             return;
-          }
+          } 
+
+
+       
         }
                     
         function render($ubicacion = null){
@@ -64,6 +67,111 @@
           unset($_SESSION['documentoAdmin']);
           session_destroy();
           header('Location: ' . constant('URL'). 'loginControl');  
+      }
+
+
+
+      
+
+      function recuperarContraseña($param=null){
+        require_once "utils/correo/Correo.php";
+        $email = new Correo();
+        $resultadoD = $this->model->getCodigoDirector($param[0], $param[1]);
+        $resultadoE = $this->model->getCodigoEstudiante($param[0], $param[1]);
+        
+        
+        if($resultadoE != null ){
+        
+          $email->cargaCorreo($resultadoE, "recuperacion de correo", $param[2], 1);
+          $_SESSION['codigoRecuperacion'] = $param[2];
+          $_SESSION['codigoTemporal'] = $param[0];
+          $_SESSION['tiempo'] = time();
+          $_SESSION['token'] = "si";
+        
+          echo 1;
+          return;
+        }
+        if($resultadoD != null ){
+
+          $email->cargaCorreo($resultadoD, "recuperacion de correo", $param[2],1);
+          $_SESSION['codigoRecuperacion'] = $param[2];
+          $_SESSION['codigoTemporal'] = $param[0];
+          $_SESSION['tiempo'] = time();
+          $_SESSION['token'] = "si";
+          echo 1;
+          return;
+        }
+
+        if($resultadoD == null || $resultadoE == null){
+          echo 0;
+          return;
+        }
+
+
+      }
+
+      function validarToken(){
+        $respuesta = $this->claveAleatoria();
+        if(isset($_SESSION['token']) && $respuesta==1){
+          echo 0;
+          return;
+        }
+          echo 1;
+          return;
+      }
+
+
+      function verficarCodigo($param=null){
+       $respuesta = $this->claveAleatoria();
+        $codigoTemp =   $_SESSION['codigoTemporal'];
+        if($respuesta==0){
+          echo 0;}
+        else if($param[0]== $_SESSION['codigoRecuperacion']){
+          unset($_SESSION['token']);
+          session_destroy();
+
+          $res = $this->model->updateContraseñaEstudiante($codigoTemp, $param[1]);
+          if($res==0){
+            $res1 = $this->model->updateContraseñaDirector($codigoTemp, $param[1]);
+          }
+          echo 1;
+        }else if($param[0]!= $_SESSION['codigoRecuperacion']){
+          echo 2;
+          } 
+
+      
+      }
+
+
+      function claveAleatoria(){
+       
+        //Comprobamos si esta definida la sesión 'tiempo'.
+         if(isset($_SESSION['tiempo']) ) {
+ 
+           //Tiempo en segundos para dar vida a la sesión.
+           $inactivo = 90;//1min en este caso.
+ 
+           //Calculamos tiempo de vida inactivo.
+           $vida_session = time() - $_SESSION['tiempo'];
+ 
+               //Compraración para redirigir página, si la vida de sesión sea mayor a el tiempo insertado en inactivo.
+               if($vida_session > $inactivo)
+               {
+                unset($_SESSION['tiempo']);
+                session_destroy();
+                  
+                   return 0;
+ 
+                
+               } else {  // si no ha caducado la sesion, actualizamos
+         
+                 return 1;
+               }
+ 
+ 
+        } 
+        return 2;
+ 
       }
 
        

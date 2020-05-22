@@ -5,7 +5,7 @@ use PHPMailer\PHPMailer\Exception;
 
 class Correo {
 
-        function cargaCorreo($correos, $asunto, $cuerpo){
+        function cargaCorreo($correos, $asunto, $cuerpo, $cant){
 
             require 'PHPMailer/Exception.php';
             require 'PHPMailer/PHPMailer.php';
@@ -30,9 +30,17 @@ class Correo {
                 //Recipients
                 $mail->setFrom('apiegresados@gmail.com', 'Mailer');
                 
-                foreach($correos as $cor){
-                    $mail->addAddress($cor['correoInstitucional'], '');     // Add a recipient
+                if($cant==0){
+                   
+                    foreach($correos as $cor){
+                        $mail->addAddress($cor['correoInstitucional'], '');     // Add a recipient
+                    }
+                }else if($cant==1){
+                   
+                    $mail->addAddress($correos['correoInstitucional'], ''); 
                 }
+
+               
               
             
                 // Content

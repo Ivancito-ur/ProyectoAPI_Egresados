@@ -6,13 +6,22 @@
         </p>
 
         <label for="inputEmail" class="sr-only">Codigo</label>
-        <input type="text" id="inpCodigo" class="form-control" placeholder="Codigo" required autofocus>
+        <input type="text" id="inpCodigoRECU" class="form-control" placeholder="Codigo" required autofocus>
 
         <div class="form-group">
-            <input type="email" class="form-control" placeholder="nombre@ejemplo.com" required>
+            <input type="email" id="inpEmailRECU" class="form-control" placeholder="nombre@ejemplo.com" required>
         </div>
 
-        <button onclick="return loadF()" type="submit" class="btn btn-danger btn-block btn-flat">Continuar</button>
+     
+        <div style="display:flex"class="cajaB" id="token"></div>
 
+        <div style=" margin-top:10px; display:none; " id="alertContraseña" class="alert alert-danger" role="alert">
+                <p class="respuesta" id="respuestaContraseña"></p>
+        </div>
+        <div style="margin-top:10px; display:none; " id="alertContraseña2" class="alert alert-success" role="alert">
+                <p class="respuesta" id="respuestaContraseña2"></p>
+        </div>
+        
+       
     </form>
 </div>

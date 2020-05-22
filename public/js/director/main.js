@@ -1,5 +1,53 @@
 const URLD="http://localhost/ProyectoAPI_Egresados/";
+let templateCodigos = '';
 var lista = [];
+var extTesis ="";
+var consta ="";
+let templateTesis = '';
+
+
+function recargaTesis(){
+httpRequest(URLD + "directorControl/getTesis",function(){
+  var response = this.responseText;
+  var resp = response.split("\n").join("");
+  let tasks = JSON.parse(resp);
+  var cont =0;
+  var i =0;
+    for(var m=0; m < tasks.length/3 ; m++){
+      templateTesis += ` <div style="margin-bottom:10px"class="card-group">`
+          for(var  j=i; j < tasks.length; j++){
+            i++;
+            templateTesis += `
+                <div class="card">
+                    <div class="form-group">
+                        <div class="embed-responsive embed-responsive-16by9" id="pdf">
+                            <iframe class="embed-responsive-item" src="${tasks[cont].archivo}" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">${tasks[cont].titulo}</h5>
+                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    </div>
+                </div>`;
+           cont++;
+           console.log(cont)
+          if((i % 3)==0){
+            templateTesis +=`</div>`;
+            i=0;
+              break;}
+      }
+    }
+
+    templateTesis +=`</div>`
+     
+     $('.caja').html(templateTesis);
+     
+
+
+
+});
+}
+
 
 function cargaHojaVida(){
 $(document).on('change','input[type="file"]',function(){
@@ -172,6 +220,13 @@ function loadSe() {
     };
     xhttp.open("GET", "vista/director/tesis.php", true);
     xhttp.send();
+    templateCodigos = '';
+    lista = [];
+    consta = '';
+    templateTesis = '';
+    recargaTesis();
+  
+    
   }
 
   function loadPr() {
@@ -463,23 +518,23 @@ function enviarCorreo(e){
 }
 
 
-
+//se carga el archivo(hasta ahora en la vista inicial)
 function cargaTesis(){
   $(document).on('change','input[type="file"]',function(){
 	var fileName = this.files[0].name;
   var res = fileName.substring(0, 30);
   $('.nameArchivoTesis').text(res);
-    var ext = fileName.split('.').pop();
+    extTesis = fileName.split('.').pop();
     console.log(fileName);
-		ext = ext.toLowerCase();
-		switch (ext) {
+		extTesis = extTesis.toLowerCase();
+		switch (extTesis) {
       case 'pdf': 
       $('.respuestaTesis2').text("Cargado Correctamente");
       $('#alertTesis').hide();  
       $('#alertTesis2').show();
       break;
 			default:
-        $('.respuestaTesis').text("error de extension, " + ext + "  "  + "Por favor seleccione un archivo .pdf");
+        $('.respuestaTesis').text("error de extension, " + extTesis + "  "  + "Por favor seleccione un archivo .pdf");
         $('#alertTesis2').hide();  
         $('#alertTesis').show();
 				this.value = ''; 
@@ -488,36 +543,161 @@ function cargaTesis(){
 });
 }
 
-
+//se verifica los datos antes de guardar la tesis
 function guardarTesis(e){
   e.preventDefault();
-  var codigo = $('#codigo').val();
   var titulo = $('#titulo').val();
   var gropu = $('#inputGroupFile01').val();
-  if(codigo=="" || titulo =="" || gropu ==""){
+  if(lista.length === 0 ){
+    $('#alertTesis2').hide();
+    $('#alertTesis').show();
+    $('#respuestaTesis').text("Por favor, Agregue los codigos correspondientes a la tabla.");
+    console.log(lista[0]);
+    return;
+  }
+  
+  if(titulo =="" ){
     $('#alertTesis2').hide();
     $('#alertTesis').show();
     $('#respuestaTesis').text("Por favor, Llene todos los campos antes de cargar.");
+    console.log(lista[0]);
     return;
   }
-  //httpRequest(URLD + "directorControl/hola/" + lista + "/" + titulo + "/" + gropu,function(){
-    //console.log(this.responseText);
-    //return;
-  //});
-
-
+  if(extTesis!="pdf" || gropu ==""){
+    $('#alertTesis2').hide();
+    $('#alertTesis').show();
+    $('#respuestaTesis').text("error de extension, " + extTesis + "  "  + "Por favor seleccione un archivo .pdf");
+    return;
+  }
   $('#alertTesis').hide();
-  $('#alertTesis2').show();
-  
-
+  $('#alertTesis2').hide();
+  enviarTesis(event);
   return false;
 }
 
 
-function explodeCodigo(){
+//En esta seccion del codigo se carga la tesis del estudiante y/o estudiantes asigandos
+
+function enviarTesis(e){
+        e.preventDefault();
+        for (let index = 0; index < lista.length; index++) {
+          const element = lista[index];
+          if(consta==""){
+            consta = element;
+          }else{
+            consta = consta  + "/" +  element;
+          }
+        }
+        $("#listCodigos").val(consta);
+         var parametros=new FormData($(".formularioTesis")[0]);
+        $.ajax({
+            type: "POST",
+            url: URLD + "directorControl/insertTesis" ,
+            data: parametros,
+            contentType: false, 
+            processData: false,
+            success: function (data) {
+             var aux = data.split("\n").join("");
+             console.log(aux);
+             if(aux==0){
+              templateCodigos = '';
+              consta = '';
+              for (let index = 0; index < lista.length; index++) {
+                $("#"+lista[index]).remove();
+              }
+              lista = [];
+              $(".nameArchivoTesis").text("...");
+              $("#titulo").val("");
+              $('#alertTesis').hide();
+              $('#alertTesis2').show();
+              $('#respuestaTesis2').text("Cargado Correctamente");
+              templateTesis = '';
+              $('.caja').html("");
+              recargaTesis();
+              setTimeout(function() {
+              $("#alertTesis2").fadeOut(1500);
+              },3000);
+              return;
+             }
+
+             
+            },
+            error: function (r) {
+                alert("Error del servidor");
+            }
+        });
+}
+
+//En esta seccion del codigo se verifica la existencia tanto en la tabla estudiante_tesis , como en la tabla estudiante
+
+function explodeCodigo(e){
+  e.preventDefault();
   var codigo = $('#codigo').val();
+  if(codigo==""){
+    $('.verificarC').text("Introduzca el codigo a buscar");  
+    return;
+  }
+  
+  httpRequest(URLD + "directorControl/verificarEstudiante/" + codigo,function(){
+    var validacion=0;
+    const response = this.responseText;
+    var aux = response.split("\n").join("");
+    let tasks = JSON.parse(response);
+    if(aux==1){
+      $('.verificarC').text("El codigo ya tiene asignada una tesis.");  
+      return
+    }
+    if(aux==0){
+      $('.verificarC').text("codigo inexistente");  
+      return;
+    }
+    $('#tblUsuario tr').each(function () {
+      var pk = $(this).find("td").eq(0).html();
+      if(pk==tasks[0].codigoEstudiante){
+        validacion=1;
+      }
+      return;
+    });
+    if(validacion==0){
+    $('#codigo').val(""); 
+    $('.verificarC').text("");  
+      tasks.forEach(ta => {
+      lista.push(ta.codigoEstudiante);
+      templateCodigos += `<tr id="${ta.codigoEstudiante}">
+      <td >${ta.codigoEstudiante}</td>
+      <td >${ta.nombres}</td>
+      <td >${ta.apellidos}</td>
+      <td><a href="#" onclick="return removerCodigo(${ta.codigoEstudiante})" class="btn btn-primary btn-lg active" role="button" aria-pressed="true"
+      style="background-color: #dd4b39; border-color: #dd4b39;">Remover</a></td>
+      </tr>`
+    });
+    $('#agregar').html(templateCodigos);}
+  });
+  
+  return false;
  
 }
+
+
+function removerCodigo(cod){
+  removeItemFromArr( lista, cod );
+  $("#"+cod).remove();
+  templateCodigos ="";
+ 
+  
+  
+  return false;
+
+}
+
+function removeItemFromArr ( arr, item ) {
+  var i = arr.indexOf( item );
+
+  if ( i !== -1 ) {
+      arr.splice( i, 1 );
+  }
+}
+
 
 
   

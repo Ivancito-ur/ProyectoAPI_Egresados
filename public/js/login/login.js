@@ -1,5 +1,6 @@
 
 const URLD = "http://localhost/ProyectoAPI_Egresados/";
+var templateToken ="";
 $('.alert').hide();
   $(document).ready(function(){
     $('.alert').hide();
@@ -39,7 +40,8 @@ function verificarDatosAdmin(e){
   var documento=$('#inputDocumentoA').val();
   var contraseña=$('#inputPasswordA').val();
   if(!verificarVacio([codigo, documento, contraseña])){
-    console.log("llena todos los valores");
+    $('.respuesta').text("Por favor llene todos los campos!");
+      $('.alert').show();
     return;
   }  
   httpRequest(URLD + "loginControl/validarDirector/" + codigo + "/" + documento + "/" + contraseña,function(){
@@ -54,8 +56,9 @@ function verificarDatosAdmin(e){
     }else if(resp=="1"){
       window.location.href = URLD + "directorControl" ;
     }
-  return false;
-  });      
+  
+  });   
+  return false;   
 }
 
 
@@ -69,6 +72,9 @@ function loadE() {
   };
   xhttp.open("GET", "vista/login/loginE.php", true);
   xhttp.send();
+  $("#recuContra").css({
+    "display": "block"
+  });
   return false;
 }
 
@@ -82,6 +88,9 @@ function loadA() {
   };
   xhttp.open("GET", "vista/login/loginA.php", true);
   xhttp.send();
+  $("#recuContra").css({
+    "display": "block"
+  });
   return false;
 }
 
@@ -94,6 +103,9 @@ function loadEm() {
   };
   xhttp.open("GET", "vista/login/loginEm.php", true);
   xhttp.send();
+  $("#recuContra").css({
+    "display": "block"
+  });
   return false;
 }
 
@@ -136,6 +148,11 @@ function loadCo() {
   };
   xhttp.open("GET","vista/login/contraseña.php", true);
   xhttp.send();
+  token();
+  $("#recuContra").css({
+    "display": "none"
+  });
+  
   return false;
 }
 
@@ -148,5 +165,125 @@ function loadF() {
   };
   xhttp.open("GET", "vista/login/final.php", true);
   xhttp.send();
+ 
   return false;
+
 }
+
+
+
+//cambiar contraseña perdida
+
+function recuperarContraseña(){
+  
+  var inpCodigoRECU =$('#inpCodigoRECU').val();
+  var inpEmailRECU=$('#inpEmailRECU').val();
+  var Cresp =  generarCodigo();
+  if(inpCodigoRECU == "" || inpEmailRECU ==""){
+    console.log("datos vacios");
+    return;
+  }
+  $("body").css('cursor','wait')
+  httpRequest(URLD + "loginControl/recuperarContraseña/" + inpCodigoRECU + "/" + inpEmailRECU + "/"  +  Cresp ,function(){
+       
+    var resp = this.responseText;
+    var aux = resp.split("\n").join("");
+    if(aux==0){
+      $('#respuestaContraseña').text("Codigo y/o correo incorrectos");
+      $('#alertContraseña').show();
+      $('#alertContraseña2').hide();
+      console.log("")
+      return;
+
+    }
+    $("body").css('cursor','default')
+    $('#alertContraseña2').show();
+    $('#alertContraseña').hide();
+    $('#respuestaContraseña2').text("Enviando correo...");
+    
+      loadF();
+      return;
+
+  });      
+  
+  return false;
+  }
+
+  function nuevaContraseña(e){
+  e.preventDefault();
+    var inpToken =$('#inpToken').val();
+    var inputPasswordn =$('#inputPasswordn').val();
+    var inputPasswordc =$('#inputPasswordc').val();
+    if(inpToken=="" || inputPasswordn=="" || inputPasswordc==""){
+      console.log("campos vacios");
+      return;
+    }
+
+    if(inputPasswordn!=inputPasswordc){
+      console.log("Contraseñas no coinciden");
+      return;
+    }
+   
+    httpRequest(URLD + "loginControl/verficarCodigo/" + inpToken + "/" + inputPasswordn ,function(){
+         
+      var resp = this.responseText;
+      var aux = resp.split("\n").join("");
+      if(aux==0){
+        $('#respuestaToken').text("Se acabo el tiempo.");
+        $('#alertToken').show();
+        $('#alertToken2').hide();
+        setTimeout(function() {
+          window.location.href = URLD + "loginControl" ;
+          },3000);
+      }else if(aux==1){
+        window.location.href = URLD + "loginControl" ;
+        return;
+      }else if(aux==2){
+        $('#respuestaToken').text("token incorrecto");
+        $('#alertToken').show();
+        $('#alertToken2').hide();
+      }
+    
+    });      
+    
+    return false;
+    }
+
+  
+    function token(){
+      httpRequest(URLD + "loginControl/validarToken" ,function(){
+         
+        var resp = this.responseText;
+        var aux = resp.split("\n").join("");
+
+        if(aux==0){
+
+         
+          templateToken += ` 
+          <button style="margin-right:2px;display:inline-block; width:80%" onclick="return recuperarContraseña()" type="submit" class="btn btn-danger btn-block btn-flat">Continuar</button>
+          <button onclick="return   loadF()" style="display:inline-block; width:20%; text-align: center; padding:4px" type="button" class="btn btn-info">Token</button>` ;
+     
+        }else{
+
+          templateToken += `<button onclick="return recuperarContraseña()" type="submit" class="btn btn-danger btn-block btn-flat">Continuar</button>`;
+
+        
+
+        }
+        $('#token').html(templateToken);
+        
+      });   
+
+    }
+  
+
+  
+  //creamos la función  //generar codigo
+  function generarCodigo()
+  {
+    var caracteres = "abcdefghijkmnpqrtuvwxyzABCDEFGHJKMNPQRTUVWXYZ2346789";
+    var contraseña = "";
+    for (i=0; i<10; i++) contraseña +=caracteres.charAt(Math.floor(Math.random()*caracteres.length)); 
+    return contraseña; 
+  }
+  
