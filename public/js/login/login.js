@@ -232,7 +232,9 @@ function recuperarContraseña(){
         $('#respuestaToken').text("Se acabo el tiempo.");
         $('#alertToken').show();
         $('#alertToken2').hide();
-        window.location.href = URLD + "loginControl" ;
+        setTimeout(function() {
+          window.location.href = URLD + "loginControl" ;
+          },3000);
       }else if(aux==1){
         window.location.href = URLD + "loginControl" ;
         return;
