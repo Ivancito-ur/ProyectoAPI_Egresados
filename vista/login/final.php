@@ -14,7 +14,12 @@
         <label for="inputPasswordc" class="sr-only">Confirmar Contraseña</label>
         <input type="password" id="inputPasswordc" class="form-control" placeholder="Confirmar Contraseña" required>
 
-        <button type="submit" class="btn btn-danger btn-block btn-flat">Cambiar</button>
-
+        <button onclick="return nuevaContraseña(event)" type="submit" class="btn btn-danger btn-block btn-flat">Cambiar</button>
+        <div style=" margin-top:10px; display:none; " id="alertToken" class="alert alert-danger" role="alert">
+                <p class="respuesta" id="respuestaToken"></p>
+        </div>
+        <div style="margin-top:10px; display:none; " id="alertToken2" class="alert alert-success" role="alert">
+                <p class="respuesta" id="respuestaToken2"></p>
+        </div>
     </form>
 </div>

@@ -54,6 +54,71 @@ class loginDao extends Model{
     }
 
 
+    function getCodigoDirector($codigo, $correo){
+        try{
+            $statement = $this->db->connect()->prepare("SELECT codigoDirector, correoInstitucional FROM director WHERE  codigoDirector = :codigo AND correoInstitucional = :correo");
+            $statement->execute(array(
+                ':codigo' => $codigo,
+                ':correo' => $correo
+            ));
+            $resultado = $statement->fetch();
+            return $resultado;
+        }catch(PDOException $e){
+            return null;
+        }
+    }
+
+
+    
+
+    function getCodigoEstudiante($codigo,$correo){
+        try{
+            $statement = $this->db->connect()->prepare("SELECT codigoEstudiante, correoInstitucional FROM estudiante WHERE  codigoEstudiante = :codigo AND correoInstitucional = :correo");
+            $statement->execute(array(
+                ':codigo' => $codigo,
+                ':correo' => $correo
+            ));
+            $resultado = $statement->fetch();
+            return $resultado;
+        }catch(PDOException $e){
+            return null;
+        }
+    }
+
+
+    public function updateContraseñaEstudiante($codigo, $contraseña){
+        try{
+            $query = $this->db->connect()->prepare('UPDATE estudiante   SET  contrasena= :contrasena WHERE  codigoEstudiante=:codigo');
+            $query->execute([
+                ':codigo' =>$codigo,
+                ':contrasena' =>$contraseña 
+            ]);
+            $aux =  $query->rowCount(); 
+            return substr($aux,0,1);
+        }catch(PDOException $e){
+            return false;
+        }
+    }
+
+    public function updateContraseñaDirector($codigo, $contraseña){
+        try{
+            $query = $this->db->connect()->prepare('UPDATE director  SET  contrasena= :contrasena WHERE  codigoDirector=:codigo');
+            $query->execute([
+                ':contrasena' =>$contraseña ,
+                ':codigo' =>$codigo
+               
+            ]);
+            $aux =  $query->rowCount(); 
+            return substr($aux,0,1);
+        }catch(PDOException $e){
+            return false;
+        }
+    }
+
+
+
+
+
 
 }
 
