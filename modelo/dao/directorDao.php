@@ -1,11 +1,10 @@
 <?php
 
 
+
 require 'modelo/dto/directorDto.php'; 
 require 'modelo/dto/tesisDto.php'; 
 require 'modelo/dto/tesisEstudianteDto.php'; 
-
-
 class directorDao extends Model{
     
     public function __construct(){

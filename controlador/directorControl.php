@@ -221,7 +221,6 @@ class directorControl extends Controller
         }
     }
 
-
     function ListarEstudiante()
     {
         $estudiante = $this->model->listarEstudiantes();
@@ -424,8 +423,3 @@ class directorControl extends Controller
         echo $param[1];
         echo $param[2];
     }
-
-
-   
-
-
