@@ -41,7 +41,13 @@
                         <input type="checkbox" class="form-check-input" id="exampleCheck1" required>
                         <label class="form-check-label" for="exampleCheck1">Acepto</label>
                     </div>
-                    <button onclick="return actualizarDatos(event)" type="submit" class="btn btn-primary" style="background-color: #dd4b39; border-color: #dd4b39;">Actualizar</button>
+                    <div style="display :none;text-align:center; padding:10px ; margin-top:15px" id="alertACTU" class="alert alert-danger" role="alert">
+                     <p class="respuesta" id="respuestaACTU"></p>
+                    </div>
+                     <div style="display :none;text-align:center; padding:10px ; margin-top:15px" id="alertACTU2" class="alert alert-success" role="alert">
+                     Cargado Correctamente
+                     </div>
+                    <button type="submit"  onclick="return actualizarDatos(event)" class="btn btn-primary" style="background-color: #dd4b39; border-color: #dd4b39;">Actualizar</button>
                 </form>
             </div>
         </div>
