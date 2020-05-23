@@ -36,12 +36,12 @@ class directorDao extends Model{
     }
 
 
-    function insertar_estudiante($codigo, $correo_institucional, $documento, $semestre_cursado, $fecha_ingreso, $fecha_egreso, $egresado, $contraseña, $id_historial, $conexion)
+    function insertar_estudiante($codigo, $correo_institucional, $documento, $semestre_cursado, $fecha_ingreso, $promedio , $materias_aprobadas ,$fecha_egreso, $egresado, $contraseña, $id_historial, $conexion)
     {
 
         // insertar
-        $query = $this->db->connect()->prepare("INSERT INTO estudiante (codigoEstudiante,contrasena,documento,egresado,correoInstitucional,semestreCursado,fechaIngreso,fechaEgreso,id_historial)
-         values (:codigo,:contrasena,:documento,:egresado,:correo_institucional,:semestre_cursado,:fecha_ingreso,:fecha_egreso,:id_historial)");
+        $query = $this->db->connect()->prepare("INSERT INTO estudiante (codigoEstudiante,contrasena,documento,egresado,correoInstitucional,semestreCursado,materiasAprobadas,promedio,fechaIngreso,fechaEgreso,id_historial)
+         values (:codigo,:contrasena,:documento,:egresado,:correo_institucional,:semestre_cursado,:materiasAprobadas,:promedio,:fecha_ingreso,:fecha_egreso,:id_historial)");
         try {
             $query->execute([
                 ':codigo' => $codigo,
@@ -50,6 +50,8 @@ class directorDao extends Model{
                 ':egresado' => $egresado,
                 ':correo_institucional' => $correo_institucional,
                 ':semestre_cursado' => $semestre_cursado,
+                ':materiasAprobadas' => $materias_aprobadas,
+                ':promedio' => $promedio,
                 ':fecha_ingreso' => $fecha_ingreso,
                 ':fecha_egreso' => $fecha_egreso,
                 ':id_historial' => $id_historial
@@ -355,11 +357,6 @@ class directorDao extends Model{
                 return null;
             }
         }
-
-      
-
-
-
 
     function getCorreos($opcion)
     {

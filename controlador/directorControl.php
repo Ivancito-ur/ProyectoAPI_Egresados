@@ -213,7 +213,7 @@ class directorControl extends Controller
                             }
                             $id_temp_historial =  $this->model->traer_id_historial($codigo, $conexion);
                             // echo  "xxxxxxxxxxxxxxxxxx". $id_temp_historial . "    xxxxxxxxxxxxxxxxxxx         ";
-                            $this->model->insertar_estudiante($codigo, $correo_institucional, $documento, $semestre_cursado, $fecha_ingreso, $fecha_egreso, $egresado, $contraseña, $id_temp_historial, $conexion);
+                            $this->model->insertar_estudiante($codigo, $correo_institucional, $documento, $semestre_cursado, $fecha_ingreso,  $promedio , $materias_aprobadas, $fecha_egreso, $egresado, $contraseña, $id_temp_historial, $conexion);
                         }
                     }
                 }
