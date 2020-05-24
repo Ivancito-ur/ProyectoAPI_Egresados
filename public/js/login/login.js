@@ -11,14 +11,15 @@ $(document).ready(function () {
     var documento = $('#inputDocumento').val();
     var contraseña = $('#inputPassword').val();
     if (!verificarVacio([codigo, documento, contraseña])) {
-      console.log("llena todos los valores");
+      $('.respuesta').text("Por favor llene todos los campos!");
+      $('.alert').show();
       return;
     }
     httpRequest(URLD + "loginControl/validarEstudiante/" + codigo + "/" + documento + "/" + contraseña, function () {
 
       var resp = this.responseText;
       if (resp == "0") {
-        $('.respuesta').text("Datos incorrectos!");
+        $('.respuesta').text("Usuario y/o contraseña incorrecto");
         $('.alert').show();
         return;
       } else if (resp == "1") {
@@ -50,7 +51,7 @@ function verificarDatosAdmin(e) {
 
     console.log(resp);
     if (resp == "0") {
-      $('.respuesta').text("Datos incorrectos!");
+      $('.respuesta').text("Usuario y/o contraseña incorrecto");
       $('.alert').show();
       return;
     } else if (resp == "1") {
@@ -148,6 +149,7 @@ function loadCo() {
   };
   xhttp.open("GET", "vista/login/contraseña.php", true);
   xhttp.send();
+  templateToken="";
   token();
   $("#recuContra").css({
     "display": "none"

@@ -95,6 +95,9 @@ function actualizarDatos(e){
   var correo=$('#correo').val();
   var empresa=$('#empresa').val();
   if(!verificarVacio([telefono, direccion, correo,empresa ])){
+    $('#respuestaACTU').text("Por favor, Introduce todos los valores");
+    $('#alertACTU2').hide();  
+    $('#alertACTU').show();
     console.log("llena todos los valores");
     return;
   }
@@ -102,10 +105,13 @@ function actualizarDatos(e){
           
   var resp = this.responseText;
   console.log(resp);
+  $('#alertACTU').hide();  
+  $('#alertACTU2').show();
   window.location.href = URLD + "estudianteControl" ;
+  
+  });   
   return false;
-
-  });     
+  
 }
 
 
