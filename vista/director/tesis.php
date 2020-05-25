@@ -20,7 +20,7 @@
                 <form class="formularioTesis" enctype="multipart/form-data">
                     <label for="codigo">Codigo</label>
                     <div class="input-group mb-3">
-                        <input name="" maxlength="7"  id="codigo" type="text" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2" required>
+                        <input name="" maxlength="7"  id="codigo" type="number" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2" required>
                         <div class="input-group-append">
                             <button onclick="return explodeCodigo(event)" class="btn btn-outline-secondary" type="button" id="button-addon2" style="background-color: #dd4b39; color: white;">Agregar</button>
                         </div>

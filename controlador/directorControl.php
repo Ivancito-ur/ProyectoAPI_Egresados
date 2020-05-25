@@ -212,8 +212,8 @@ class directorControl extends Controller
                                 $this->model->insertar_historial($materias_aprobadas, $promedio, $codigo_icfes_11, $codigo_icfes_pro, $codigo, $conexion);
                             }
                             $id_temp_historial =  $this->model->traer_id_historial($codigo, $conexion);
-                            
-                            $this->model->insertar_estudiante($codigo, $correo_institucional, $documento, $semestre_cursado, $fecha_ingreso,  $promedio , $materias_aprobadas, $fecha_egreso, $egresado, $contraseña, $id_temp_historial, $conexion);
+
+                            $this->model->insertar_estudiante($codigo, $correo_institucional, $documento, $semestre_cursado, $fecha_ingreso,  $promedio, $materias_aprobadas, $fecha_egreso, $egresado, $contraseña, $id_temp_historial, $conexion);
                         }
                     }
                 }
@@ -259,16 +259,18 @@ class directorControl extends Controller
             echo 1;
             return;
         }
-        $json[] = array(
-            'codigoEstudiante' => $resultado['codigoEstudiante'],
-            'nombres' => $resultado['nombres'],
-            'fechaIngreso' => $resultado['fechaIngreso'],
-            'fechaEgreso' => $resultado['fechaEgreso']
-        );
+
+            $json[] = array(
+                'codigoEstudiante' => $resultado['codigoEstudiante'],
+                'nombres' => $resultado['nombres'],
+                'fechaIngreso' => $resultado['fechaIngreso'],
+                'fechaEgreso' => $resultado['fechaEgreso']
+            );
 
 
-        $JString = json_encode($json);
-        echo $JString;
+            $JString = json_encode($json);
+            echo $JString;
+        
     }
     function actualizarFecha($param = null)
     {
