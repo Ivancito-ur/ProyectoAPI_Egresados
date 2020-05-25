@@ -190,7 +190,7 @@ class directorDao extends Model{
     public function getDatos($codigo)
     {
         try {
-            $statement = $this->db->connect()->prepare("SELECT e.codigoEstudiante, p.nombres, e.fechaIngreso, e.fechaEgreso FROM estudiante e INNER JOIN persona p ON e.documento= p.documento WHERE e.codigoEstudiante=:codigoEstudiante");
+            $statement = $this->db->connect()->prepare("SELECT e.codigoEstudiante, p.nombres, p.apellidos,  e.fechaIngreso, e.fechaEgreso FROM estudiante e INNER JOIN persona p ON e.documento= p.documento WHERE e.codigoEstudiante=:codigoEstudiante");
             $statement->execute(array(
                 ':codigoEstudiante' =>  $codigo
             ));
@@ -236,7 +236,7 @@ class directorDao extends Model{
     function listarEstudiantes()
     {
         try {
-            $statement = $this->db->connect()->prepare("SELECT e.codigoEstudiante, e.documento, p.nombres, p.apellidos, p.celular, e.correoInstitucional, e.fechaIngreso, e.fechaEgreso FROM estudiante e INNER JOIN persona p ON e.documento= p.documento");
+            $statement = $this->db->connect()->prepare("SELECT e.codigoEstudiante, e.documento, p.nombres, p.apellidos, p.celular, e.correoInstitucional, e.fechaIngreso, e.fechaEgreso , e.promedio FROM estudiante e INNER JOIN persona p ON e.documento= p.documento");
             $statement->execute();
             $resultado = $statement->fetchAll(PDO::FETCH_ASSOC);
             return  $resultado;

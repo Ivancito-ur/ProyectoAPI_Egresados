@@ -296,7 +296,7 @@
                     </label>
                   </div>
                 </div>
-                <button type="submit" class="btn btn-primary" style="background-color: #dd4b39; border-color: #dd4b39;">Cargar</button>
+                <button type="submit"  id="cargaHojaVida" class="btn btn-primary" style="background-color: #dd4b39; border-color: #dd4b39;">Cargar</button>
                 <div style="text-align:center; padding:10px ; margin-top:15px" id="alert" class="alert alert-danger" role="alert">
                   <p class="respuesta" id="respuesta"></p>
                 </div>

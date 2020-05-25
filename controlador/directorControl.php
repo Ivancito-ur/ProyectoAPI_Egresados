@@ -238,7 +238,9 @@ class directorControl extends Controller
                 'celular' => $est['celular'],
                 'correoInstitucional' => $est['correoInstitucional'],
                 'fechaIngreso' => $est['fechaIngreso'],
-                'fechaEgreso' => $est['fechaEgreso']
+                'fechaEgreso' => $est['fechaEgreso'],
+                'promedio' => $est['promedio']
+
             );
         }
         $JString = json_encode($json);
@@ -349,7 +351,9 @@ class directorControl extends Controller
             'razonamientoP11' => $resultado['razonamientoP11'],
             'naturalesP11' => $resultado['naturalesP11'],
             'competenciasP11' => $resultado['competenciasP11'],
-            'inglesP11' => $resultado['inglesP11']
+            'inglesP11' => $resultado['inglesP11'],
+            'nombre' => $aux['nombres'],
+            'apellido' => $aux['apellidos']
         );
         $JString = json_encode($json);
         echo $JString;
