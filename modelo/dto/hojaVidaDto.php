@@ -5,7 +5,7 @@ class hojaVidaDto{
     public $codigoEstudiante;
 
 
-    public function __construct($archivo, $codigoEstudiante){
+    public function __construct($archivo, $codigoEstudiante ){
         $this->archivo = $archivo;
         $this->codigoEstudiante = $codigoEstudiante;
     }

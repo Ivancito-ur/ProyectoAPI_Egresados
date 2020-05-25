@@ -1,16 +1,18 @@
 <?php
 class historialDto{
-    public $idHistorial;
+    
     public $materiasAprobadas;
     public $promedio;
     public $codigoEstudiante;
     public $idSaberPro;
     public $idSaber11;
 
+   
 
 
-    public function __construct($idHistorial, $materiasAprobadas, $promedio, $codigoEstudiante, $idSaberPro, $idSaber11){
-        $this->idHistorial = $idHistorial;
+
+    public function __construct($materiasAprobadas, $promedio, $codigoEstudiante, $idSaberPro, $idSaber11){
+       
         $this->materiasAprobadas = $materiasAprobadas;
         $this->promedio = $promedio;
         $this->codigoEstudiante = $codigoEstudiante;
@@ -18,13 +20,7 @@ class historialDto{
         $this->idSaber11 = $idSaber11;
     }
 
-    public function getidHistorial(){
-        return $this->idHistorial;
-    }
-
-    public function setidHistorial($idHistorial){
-        $this ->idHistorial = $idHistorial;
-    }
+   
 
     public function getmateriasAprobadas(){
         return $this->materiasAprobadas;
