@@ -219,7 +219,7 @@ class directorDao extends Model{
     function uptadeFechaegreso($fecha, $codigo)
     {
         try {
-            $query = $this->db->connect()->prepare('UPDATE estudiante SET fechaEgreso = :fecha WHERE codigoEstudiante = :codigoEstudiante');
+            $query = $this->db->connect()->prepare('UPDATE estudiante SET fechaEgreso = :fecha , egresado=0 WHERE codigoEstudiante = :codigoEstudiante');
             $query->execute([
                 ':codigoEstudiante' => $codigo,
                 ':fecha' => $fecha
