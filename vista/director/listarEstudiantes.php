@@ -31,6 +31,7 @@
                 <th>Correo Institucional</th>
                 <th>Fecha Ingreso</th>
                 <th>Fecha Egreso</th>
+                <th>Promedio</th>
 
               </tr>
             </thead>

@@ -270,6 +270,7 @@ function loadSe() {
         <td >${ta.correoInstitucional}</td>
         <td >${ta.fechaIngreso}</td>
         <td >${ta.fechaEgreso}</td>
+        <td >${ta.promedio}</td>
         </tr>`
       });
       //console.log(template);
@@ -345,10 +346,11 @@ function getPrueba(){
       $('#C2').show();
       $('#C3').show();
       let ta = JSON.parse(resp);
+      $("#name").val(ta[0].nombre);
+      $("#apellido").val(ta[0].apellido);
       pruebaPRO(ta[0].lecturaPP, ta[0].razonamientoPP, ta[0].comunicacionPP, ta[0].competenciasPP, ta[0].inglesPP); 
       prueba11(ta[0].lecturaP11, ta[0].razonamientoP11, ta[0].naturalesP11, ta[0].competenciasP11, ta[0].inglesPP); 
       comparacionPruebas(ta[0].lecturaPP, ta[0].lecturaP11, ta[0].razonamientoPP, ta[0].razonamientoP11,ta[0].competenciasPP, ta[0].competenciasP11, ta[0].inglesPP, ta[0].inglesP11 );
-      console.log("si");
     });   
   
 }
