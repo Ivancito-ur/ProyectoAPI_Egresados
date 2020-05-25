@@ -5,6 +5,14 @@
 require 'modelo/dto/directorDto.php'; 
 require 'modelo/dto/tesisDto.php'; 
 require 'modelo/dto/tesisEstudianteDto.php'; 
+require 'modelo/dto/personaDto.php'; 
+require 'modelo/dto/estudianteDto.php'; 
+require 'modelo/dto/historialDto.php'; 
+require 'modelo/dto/pruebasSaber11Dto.php'; 
+require 'modelo/dto/pruebasSaberProDto.php'; 
+
+
+
 class directorDao extends Model{
     
     public function __construct(){
@@ -13,19 +21,20 @@ class directorDao extends Model{
 
     function insertar_persona($nombres, $apellidos, $documento, $celular, $telefono, $direccion, $correo, $tipo_documento, $conexion)
     {
+        $person = new personaDto($nombres, $apellidos, $documento, $celular, $telefono, $direccion, $correo, $tipo_documento);
         // insertar
         $query = $this->db->connect()->prepare("INSERT INTO persona (documento,nombres,apellidos,celular,correo,telefono,tipo_documento,direccion)
          values (:documento,:nombres,:apellidos,:celular,:correo,:telefono,:tipo_documento,:direccion)");
         try {
             $query->execute([
-                ':documento' => $documento,
-                ':nombres' => $nombres,
-                ':apellidos' => $apellidos,
-                ':celular' => $celular,
-                ':correo' => $correo,
-                ':telefono' => $telefono,
-                ':tipo_documento' => $tipo_documento,
-                ':direccion' => $direccion
+                ':documento' =>  $person->getDocumento(),
+                ':nombres' =>  $person->getNombre(),
+                ':apellidos' =>  $person->getApellido(),
+                ':celular' =>  $person->getCelular(),
+                ':correo' =>  $person->getCorreo(),
+                ':telefono' =>  $person->getTelefono(),
+                ':tipo_documento' =>  $person->getTipoDoc(),
+                ':direccion' =>  $person->getDireccion()
 
             ]);
             $resultado = $query->fetchAll();
@@ -39,22 +48,36 @@ class directorDao extends Model{
     function insertar_estudiante($codigo, $correo_institucional, $documento, $semestre_cursado, $fecha_ingreso, $promedio , $materias_aprobadas ,$fecha_egreso, $egresado, $contraseña, $id_historial, $conexion)
     {
 
-        // insertar
+        $estu = new estudianteDto();
+        $estu->setcodigoEstudiante($codigo);
+        $estu->setDocumento($documento);
+        $estu->setContrasena($contraseña);
+        $estu->setEgresado($egresado);
+        $estu->setCorreo($correo_institucional);
+        $estu->setsemestreCursado($semestre_cursado);
+        $estu->setfechaIngreso($fecha_ingreso);
+        $estu->setfechaEgreso($fecha_egreso);
+        $estu->setidHistorial($id_historial);
+        $estu->setPromedio($promedio);
+        $estu->setMateriaAp($materias_aprobadas);
+
+
+      
         $query = $this->db->connect()->prepare("INSERT INTO estudiante (codigoEstudiante,contrasena,documento,egresado,correoInstitucional,semestreCursado,materiasAprobadas,promedio,fechaIngreso,fechaEgreso,id_historial)
          values (:codigo,:contrasena,:documento,:egresado,:correo_institucional,:semestre_cursado,:materiasAprobadas,:promedio,:fecha_ingreso,:fecha_egreso,:id_historial)");
         try {
             $query->execute([
-                ':codigo' => $codigo,
-                ':contrasena' => $contraseña,
-                ':documento' => $documento,
-                ':egresado' => $egresado,
-                ':correo_institucional' => $correo_institucional,
-                ':semestre_cursado' => $semestre_cursado,
-                ':materiasAprobadas' => $materias_aprobadas,
-                ':promedio' => $promedio,
-                ':fecha_ingreso' => $fecha_ingreso,
-                ':fecha_egreso' => $fecha_egreso,
-                ':id_historial' => $id_historial
+                ':codigo' =>  $estu->getcodigoEstudiante(),
+                ':contrasena' =>  $estu->getContrasena(),
+                ':documento' =>  $estu->getDocumento(),
+                ':egresado' =>  $estu->getEgresado(),
+                ':correo_institucional' =>  $estu->getCorreo(),
+                ':semestre_cursado' =>   $estu->getsemestreCursado(),
+                ':materiasAprobadas' =>  $estu->getMateriaAp(),
+                ':promedio' =>   $estu->getPromedio(),
+                ':fecha_ingreso' => $estu->getfechaIngreso(),
+                ':fecha_egreso' =>  $estu->getfechaEgreso(),
+                ':id_historial' =>   $estu->getidHistorial()
 
             ]);
             $resultado = $query->fetchAll();
@@ -67,17 +90,17 @@ class directorDao extends Model{
 
     function insertar_historial($materias_aprobadas, $promedio, $id_saber11, $id_saberPro, $codigo, $conexion)
     {
-
+        $histo = new historialDto($materias_aprobadas, $promedio, $codigo, $id_saberPro, $id_saber11);
         // insertar
         $query = $this->db->connect()->prepare("INSERT INTO historial (materiasAprobadas,promedio,idSaberPro,idSaber11,codigoEstudiante)
          values (:materias_aprobadas,:promedio,:id_saberPro,:id_saber11,:codigo)");
         try {
             $query->execute([
-                ':materias_aprobadas' => $materias_aprobadas,
-                ':promedio' => $promedio,
-                ':id_saberPro' => $id_saberPro,
-                ':id_saber11' => $id_saber11,
-                ':codigo' => $codigo
+                ':materias_aprobadas' =>   $histo->getmateriasAprobadas(),
+                ':promedio' => $histo->getPromedio(),
+                ':id_saberPro' =>  $histo->getidSaberPro(),
+                ':id_saber11' =>  $histo->getidSaber11(),
+                ':codigo' => $histo->getcodigoEstudiante()
             ]);
             $resultado = $query->fetchAll();
             return true;
@@ -89,17 +112,17 @@ class directorDao extends Model{
 
     function insertar_saber_11($id_saber11, $lectura, $matematica, $sociales, $naturales, $ingles, $conexion)
     {
-        // insertar
+        $pruebasSaber11 = new pruebasSaber11Dto($id_saber11, $lectura, $matematica, $sociales, $naturales, $ingles);
         $query = $this->db->connect()->prepare("INSERT INTO pruebassaber11 (idSaber11,lectura_critica,matematica,sociales_ciudadanas,naturales,ingles)
          values (:id_saber11,:lectura,:matematica,:sociales,:naturales,:ingles)");
         try {
             $query->execute([
-                ':id_saber11' => $id_saber11,
-                ':lectura' => $lectura,
-                ':matematica' => $matematica,
-                ':sociales' => $sociales,
-                ':naturales' => $naturales,
-                ':ingles' => $ingles
+                ':id_saber11' => $pruebasSaber11->getidSaber11(),
+                ':lectura' => $pruebasSaber11->getLectura(),
+                ':matematica' =>  $pruebasSaber11->getMatematicas(),
+                ':sociales' =>  $pruebasSaber11->getSociales(),
+                ':naturales' => $pruebasSaber11->getNaturales(),
+                ':ingles' => $pruebasSaber11->getIngles()
             ]);
             $resultado = $query->fetchAll();
             return true;
@@ -113,17 +136,17 @@ class directorDao extends Model{
     function insertar_saber_pro($id_saberPro, $lectura, $razonamiento, $sociales, $comunicacion, $ingles, $conexion)
     {
 
-        // insertar
+        $pruebasSaberPro = new pruebasSaberProDto($id_saberPro, $lectura, $razonamiento, $sociales, $comunicacion, $ingles);
         $query = $this->db->connect()->prepare("INSERT INTO pruebassaberpro (idSaberPro,lectura_critica,razonamiento_cuantitativo,competencias_ciudadana,comunicacion_escrita,ingles)
          VALUES (:id_saberPro,:lectura,:razonamiento,:sociales,:comunicacion,:ingles)");
         try {
             $query->execute([
-                ':id_saberPro' => $id_saberPro,
-                ':lectura' => $lectura,
-                ':razonamiento' => $razonamiento,
-                ':sociales' => $sociales,
-                ':comunicacion' => $comunicacion,
-                ':ingles' => $ingles
+                ':id_saberPro' => $pruebasSaberPro->getidSaberpro(),
+                ':lectura' => $pruebasSaberPro->getLectura(),
+                ':razonamiento' => $pruebasSaberPro->getRazonamiento(),
+                ':sociales' =>  $pruebasSaberPro->getSociales(),
+                ':comunicacion' => $pruebasSaberPro->getComunicacion(),
+                ':ingles' => $pruebasSaberPro->getIngles()
             ]);
             $resultado = $query->fetchAll();
             return true;

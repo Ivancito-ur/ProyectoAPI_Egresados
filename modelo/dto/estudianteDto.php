@@ -7,6 +7,8 @@ class estudianteDto{
     public $egresado;
     public $correoInstitucional;
     public $semestreCursado;
+    public $promedio ;
+    public $materias_aprobadas;
     public $fechaIngreso;
     public $fechaEgreso;
     public $idHistorial;
@@ -88,6 +90,22 @@ class estudianteDto{
 
     public function setidHistorial($idHistorial){
         $this ->idHistorial = $idHistorial;
+    }
+
+    public function getPromedio(){
+        return $this->promedio;
+    }
+
+    public function setPromedio($promedio){
+        $this ->promedio = $promedio;
+    }
+
+    public function getMateriaAp(){
+        return $this->materias_aprobadas;
+    }
+
+    public function setMateriaAp($materias_aprobadas){
+        $this ->materias_aprobadas = $materias_aprobadas;
     }
 }
 
