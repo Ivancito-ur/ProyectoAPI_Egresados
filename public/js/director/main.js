@@ -1,4 +1,4 @@
-const URLD = "http://localhost/ProyectoAPI_Egresados/";
+﻿const URLD = "http://localhost/ProyectoAPI_Egresados/";
 let templateCodigos = '';
 var lista = [];
 var extTesis = "";
@@ -26,7 +26,7 @@ function recargaTesis() {
                     </div>
                     <div class="card-body">
                         <h5 class="card-title">${tasks[cont].titulo}</h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                        
                     </div>
                 </div>`;
         cont++;
@@ -132,15 +132,20 @@ function actualizarFecha(e) {
   e.preventDefault();
   var fechae = $('#fechae').val();
   var codigo = $("#codigo").val();
-  if (fechae == "" || !$('#exampleCheck1').is(':checked')) {
-    return;
-  }
   if (codigo == "") {
     $('#respuestaActualizar').text("Busca primero un estudiante.");
     $('#actu2').hide();
     $('#actu1').show();
     return;
   }
+  if (fechae == "" || !$('#exampleCheck1').is(':checked')) {
+    $('#respuestaActualizar').text("Marca el boton check y/o asigna una fecha.");
+    $('#actu2').hide();
+    $('#actu1').show();
+    return;
+    
+  }
+ 
   httpRequest(URLD + "directorControl/actualizarFecha/" + fechae + "/" + codigo, function () {
 
     const resp = this.responseText;

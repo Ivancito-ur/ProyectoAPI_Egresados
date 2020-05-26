@@ -11,6 +11,9 @@
           } else if(isset($_SESSION['administrador'])){
             header('Location: ' . constant('URL'). 'directorControl');   
             return;
+          } else if(isset($_SESSION['empresa'])){
+            header('Location: ' . constant('URL'). 'directorControl');   
+            return;
           } 
 
 
@@ -32,6 +35,7 @@
 
 
         function validarEstudiante($url=null){
+          if($url==null)return;
           $resultado = $this->model->verificarEstudiante($url[0], $url[1], $url[2]);
           if(empty($resultado)){
             echo "0";
@@ -45,6 +49,7 @@
 
 
         function validarDirector($url=null){
+          if($url==null)return;
           $resultado = $this->model->verificarDirector($url[0], $url[1], $url[2]);
           if(empty($resultado)){
             echo "0";
@@ -56,18 +61,37 @@
           //echo $url[0];
         }
 
+        function validarEmpresa($url=null){
+          if($url==null)return;
+          $resultado = $this->model->verificarEmpresa($url[0], $url[1]);
+          if(empty($resultado)){
+            echo "0";
+            return;
+          }
+          $_SESSION["empresa"] = "entro";
+          echo "1";
+          //echo $url[0];
+        }
+
         function cerrarSesionEstudiante(){
           unset($_SESSION['usuario']);
           unset($_SESSION['documento']);
           session_destroy();
           header('Location: ' . constant('URL'). 'loginControl');  
       }
+      
         function cerrarSesionAdministrativo(){
           unset($_SESSION['administrador']);
           unset($_SESSION['documentoAdmin']);
           session_destroy();
           header('Location: ' . constant('URL'). 'loginControl');  
       }
+
+      function cerrarSesionEmpresa(){
+        unset($_SESSION['empresa']);
+        session_destroy();
+        header('Location: ' . constant('URL'). 'loginControl');  
+    }
 
 
 

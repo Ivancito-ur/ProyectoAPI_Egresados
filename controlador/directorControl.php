@@ -13,6 +13,7 @@ class directorControl extends Controller
         }
         $this->view->datos = [];
         $this->view->cantidad = [];
+        $this->view->cantidadTesis = [];
     }
 
 
@@ -250,6 +251,7 @@ class directorControl extends Controller
     {
         $this->view->datos = $this->model->cargarEstuTesis();
         $this->view->cantidad = $this->model->listarEstudiantes();
+        $this->view->cantidadTesis = $this->model->getTesis();
     }
     function buscarCodigo($param = null)
     {

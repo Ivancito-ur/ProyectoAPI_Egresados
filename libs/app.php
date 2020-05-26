@@ -45,8 +45,8 @@
             //inicializa el controlador y cargamos el modelo
             $controller = new $url[0];
             $url[0] = rtrim($url[0], 'Control');
-            //echo $url[0];
-
+            
+             
             if($url[0]=="direc"){
                 $url[0]="director";
             }
@@ -73,9 +73,11 @@
             }
         }else{
            echo "nada";
-           // $controller = new errorControl("index");
-        }    
+           // $controller = new errorControl("index"); 
+        }  
+       
     }  
+      
 }
 
 ?>
