@@ -27,6 +27,7 @@ class estudianteControl extends Controller{
           
           $this->getDatos();
           $this->getHoja();
+  
           if(isset($ubicacion[0])){
           $this->view->render($constr , $ubicacion[0]);
           }else{
@@ -65,6 +66,20 @@ class estudianteControl extends Controller{
         function getHoja(){
           $codigo = $_SESSION['usuario'];
           $this->view->direccion =  $this->model->existHoja($codigo);
+         
+        }
+
+        function getTesis(){
+          $codigo = $_SESSION['usuario'];
+          $respuesta = $this->model->existTesis($codigo);
+
+          $json[] = array(
+            'archivo' => $respuesta['archivo'],
+            'titulo' => $respuesta['titulo']
+          );
+
+        $JString = json_encode($json);
+        echo $JString;
          
         }
 

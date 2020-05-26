@@ -68,6 +68,20 @@ class estudianteDao extends Model{
     }
 
 
+    public function existTesis($codigo){
+        try{
+            $statement = $this->db->connect()->prepare("SELECT t.titulo, t.archivo FROM tesis t INNER JOIN tesis_estudiante et ON t.id=et.id_tesis WHERE et.codigoEstudiante =:codigoEstudiante LIMIT 1" );
+            $statement->execute(array(
+                ':codigoEstudiante' => $codigo
+            ));
+            $resultado = $statement->fetch();
+            return $resultado;
+        }catch(PDOException $e){
+            return null;
+        }
+    }
+
+
 
 
 }

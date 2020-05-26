@@ -25,6 +25,35 @@ function loadAc() {
     };
     xhttp.open("GET", "vista/estudiante/verTesis.php", true);
     xhttp.send();
+    var templateTesis="";
+
+    httpRequest(URLD + "estudianteControl/getTesis" ,function(){
+          
+
+      var resp = this.responseText;
+      var aux = resp.split("\n").join("");
+      const task = JSON.parse(aux);
+      console.log(task[0].archivo);
+      if(task[0].archivo!=null){
+        templateTesis = `<div class="form-group">
+        <div class="embed-responsive embed-responsive-16by9" id="pdf">
+            <iframe class="embed-responsive-item" src="${task[0].archivo}" allowfullscreen></iframe>
+        </div>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">${task[0].titulo}</h5>
+      
+    </div>`;
+      }
+      $('#tesisEstudiante').html(templateTesis);
+
+
+      
+    });   
+
+
+
+
     return false;
   }
 
