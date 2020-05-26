@@ -56,10 +56,10 @@
         <p class="login-box-msg">Ingresa tus datos para iniciar sesión</p>
 
         <label for="inputEmail" class="sr-only">Codigo</label>
-        <input type="text" id="inpCodigo" class="form-control" placeholder="Codigo" value="1151612" required autofocus>
+        <input type="text" id="inpCodigo" class="form-control" placeholder="Codigo"  required autofocus>
 
         <label for="inputPassword" class="sr-only">Documento</label>
-        <input type="password" id="inputDocumento" class="form-control" placeholder="Documento" value="1052253" required>
+        <input type="password" id="inputDocumento" class="form-control" placeholder="Documento"  required>
 
         <label for="inputPassword" class="sr-only">Contraseña</label>
         <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" required>

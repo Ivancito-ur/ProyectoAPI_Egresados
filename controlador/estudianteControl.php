@@ -41,8 +41,8 @@ class estudianteControl extends Controller{
 
 
         function actualizarDatos($param = null){
-         if($param == null)return;
-         $this->model->updateDatos([ 'documento' => $_SESSION['documento'],'telefono' => $param[0], 'direccion' => $param[1], 'correo' =>$param[2], 'celular'=>$param[3]]);
+          if($param == null)return;
+          $this->model->updateDatos([ 'documento' => $_SESSION['documento'],'celular' => $param[0], 'telefono' => $param[1], 'direccion' =>$param[2], 'correo'=>$param[3]]);
         }
 
         function cargarPDF($param = null){

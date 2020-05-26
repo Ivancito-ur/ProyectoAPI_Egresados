@@ -35,7 +35,7 @@
 
 
         function validarEstudiante($url=null){
-          if($url==null)return;
+          //if($url==null)return;
           $resultado = $this->model->verificarEstudiante($url[0], $url[1], $url[2]);
           if(empty($resultado)){
             echo "0";

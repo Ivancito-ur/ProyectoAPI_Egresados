@@ -79,11 +79,11 @@ function verificarDatosEmpresa(e) {
 
     var resp = this.responseText;
 
-    console.log(resp);/*
+    console.log(resp);
     if (resp == "0") {
       $('.respuestaEmpre').text("Usuario y/o contraseña incorrecto");
       $('#respuestaEmpresa').show();
-      return;*/
+      return;}
     if (resp == "1") {
       window.location.href = URLD + "empresaControl";
     }

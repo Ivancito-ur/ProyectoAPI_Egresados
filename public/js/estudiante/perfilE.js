@@ -1,4 +1,3 @@
-
 const URLD = "http://localhost/ProyectoAPI_Egresados/";
 $('#alert').hide();   
 $('#alert2').hide();   
@@ -103,18 +102,26 @@ $(document).on('change','input[type="file"]',function(){
 
 function actualizarDatos(e){
   e.preventDefault();
+  var celular =$('#celular').val();
   var telefono =$('#telefono').val();
   var direccion=$('#direccion').val();
   var correo=$('#correo').val();
   var empresa=$('#empresa').val();
-  if(!verificarVacio([telefono, direccion, correo,empresa ])){
+  if(celular=="" || telefono=="" || direccion=="" || correo==""){
     $('#respuestaACTU').text("Por favor, Introduce todos los valores");
     $('#alertACTU2').hide();  
     $('#alertACTU').show();
-    console.log("llena todos los valores");
     return;
   }
-  httpRequest(URLD + "estudianteControl/actualizarDatos/" + telefono + "/" + direccion + "/" + correo + "/" + empresa ,function(){
+  if (!$('#exampleCheck1').is(':checked')) {
+    $('#respuestaACTU').text("Marca el boton check");
+    $('#alertACTU2').hide();  
+    $('#alertACTU').show();
+    return;
+    
+  }
+  $('#alertACTU').hide();
+  httpRequest(URLD + "estudianteControl/actualizarDatos/" + celular + "/" + telefono + "/" + direccion + "/" + correo + "/" + empresa ,function(){
           
   var resp = this.responseText;
   console.log(resp);
