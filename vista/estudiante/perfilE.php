@@ -79,6 +79,12 @@
                 <span class="nav-link-text">Actualizar Datos</span>
               </a>
             </li>
+            <li class="nav-item">
+              <a onclick="loadTe()" class="nav-link" href="#">
+              <i class="fas fa-list"></i>
+                <span class="nav-link-text">Listado de Tesis</span>
+              </a>
+            </li>
           </ul>
           <!-- Divider -->
           <hr class="my-3">
