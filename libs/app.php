@@ -1,6 +1,6 @@
 <?php
 
- //require_once 'controlador/errorControl.php';
+ require_once 'controlador/errorControl.php';
  class App{
    
 
@@ -58,6 +58,8 @@
             //numero de elentos del arreglo
             $nparam = sizeof($url);
             if($nparam>1){
+                $def = method_exists($controller,$url[1]);
+                if(!$def) $controller = new errorControl("error");
                 if($nparam>2){
                     $param=[];
                     for($i = 2; $i<$nparam;$i++){
@@ -72,8 +74,7 @@
                 $controller->render(null);
             }
         }else{
-           echo "nada";
-           // $controller = new errorControl("index"); 
+            $controller = new errorControl("error"); 
         }  
        
     }  

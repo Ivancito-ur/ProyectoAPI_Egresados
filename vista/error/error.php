@@ -11,8 +11,8 @@
 
 <body style="background-color: #ecf0f5;">
     <div class="container text-center">
-        <div>
-            <img src="https://img.icons8.com/flat_round/500/000000/error--v1.png" class="img-fluid"
+        <div >
+            <img src="https://img.icons8.com/flat_round/280/000000/error--v1.png" class="img-fluid"
                 alt="Responsive image" style="padding-top: 8%;">
         </div>
         <div>
