@@ -10,7 +10,11 @@
       <label for="inputPassword" class="sr-only">Contraseña</label>
       <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" required>
 
-      <button type="submit" class="btn btn-danger btn-block btn-flat">Iniciar Sesión</button>
+      <div style="display:none" id="respuestaEmpresa" class="alert alert-danger" role="alert">
+            <p class="respuestaEmpre" ></p>
+      </div>
+
+      <button onclick="return verificarDatosEmpresa(event)" type="submit" class="btn btn-danger btn-block btn-flat">Iniciar Sesión</button>
 
     </form>
   </div>

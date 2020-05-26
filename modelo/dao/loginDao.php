@@ -53,6 +53,20 @@ class loginDao extends Model{
         }
     }
 
+    public function verificarEmpresa($codigo, $contraseña){
+        try{
+            $statement = $this->db->connect()->prepare("SELECT nitEmpresa FROM empresas WHERE  nitEmpresa = :codigo AND contrasena = :contrasena ");
+            $statement->execute(array(
+                ':codigo' => $codigo,
+                ':contrasena' => $contraseña 
+            ));
+            $resultado = $statement->fetch();
+            return $resultado;
+        }catch(PDOException $e){
+            return null;
+        }
+    }
+
 
     function getCodigoDirector($codigo, $correo){
         try{

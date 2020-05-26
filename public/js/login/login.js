@@ -63,6 +63,36 @@ function verificarDatosAdmin(e) {
 }
 
 
+
+//VERIFICAR DATOS EMPRESA
+
+function verificarDatosEmpresa(e) {
+  e.preventDefault();
+  var inputNit = $('#inputNit').val();
+  var inputPassword = $('#inputPassword').val();
+  if (!verificarVacio([inputNit, inputPassword])) {
+    $('.respuestaEmpre').text("Por favor llene todos los campos!");
+    $('#respuestaEmpresa').show();
+    return;
+  }
+  httpRequest(URLD + "loginControl/validarEmpresa/" + inputNit + "/" + inputPassword, function () {
+
+    var resp = this.responseText;
+
+    console.log(resp);/*
+    if (resp == "0") {
+      $('.respuestaEmpre').text("Usuario y/o contraseña incorrecto");
+      $('#respuestaEmpresa').show();
+      return;*/
+    if (resp == "1") {
+      window.location.href = URLD + "empresaControl";
+    }
+
+  });
+  return false;
+}
+
+
 function loadE() {
 
   var xhttp = new XMLHttpRequest();

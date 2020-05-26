@@ -237,8 +237,8 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Documentos subidos</h5>
-                      <span class="h2 font-weight-bold mb-0">0</span>
+                      <h5 class="card-title text-uppercase text-muted mb-0">Tesis subidas</h5>
+                      <span class="h2 font-weight-bold mb-0"><?php echo  count($this->cantidadTesis) ?></span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
@@ -381,6 +381,11 @@
       </div>
 
     </div>
+  
+
+
+
+
   </div>
   <div class="main-footer">
 

@@ -5,13 +5,20 @@ class personaDto{
     public $nombre;
     public $correo;
     public $telefono;
+    public $celular;
+    public $direccion;
+    public $fechaRegistro;
+    public $contrasena;
 
-
-    public function __construct($nitEmpresa, $nombre, $correo, $telefono){
+    public function __construct($nitEmpresa, $nombre, $correo, $telefono,$celular, $direccion, $fechaRegistro, $contrasena){
         $this->nitEmpresa = $nitEmpresa;
         $this->nombre = $nombre;
         $this->correo = $correo;
         $this->telefono = $telefono;
+        $this->celular = $celular;
+        $this->direccion = $direccion;
+        $this->fechaRegistro = $fechaRegistro;
+        $this->contrasena = $contrasena;
     }
 
     public function getnitEmpresa(){
@@ -45,6 +52,42 @@ class personaDto{
 
     public function setTelefono($telefono){
         $this ->telefono = $telefono;
+    }
+
+    ////////////////////////////
+
+
+    public function getCelular(){
+        return $this->celular;
+    }
+
+    public function setCelular($celular){
+        $this ->celular = $celular;
+    }
+
+    public function getDireccion(){
+        return $this->direccion;
+    }
+
+    public function setDireccion($direccion){
+        $this ->direccion = $direccion;
+    }
+
+    public function getFechaR(){
+        return $this->fechaRegistro;
+    }
+
+    public function setFechaR($fechaRegistro){
+        $this ->fechaRegistro = $fechaRegistro;
+    }
+
+
+    public function getContrasena(){
+        return $this->contrasena;
+    }
+
+    public function setContrasena($contrasena){
+        $this ->contrasena = $contrasena;
     }
 
 }
