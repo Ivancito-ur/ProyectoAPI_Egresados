@@ -70,12 +70,17 @@
               </a>
             </li>
             <li class="nav-item">
+              <a onclick="loadAc()" class="nav-link"href="#">
+                <i class="fas fa-edit"></i>
+                <span class="nav-link-text">Actualizar estudiantes</span>
+              </a>
+            </li>
+            <li class="nav-item">
               <a onclick="loadLi()" class="nav-link" href="#">
                 <i class="ni ni-bullet-list-67 text-default"></i>
                 <span class="nav-link-text">Lista de estudiantes</span>
               </a>
             </li>
-
             <li class="nav-item">
               <a onclick="loadTe()" class="nav-link" href="#">
                 <i class="fas fa-file-upload"></i>

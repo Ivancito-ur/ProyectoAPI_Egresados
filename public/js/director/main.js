@@ -229,6 +229,17 @@ function loadCa() {
   xhttp.send();
 }
 
+function loadAc() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("contenedor").innerHTML = this.responseText;
+    }
+  };
+  xhttp.open("GET", "vista/director/actualizacion.php", true);
+  xhttp.send();
+}
+
 function loadTe() {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
