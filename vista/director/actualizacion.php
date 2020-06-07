@@ -20,22 +20,26 @@
                   placeholder="Codigo Estudiante" aria-label="Recipient's username" aria-describedby="button-addon2"
                   required>
                 <div class="input-group-append">
-                  <button onclick="cargaDatos(event)" class="btn btn-outline-secondary" type="button" id="button-addon2"
+                  <button onclick="return cargarDatosActualizar(event)" class="btn btn-outline-secondary" type="button" id="button-addon2"
                     style="background-color: #dd4b39; border-color: #dd4b39; color: white;">Buscar</button>
                 </div>
               </div>
               <div style="width:80%;margin:auto; display:none; text-align:center; padding:10px ; margin-top:15px"
-                id="alertCodigo" class="alert alert-danger" role="alert">
-                <p class="respuesta" id="respuestaCarga"></p>
+                id="actualizarE" class="alert alert-danger" role="alert">
+                <p class="respuestaACtu" id=""></p>
               </div>
               <div style="width:80%; margin:auto;display:none;  text-align:center; padding:10px ; margin-top:15px"
-                id="alert2Codigo" class="alert alert-success" role="alert">
+                id="actualizarE2" class="alert alert-success" role="alert">
                 Cargado Correctamente
               </div>
               <form id="fcargaDatos">
                 <div class="form-group">
                   <label for="nombre">Nombre</label>
                   <input type="text" class="form-control" id="nombre" required>
+                </div>
+                <div class="form-group">
+                  <label for="apellido">Apellido</label>
+                  <input type="text" class="form-control" id="apellido" required>
                 </div>
                 <div class="form-group">
                   <label for="codigo">Codigo</label>
@@ -62,7 +66,7 @@
                   <input type="text" class="form-control" id="semestre" required>
                 </div>
                 <div class="form-group">
-                  <label for="materias">Materias Apronbadas</label>
+                  <label for="materias">Materias Aprobadas</label>
                   <input type="text" class="form-control" id="materias" required>
                 </div>
                 <div class="form-group form-check">
@@ -71,18 +75,20 @@
                 </div>
 
                 <div style="width:80%;margin:auto; display:none; text-align:center; padding:10px; margin-bottom:15px"
-                  id="actu1" class="alert alert-danger" role="alert">
-                  <p class="respuesta" id="respuestaActualizar"></p>
+                  id="gar" class="alert alert-danger" role="alert">
+                  <p class="respuesta" id="garRespuesta"></p>
                 </div>
                 <div
                   style="width:80%; margin:auto;display:none;  text-align:center; padding:10px ; margin-top:15px; margin-bottom:15px"
-                  id="actu2" class="alert alert-success" role="alert">
+                  id="gar2" class="alert alert-success" role="alert">
                   Actualizado Correctamente
                 </div>
 
+                
+
                 <button type="submit" class="btn btn-primary" id="botonActualizar"
                   style="background-color: #dd4b39; border-color: #dd4b39;"
-                  onclick="return actualizarFecha(event)">Actualizar </button>
+                  onclick="return actualizarDatosEstudiante(event)">Actualizar </button>
               </form>
             </div>
           </div>
@@ -106,7 +112,7 @@
               <br>
               <h4 style="padding-left: 10px;">Actualizar Estudiante</h4>
               <div class="input-group mb-3" style="padding-left: 10px; padding-right: 10px;">
-                <input type="number" maxlength="7" id="busquedaCodigo" class="form-control"
+                <input type="number" maxlength="7" id="busquedaCodigoF" class="form-control"
                   placeholder="Codigo Estudiante" aria-label="Recipient's username" aria-describedby="button-addon2"
                   required>
                 <div class="input-group-append">
@@ -114,6 +120,7 @@
                     style="background-color: #dd4b39; border-color: #dd4b39; color: white;">Buscar</button>
                 </div>
               </div>
+
               <div style="width:80%;margin:auto; display:none; text-align:center; padding:10px ; margin-top:15px"
                 id="alertCodigo" class="alert alert-danger" role="alert">
                 <p class="respuesta" id="respuestaCarga"></p>
@@ -122,26 +129,28 @@
                 id="alert2Codigo" class="alert alert-success" role="alert">
                 Cargado Correctamente
               </div>
+
+
               <form id="fcargaDatos">
                 <div class="form-group">
                   <label for="nombre">Nombre</label>
-                  <input type="text" class="form-control" id="nombre" readonly>
+                  <input type="text" class="form-control" id="nombreF" readonly>
                 </div>
                 <div class="form-group">
                   <label for="codigo">Codigo</label>
-                  <input type="text" class="form-control" id="codigo" readonly>
+                  <input type="text" class="form-control" id="codigoF" readonly>
                 </div>
                 <div class="form-group">
                   <label for="fechai">Fecha Ingreso</label>
-                  <input type="text" class="form-control" id="fechai" readonly>
+                  <input type="text" class="form-control" id="fechaiF" readonly>
                 </div>
                 <div class="form-group">
                   <label for="fechae">Fecha Egreso</label>
-                  <input type="date" class="form-control" id="fechae" required>
+                  <input type="date" class="form-control" id="fechaeF" required>
                 </div>
                 <div class="form-group form-check">
-                  <input type="checkbox" class="form-check-input" id="exampleCheck1" required>
-                  <label class="form-check-label" for="exampleCheck1">Acepto</label>
+                  <input type="checkbox" class="form-check-input" id="exampleCheck1F" required>
+                  <label class="form-check-label" for="exampleCheck1F">Acepto</label>
                 </div>
 
                 <div style="width:80%;margin:auto; display:none; text-align:center; padding:10px; margin-bottom:15px"

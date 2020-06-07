@@ -79,12 +79,18 @@ function cargaHojaVida() {
 function cargaDatos(e) {
   $('#actu2').hide();
   $('#actu1').hide();
-  var busquedaCodigo = $('#busquedaCodigo').val();
+  var busquedaCodigo = $('#busquedaCodigoF').val();
 
-  if (parseInt(busquedaCodigo, 10) < 1 || busquedaCodigo=="") {
+  if (parseInt(busquedaCodigo, 10) < 1) {
     $('#alertCodigo').show();
     $('#alert2Codigo').hide();
     $('.respuesta').text("Introduzca un valor numerico positivo");
+    return;
+  }
+  if (busquedaCodigo=="") {
+    $('#alertCodigo').show();
+    $('#alert2Codigo').hide();
+    $('.respuesta').text("Introduzca Codigo a buscar");
     return;
   }
   httpRequest(URLD + "directorControl/buscarCodigo/" + busquedaCodigo, function () {
@@ -102,21 +108,24 @@ function cargaDatos(e) {
 
     const task = JSON.parse(resp);
 
-    $("#nombre").val(task[0].nombres);
-    $("#codigo").val(task[0].codigoEstudiante);
-    $("#fechai").val(task[0].fechaIngreso);
+    $("#nombreF").val(task[0].nombres);
+    $("#codigoF").val(task[0].codigoEstudiante);
+    $("#fechaiF").val(task[0].fechaIngreso);
     if (task[0].fechaEgreso != '0000-00-00') {
       $('#alert2Codigo').hide();
       $('#alertCodigo').show();
       $('.respuesta').text("¡Usuario con fecha ya actualizada!");
-      $("#fechae").val(task[0].fechaEgreso);
-      $("#fechae").prop("disabled",true);     
+      $("#fechaeF").val(task[0].fechaEgreso);
+      $("#fechaeF").prop("disabled",true);     
       return;
     }
-    $("#fechae").val(task[0].fechaEgreso);
-    $("#fechae").prop("disabled",false);   
+    $("#fechaeF").val(task[0].fechaEgreso);
+    $("#fechaeF").prop("disabled",false);   
 
-    $('#busquedaCodigo').val("");
+    $('#busquedaCodigoF').val("");
+    $("#nombreF").val("");
+    $("#codigoF").val("");
+    $("#fechaiF").val("");
 
     $('#alertCodigo').hide();
     $('#alert2Codigo').show();
@@ -124,21 +133,118 @@ function cargaDatos(e) {
 
 }
 
-function validaTamaño(tamaño) {
-  
+
+function cargarDatosActualizar(e){
+  var codigo = $('#busquedaCodigo').val();
+  if(codigo==""){
+    $('.respuestaACtu').text("Por favor ingrese el codigo.");
+    $('#actualizarE2').hide();
+    $('#actualizarE').show();
+    return;
+  }
+
+  httpRequest(URLD + "directorControl/ListarEstudianteActualizar/" + codigo, function () {
+   
+    const resp = this.responseText;
+    var aux = resp.split("\n").join("");
+    console.log(aux);
+    $('#actualizarE').hide();
+    const task = JSON.parse(aux);
+    $("#codigo").val(task[0].codigoEstudiante);
+    $("#nombre").val(task[0].nombres);
+    $("#apellido").val(task[0].apellidos );
+    $("#fechai").val(task[0].fechaIngreso);
+    $("#promedio").val(task[0].promedio);
+    $("#codigoPro").val(task[0].idPro);
+    $("#codigo11").val(task[0].id11);
+    $("#semestre").val(task[0].semestreCursado);
+    $("#materias").val(task[0].materiasAprobadas);
+
+
+  });
+
 }
+
+function actualizarDatosEstudiante(e){
+  e.preventDefault();
+    var codigoP = $('#busquedaCodigo').val();
+    var codigo = $("#codigo").val();
+    var nombre = $("#nombre").val();
+    var apellido = $("#apellido").val();
+    var fechaI = $("#fechai").val();
+    var promedio = $("#promedio").val();
+    var codigoPro = $("#codigoPro").val();
+    var codigo11 = $("#codigo11").val();
+    var semestre = $("#semestre").val();
+    var materias = $("#materias").val();
+
+  if(codigo=="" || nombre=="" ||apellido=="" ||fechaI=="" ||promedio=="" ||codigoPro=="" ||codigo11=="" || semestre=="" ||  materias=="" ){
+    $('#garRespuesta').text("Por favor llene todos los valores");
+    $('#gar2').hide();
+    $('#gar').show();
+    return;
+  }
+
+  httpRequest(URLD + "directorControl/validarCodigoPrueba/" + codigoPro + "/" + codigo11 , function () {
+
+    const resp = this.responseText;
+    var aux = resp.split("\n").join("");
+    if(aux==1){
+      $('#garRespuesta').text("Codigo de prueba saberPro no registrado");
+      $('#gar2').hide();
+      $('#gar').show();
+      return;
+    }
+    if(aux==2){
+      $('#garRespuesta').text("Codigo de prueba saber11 no registrado");
+      $('#gar2').hide();
+      $('#gar').show();
+      return;
+    }
+    httpRequest(URLD + "directorControl/EstudianteActualizar/" + codigoP +  "/" + codigo  + "/"  + nombre + "/" + apellido +  "/" + fechaI + "/" + promedio + "/" + codigoPro + "/" + codigo11 + "/" + semestre + "/" + materias , function () {
+
+      const resp = this.responseText;
+      var aux = resp.split("\n").join("");
+      console.log(aux);
+      $('#gar').hide();
+      $('#gar2').show();
+      setTimeout(function () {
+        $("#gar2").fadeOut(1500);
+      }, 3000)
+     
+      $("#codigo").val("");
+      $("#nombre").val("");
+      $("#apellido").val("");
+      $("#fechai").val("");
+      $("#promedio").val("");
+      $("#codigoPro").val("");
+      $("#codigo11").val("");
+      $("#semestre").val("");
+      $("#materias").val("");
+      return;
+    });
+  
+  });
+
+  return false;
+ 
+
+ 
+}
+
+
 
 function actualizarFecha(e) {
   e.preventDefault();
-  var fechae = $('#fechae').val();
-  var codigo = $("#codigo").val();
+  var fechae = $('#fechaeF').val();
+  var codigo = $("#codigoF").val();
   if (codigo == "") {
     $('#respuestaActualizar').text("Busca primero un estudiante.");
     $('#actu2').hide();
     $('#actu1').show();
     return;
   }
-  if (fechae == "" || !$('#exampleCheck1').is(':checked')) {
+  if (fechae == "" || !$('#exampleCheck1F').is(':checked')) {
     $('#respuestaActualizar').text("Marca el boton check y/o asigna una fecha.");
     $('#actu2').hide();
     $('#actu1').show();

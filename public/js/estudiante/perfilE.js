@@ -25,7 +25,7 @@ function loadAc() {
     };
     xhttp.open("GET", "vista/estudiante/verTesis.php", true);
     xhttp.send();
-    var templateTesis="";
+    var templateTesis="No ha realizado tesis de grado.";
 
     httpRequest(URLD + "estudianteControl/getTesis" ,function(){
           
