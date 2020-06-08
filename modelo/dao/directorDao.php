@@ -268,6 +268,48 @@ class directorDao extends Model{
         }
     }
 
+    function listarEstudiantesActualizar($codigo)
+    {
+        try {
+            $statement = $this->db->connect()->prepare("SELECT e.codigoEstudiante, p.nombres, p.apellidos,  e.fechaIngreso, e.promedio, h.idSaberPro, h.idSaber11 , e.semestreCursado, e.materiasAprobadas FROM estudiante e INNER JOIN persona p ON e.documento= p.documento INNER JOIN historial h ON e.codigoEstudiante=h.codigoEstudiante  WHERE e.codigoEstudiante=$codigo LIMIT 1");
+            $statement->execute();
+            $resultado = $statement->fetch(PDO::FETCH_ASSOC);
+            return  $resultado;
+        } catch (PDOException $e) {
+            return null;
+        }
+    }
+
+    
+    function estudiantesActualizar($codigoP , $codigo, $nombre , $apellido,  $fechaI , $promedio , $codigoPro , $codigo11 , $semestre , $materias )
+    {
+        try {
+            $statement = $this->db->connect()->prepare("UPDATE estudiante e  INNER JOIN persona p ON e.documento= p.documento INNER JOIN historial h ON e.codigoEstudiante=h.codigoEstudiante SET e.codigoEstudiante=:codigo , p.nombres=:nombres,
+              p.apellidos=:apellido, e.fechaIngreso=:fechaI, e.promedio=:promedio, h.idSaberPro=:codigoPro, h.idSaber11=:codigo11, e.semestreCursado=:semestre, e.materiasAprobadas=:materias ,
+               h.materiasAprobadas=:materiasApro, h.promedio=:promedioApro, h.codigoEstudiante=:codigoApro  WHERE e.codigoEstudiante=:codigoP");
+            $statement->execute([
+                ':codigo'=>$codigo,
+                ':nombres'=> $nombre,
+                ':apellido'=>$apellido,
+                ':fechaI'=>$fechaI,
+                ':promedio'=> $promedio,
+                ':codigoPro'=>$codigoPro,
+                ':codigo11'=>$codigo11,
+                ':semestre'=> $semestre,
+                ':materias'=>$materias,
+                ':materiasApro'=> $materias,
+                ':promedioApro'=>$promedio,
+                ':codigoApro'=>$codigo,
+                ':codigoP'=>$codigoP
+                
+            ]);//,,   
+            $aux =  $statement->rowCount();
+            return substr($aux, 0, 1);
+        } catch (PDOException $e) {
+            return null;
+        }
+    }
+
 
     function buscarEstudiantes($codigo)
     {
@@ -276,6 +318,28 @@ class directorDao extends Model{
             $statement = $this->db->connect()->prepare("SELECT e.codigoEstudiante, e.documento, p.nombres, p.apellidos, p.celular, e.correoInstitucional, e.fechaIngreso, e.fechaEgreso FROM estudiante e INNER JOIN persona p ON e.documento= p.documento WHERE e.codigoEstudiante LIKE '$codigo%' ");
             $statement->execute();
             $resultado = $statement->fetchAll(PDO::FETCH_ASSOC);
+            return  $resultado;
+        } catch (PDOException $e) {
+            return null;
+        }
+    }
+
+    function verificarCodigoPruebapro($codigo){
+        try {
+            $statement = $this->db->connect()->prepare("SELECT h.idSaberPro  FROM historial h WHERE  h.idSaberPro=$codigo");
+            $statement->execute();
+            $resultado = $statement->fetch(PDO::FETCH_ASSOC);
+            return  $resultado;
+        } catch (PDOException $e) {
+            return null;
+        }
+    }
+
+     function verificarCodigoPrueba11($codigo){
+        try {
+            $statement = $this->db->connect()->prepare("SELECT h.idSaber11  FROM historial h WHERE  h.idSaber11=$codigo");
+            $statement->execute();
+            $resultado = $statement->fetch(PDO::FETCH_ASSOC);
             return  $resultado;
         } catch (PDOException $e) {
             return null;

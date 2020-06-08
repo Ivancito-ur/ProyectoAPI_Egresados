@@ -5,8 +5,8 @@
                 <div class="card-header bg-transparent">
                     <div class="row align-items-center">
                         <div class="col">
-                            <h6 class="text-uppercase text-muted ls-1 mb-1">Actualizacion</h6>
-                            <h5 class="h3 mb-0">Actualizar datos de estudiantes</h5>
+                            <h6 class="text-uppercase text-muted ls-1 mb-1">Carga de datos</h6>
+                            <h5 class="h3 mb-0">Cargar datos de estudiantes</h5>
                         </div>
                     </div>
                 </div>

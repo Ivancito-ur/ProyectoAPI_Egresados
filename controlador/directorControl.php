@@ -247,6 +247,52 @@ class directorControl extends Controller
         $JString = json_encode($json);
         echo $JString;
     }
+
+    
+    function ListarEstudianteActualizar($param)
+    {
+        $est = $this->model->listarEstudiantesActualizar($param[0]);
+       
+      
+            $json[] = array(
+                'codigoEstudiante' => $est['codigoEstudiante'],
+                'nombres' => $est['nombres'],
+                'apellidos' => $est['apellidos'],
+                'fechaIngreso' => $est['fechaIngreso'],
+                'promedio' => $est['promedio'],
+                'idPro' => $est['idSaberPro'],
+                'id11' => $est['idSaber11'],
+                'semestreCursado' => $est['semestreCursado'],
+                'materiasAprobadas' => $est['materiasAprobadas']
+
+            );
+        
+        $JString = json_encode($json);
+        echo $JString;
+    }
+
+    function EstudianteActualizar($param)
+    {
+        
+        $resultado = $this->model->estudiantesActualizar($param[0] ,$param[1] ,$param[2],  $param[3] , $param[4] , $param[5] , $param[6] , $param[7], $param[8], $param[9]);
+        echo $resultado;
+    }
+
+    function validarCodigoPrueba($param){
+        $est = $this->model->verificarCodigoPruebapro($param[0]);
+        $est2 = $this->model->verificarCodigoPrueba11($param[1]);
+
+        if($est==null){
+            echo 1;
+            return;
+        }
+        if($est2==null){
+            echo 2;
+            return;
+        }
+    }
+
+
     function cargaEstudianteTesis()
     {
         $this->view->datos = $this->model->cargarEstuTesis();
