@@ -27,5 +27,40 @@
           $this->view->render($constr, 'index');}
         }
 
+
+        function getHojaVidaE(){
+          $resultado = $this->model->getHojaVidaE();
+          $json = array();
+          foreach ($resultado as $est) {
+              $json[] = array(
+                  'archivo' => $est['archivo'],
+                  'nombres' => $est['nombres'],
+                  'apellidos' => $est['apellidos'],
+                  'correo' => $est['correo'],
+                  'telefono' => $est['telefono'],
+                  'promedio' => $est['promedio']
+              );
+          }
+          $JString = json_encode($json);
+          echo $JString;
+        }
+
+        function getHojaVidaA(){
+          $resultado = $this->model->getHojaVidaA();
+          $json = array();
+          foreach ($resultado as $est) {
+              $json[] = array(
+                  'archivo' => $est['archivo'],
+                  'nombres' => $est['nombres'],
+                  'apellidos' => $est['apellidos'],
+                  'correo' => $est['correo'],
+                  'telefono' => $est['telefono'],
+                  'promedio' => $est['promedio']
+              );
+          }
+          $JString = json_encode($json);
+          echo $JString;
+        }
+
     }
 ?>

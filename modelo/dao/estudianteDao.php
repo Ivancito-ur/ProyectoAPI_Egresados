@@ -82,6 +82,40 @@ class estudianteDao extends Model{
     }
 
 
+    public function Permiso($codigo){
+        try{
+            $statement = $this->db->connect()->prepare("SELECT t.autorizar FROM hojavida t WHERE t.codigoEstudiante=$codigo " );
+            $statement->execute();
+            $resultado = $statement->fetch();
+            return $resultado;
+        }catch(PDOException $e){
+            return null;
+        }
+    }
+
+    
+    public function otorgarPermiso($codigo, $validar){
+        if($validar==0){
+            try{
+                $statement = $this->db->connect()->prepare("UPDATE hojavida SET autorizar='0' WHERE codigoEstudiante=$codigo ");
+                $statement->execute();
+            }catch(PDOException $e){
+                return null;
+            }
+        }
+        if($validar==1){
+            try{
+                $statement = $this->db->connect()->prepare("UPDATE hojavida SET autorizar='1' WHERE codigoEstudiante=$codigo ");
+                $statement->execute();
+            }catch(PDOException $e){
+                return null;
+            }
+        }
+       
+    }
+
+
+
 
 
 }

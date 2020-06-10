@@ -6,6 +6,10 @@ var consta = "";
 let templateTesis = '';
 
 
+
+
+
+
 function recargaTesis() {
   httpRequest(URLD + "directorControl/getTesis", function () {
     var response = this.responseText;
@@ -346,6 +350,17 @@ function loadAc() {
   xhttp.send();
 }
 
+function loadR() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("contenedor").innerHTML = this.responseText;
+    }
+  };
+  xhttp.open("GET", "vista/director/reportes.php", true);
+  xhttp.send();
+}
+
 function loadTe() {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
@@ -491,8 +506,10 @@ function getPrueba() {
 }
 
 function prueba11(lectura, razon, natu, compet, ingles) {
-  var ctx = document.getElementById('myChart11').getContext('2d');
-  console.log(ctx);
+  
+ 
+  var ctx = document.getElementById('myChart11');
+  
   var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
@@ -530,6 +547,8 @@ function prueba11(lectura, razon, natu, compet, ingles) {
     }
   });
 }
+
+
 
 function pruebaPRO(lectura, razon, comuni, compet, ingles) {
   var ctx = document.getElementById('myChart').getContext('2d');
@@ -828,6 +847,19 @@ function removerCodigo(cod) {
 
 }
 
+
+function generarReporte(e){
+
+  var estudiante = $('#exampleFormControlSelect1').val();
+  var tipoReporte = $('#exampleFormControlSelect2').val();
+
+  window.open(URLD + "directorControl/generarReporte/" + estudiante + "/" + tipoReporte );
+  
+
+}
+
+
+
 function removeItemFromArr(arr, item) {
   var i = arr.indexOf(item);
 
@@ -835,6 +867,9 @@ function removeItemFromArr(arr, item) {
     arr.splice(i, 1);
   }
 }
+
+
+
 
 
 

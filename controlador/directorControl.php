@@ -471,4 +471,111 @@ class directorControl extends Controller
         $JString = json_encode($json);
         echo $JString;
     }
+
+
+    function generarReporte($param){
+        require('utils/fPDF/reportePDF.php');
+        
+      
+
+
+        if($param[0]=="Alumno"){
+
+          if($param[1]=="Promedio"){ 
+                $_SESSION['repor']="Reporte Promedio Alumno";
+                $pdf = new reportePDF('L','mm','A4');
+                $resultado = $this->model->listarEstudiantesAlumnos();
+                $pdf->AddPage();
+                $header=array('Codigo','Documento','Nombre','Apellido','Correo Institucional', 'Promedio');
+                $pdf->TablaPromedio($header, $resultado);
+                $pdf->Output('reporte_promedioA.pdf','I');
+
+
+            }
+            else if($param[1]=="Notas pruebas Saber 11 y Pro"){
+
+                $_SESSION['repor']="Reporte Notas Alumno";
+                $pdf = new reportePDF('L','mm','A4');
+                
+                $resultadoPro = $this->model->listarEstudiantesANotasPRO();
+                $resultado11 = $this->model->listarEstudiantesANotas11();
+                
+                $pdf->AddPage();
+                
+                //, 
+                $headerPro=array('codigoEstudiante' , 'Lectura Critica', 
+                'Razonamiento Cuantitativo', 'Comptencia Ciudadana' ,'Comunicacion Escrita', 'Ingles');
+                $header11=array('codigoEstudiante' , 'Lectura Critica', 
+                'Matematica', 'Sociales Ciudadanas', 'Naturales', 'Ingles');
+                $pdf->TablaNotas($headerPro,$header11, $resultadoPro, $resultado11);
+               
+             
+
+            
+                $pdf->Output('reporte_promedioA.pdf','I');
+
+                
+            }
+
+
+       }else if($param[0]=="Egresado"){
+
+            if($param[1]=="Promedio"){ 
+                $_SESSION['repor']="Reporte Promedio Egresado";
+                $pdf = new reportePDF('L','mm','A4');
+                $resultado = $this->model->listarEstudiantesEgresados();
+                $pdf->AddPage();
+                $header=array('Codigo','Documento','Nombre','Apellido','Correo Institucional', 'Promedio');
+                $pdf->TablaPromedio($header, $resultado);
+                $pdf->Output('reporte_promedioE.pdf','I');
+
+
+            }else if($param[1]=="Notas pruebas Saber 11 y Pro"){
+
+                $_SESSION['repor']="Reporte Notas Egresado";
+                $pdf = new reportePDF('L','mm','A4');
+                
+                $resultadoPro = $this->model->listarEgresadosANotasPRO();
+                $resultado11 = $this->model->listarEgresadosANotas11();
+                
+                $pdf->AddPage();
+                
+                //, 
+                $headerPro=array('codigoEstudiante' , 'Lectura Critica', 
+                'Razonamiento Cuantitativo', 'Comptencia Ciudadana' ,'Comunicacion Escrita', 'Ingles');
+                $header11=array('codigoEstudiante' , 'Lectura Critica', 
+                'Matematica', 'Sociales Ciudadanas', 'Naturales', 'Ingles');
+                $pdf->TablaNotas($headerPro,$header11, $resultadoPro, $resultado11);
+               
+             
+
+            
+                $pdf->Output('reporte_promedioA.pdf','I');
+
+
+
+            }
+
+            
+
+        }
+
+        unset($_SESSION['repor']);
+        
+    }
+
+
+
+    function obtenerImagen(){
+     
+        $img = $_POST["valor"];
+        $img = str_replace('data:image/png;base64,', '', $img);
+        $fileData = base64_decode($img);
+        $fileName = uniqid().'.png';
+        file_put_contents($fileName, $fileData);
+        echo $img;
+    }
+
+
+   
 }

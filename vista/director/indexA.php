@@ -38,6 +38,9 @@
   <link rel="stylesheet" href="<?php echo constant('URL') ?>public/css/director/estiloAdm.css">
 
 
+  
+
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
 
 </head>
@@ -99,6 +102,12 @@
                 <span class="nav-link-text">Pruebas de estado</span>
               </a>
             </li>
+            <li class="nav-item">
+            <a onclick="loadR()" class="nav-link" href="#">
+                <i class="fas fa-file-alt"></i>
+                <span class="nav-link-text">Reportes</span>
+              </a>
+            </li>    
           </ul>
           <!-- Divider -->
           <hr class="my-3">
@@ -131,6 +140,7 @@
       </div>
     </div>
   </nav>
+  
   <!-- Main content -->
   <div class="main-content" id="panel">
     <!-- Topnav -->
@@ -279,6 +289,10 @@
       </div>
     </div>
     <!-- Page content -->
+    
+  
+
+
     <div class="container-fluid mt--6" id="contenedor">
 
       <div id="container">
@@ -425,6 +439,7 @@
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script src="<?php echo constant('URL') ?>public/js/director/main.js"></script>
+ 
   <!-- Argon Scripts -->
   <!-- Core -->
   <script src="<?php echo constant('URL') ?>public/assets/vendor/jquery/dist/jquery.min.js"></script>

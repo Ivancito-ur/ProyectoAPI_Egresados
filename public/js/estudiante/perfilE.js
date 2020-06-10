@@ -165,6 +165,32 @@ function actualizarDatos(e){
 
 
 
+function verificarVacio(param){
+  for (let i = 0; i < param.length; i++) {
+      if(param[i]==""){
+          return false;
+      }
+  }
+  return true;
+}
+
+
+function permiso(e){
+  e.preventDefault();
+  var aux=0;
+ if($('#exampleCheckPermiso').is(':checked')){
+   aux=1;
+ }
+ 
+ httpRequest(URLD + "estudianteControl/otorgarPermiso/" + aux  ,function(){
+          
+    var resp = this.responseText;
+    console.log(resp);
+    alert("Actualizacion realizada!");
+    
+ }); 
+}
+
 function httpRequest(url, callback){
   const http = new XMLHttpRequest();
   http.open("GET", url);
@@ -174,13 +200,4 @@ function httpRequest(url, callback){
           callback.apply(http);
       }
   }
-}
-
-function verificarVacio(param){
-  for (let i = 0; i < param.length; i++) {
-      if(param[i]==""){
-          return false;
-      }
-  }
-  return true;
 }

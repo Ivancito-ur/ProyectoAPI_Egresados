@@ -58,15 +58,15 @@
           <!-- Nav items -->
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link active" href="">
+              <a onclick="loadTe()" class="nav-link active" href="#">
                 <i class="fas fa-id-badge"></i>
-                <span class="nav-link-text">...</span>
+                <span class="nav-link-text">Hoja Vida Egresados</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">
-                <i class="fas fa-edit"></i>
-                <span class="nav-link-text">...</span>
+              <a onclick="loadTa()"class="nav-link active" href="#">
+                <i class="fas fa-id-badge"></i>
+                <span class="nav-link-text">Hoja Vida Estudiantes</span>
               </a>
             </li>
           </ul>
@@ -189,6 +189,8 @@
       </div>
     </div>
     <!-- Page content -->
+    <div class="container-fluid mt--6" id="contenedor">
+    </div>
 
   </div>
   <div class="main-footer">
@@ -223,7 +225,7 @@
 
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script src="<?php echo constant('URL') ?>public/js/director/main.js"></script>
+  <script src="<?php echo constant('URL') ?>public/js/empresa/empresa.js"></script>
   <!-- Argon Scripts -->
   <!-- Core -->
   <script src="<?php echo constant('URL') ?>public/assets/vendor/jquery/dist/jquery.min.js"></script>

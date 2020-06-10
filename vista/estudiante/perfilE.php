@@ -326,10 +326,18 @@
                   </div>
                 <?php endif ?>
               </div>
+              
+              <?php if($this->permiso[0]==0 || $this->permiso[0]==null): ?>
               <div class="form-group form-check">
-                  <input type="checkbox" class="form-check-input" id="exampleCheck1" required>
-                  <label class="form-check-label" for="exampleCheck1">Acepto</label>
+                  <input onchange="return permiso(event)" type="checkbox" class="form-check-input" id="exampleCheckPermiso" >
+                  <label class="form-check-label" for="exampleCheckPermiso">Acepto (Mi hoja de vida estará visible a las empresas)</label>
                 </div>
+              <?php else :?>
+                <div class="form-group form-check">
+                  <input onchange="return permiso(event)" type="checkbox" class="form-check-input" id="exampleCheckPermiso"  checked>
+                  <label class="form-check-label" for="exampleCheckPermiso">Acepto (Mi hoja de vida estará visible a las empresas)</label>
+                </div>
+              <?php endif?>
             </div>
           </div>
 
