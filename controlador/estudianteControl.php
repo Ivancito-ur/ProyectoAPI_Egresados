@@ -15,6 +15,7 @@ class estudianteControl extends Controller{
           }
           $this->view->datos = [];
           $this->view->direccion = "";
+          $this->view->permiso = "";
          
         }
                     
@@ -27,6 +28,7 @@ class estudianteControl extends Controller{
           
           $this->getDatos();
           $this->getHoja();
+          $this->Permiso();
   
           if(isset($ubicacion[0])){
           $this->view->render($constr , $ubicacion[0]);
@@ -81,6 +83,17 @@ class estudianteControl extends Controller{
         $JString = json_encode($json);
         echo $JString;
          
+        }
+
+        function Permiso(){
+          $codigo = $_SESSION['usuario'];
+          $this->view->permiso =  $this->model->Permiso($codigo);
+        }
+
+        function otorgarPermiso($param){
+          $codigo = $_SESSION['usuario'];
+          echo $param[0];
+          $this->model->otorgarPermiso($codigo, $param[0]);
         }
 
        

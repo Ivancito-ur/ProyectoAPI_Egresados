@@ -346,6 +346,10 @@ class directorDao extends Model{
         }
     }
 
+
+
+    
+
         function verificarEstudiantes($codigo){
            
             try{
@@ -359,7 +363,8 @@ class directorDao extends Model{
         }
 
 
-    function getPruebaE($codigo)
+    
+        function getPruebaE($codigo)
     {
         try {
             $statement = $this->db->connect()->prepare("SELECT pp.lectura_critica as lecturaPP, pp.razonamiento_cuantitativo as razonamientoPP , pp.comunicacion_escrita as comunicacionPP, pp.competencias_ciudadana as competenciasPP, pp.ingles as inglesPP 
@@ -468,6 +473,98 @@ class directorDao extends Model{
             return null;
         }
     }
+
+
+    function listarEstudiantesAlumnos()
+    {
+        try {
+            $statement = $this->db->connect()->prepare("SELECT e.codigoEstudiante, e.documento, p.nombres, p.apellidos, p.celular, e.correoInstitucional, e.fechaIngreso, e.fechaEgreso , e.promedio FROM estudiante e INNER JOIN persona p ON e.documento= p.documento WHERE e.egresado=1");
+            $statement->execute();
+            $resultado = $statement->fetchAll(PDO::FETCH_ASSOC);
+            return  $resultado;
+        } catch (PDOException $e) {
+            return null;
+        }
+    }
+
+    function listarEstudiantesEgresados()
+    {
+        try {
+            $statement = $this->db->connect()->prepare("SELECT e.codigoEstudiante, e.documento, p.nombres, p.apellidos, p.celular, e.correoInstitucional, e.fechaIngreso, e.fechaEgreso , e.promedio FROM estudiante e INNER JOIN persona p ON e.documento= p.documento WHERE e.egresado=0");
+            $statement->execute();
+            $resultado = $statement->fetchAll(PDO::FETCH_ASSOC);
+            return  $resultado;
+        } catch (PDOException $e) {
+            return null;
+        }
+    }
+
+
+    function listarEstudiantesANotasPRO(){
+        try {
+            $statement = $this->db->connect()->prepare("SELECT e.codigoEstudiante, pro.lectura_critica, 
+            pro.razonamiento_cuantitativo, pro.competencias_ciudadana, pro.comunicacion_escrita, pro.ingles , 
+            p.nombres , p.apellidos FROM estudiante e INNER JOIN historial h ON e.codigoEstudiante=h.codigoEstudiante INNER JOIN pruebassaberpro pro 
+            ON h.idSaberPro=pro.idSaberPro  INNER JOIN persona p ON p.documento=e.documento WHERE e.egresado=1 ORDER BY e.codigoEstudiante  ASC ");
+            $statement->execute();
+            $resultado = $statement->fetchAll(PDO::FETCH_ASSOC);
+            return  $resultado;
+        } catch (PDOException $e) {
+            return null;
+        }
+
+    }
+
+    
+    function listarEstudiantesANotas11(){
+        try {
+            $statement = $this->db->connect()->prepare("SELECT e.codigoEstudiante, p11.lectura_critica,
+             p11.matematica, p11.sociales_ciudadanas, p11.naturales, p11.ingles , p.nombres , p.apellidos FROM estudiante e INNER JOIN historial h ON e.codigoEstudiante=h.codigoEstudiante INNER JOIN pruebassaber11 p11 ON p11.idSaber11=h.idSaber11 INNER JOIN persona p ON p.documento=e.documento WHERE e.egresado=1 ORDER BY e.codigoEstudiante  ASC");
+            $statement->execute();
+            $resultado = $statement->fetchAll(PDO::FETCH_ASSOC);
+            return  $resultado;
+        } catch (PDOException $e) {
+            return null;
+        }
+
+    }
+
+
+    function listarEgresadosANotasPRO(){
+        try {
+            $statement = $this->db->connect()->prepare("SELECT e.codigoEstudiante, pro.lectura_critica, 
+            pro.razonamiento_cuantitativo, pro.competencias_ciudadana, pro.comunicacion_escrita, pro.ingles , 
+            p.nombres , p.apellidos FROM estudiante e INNER JOIN historial h ON e.codigoEstudiante=h.codigoEstudiante INNER JOIN pruebassaberpro pro 
+            ON h.idSaberPro=pro.idSaberPro  INNER JOIN persona p ON p.documento=e.documento WHERE e.egresado=0 ORDER BY e.codigoEstudiante  ASC ");
+            $statement->execute();
+            $resultado = $statement->fetchAll(PDO::FETCH_ASSOC);
+            return  $resultado;
+        } catch (PDOException $e) {
+            return null;
+        }
+
+    }
+
+    
+    function listarEgresadosANotas11(){
+        try {
+            $statement = $this->db->connect()->prepare("SELECT e.codigoEstudiante, p11.lectura_critica,
+             p11.matematica, p11.sociales_ciudadanas, p11.naturales, p11.ingles , p.nombres , p.apellidos FROM estudiante e INNER JOIN historial h ON e.codigoEstudiante=h.codigoEstudiante 
+             INNER JOIN pruebassaber11 p11 ON p11.idSaber11=h.idSaber11 INNER JOIN persona p ON p.documento=e.documento WHERE e.egresado=0 ORDER BY e.codigoEstudiante  ASC");
+            $statement->execute();
+            $resultado = $statement->fetchAll(PDO::FETCH_ASSOC);
+            return  $resultado;
+        } catch (PDOException $e) {
+            return null;
+        }
+
+    }
+
+    
+
+
+
+ 
 
  
 }
