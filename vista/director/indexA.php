@@ -125,6 +125,18 @@
                 <i class="fas fa-poll"></i>
                 <span class="nav-link-text">Encuestas</span>
               </a>
+            </li>
+            <li class="nav-item">
+              <a onclick="loadEv()" class="nav-link" href="#">
+                <i class="fas fa-calendar-week"></i>
+                <span class="nav-link-text">Eventos</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a onclick="loadLev()" class="nav-link" href="#">
+                <i class="ni ni-bullet-list-67 text-default"></i>
+                <span class="nav-link-text">Listado de eventos</span>
+              </a>
             </li>    
           </ul>
           <!-- Divider -->

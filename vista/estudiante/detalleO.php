@@ -4,8 +4,8 @@
         <div class="card-header bg-transparent">
             <div class="row align-items-center">
                 <div class="col">
-                    <h6 class="text-uppercase text-muted ls-1 mb-1">Ofertas</h6>
-                    <h5 class="h3 mb-0">Publicar Oferta Laboral</h5>
+                    <h6 class="text-uppercase text-muted ls-1 mb-1">Oferta</h6>
+                    <h5 class="h3 mb-0">Detalles de la Oferta Laboral</h5>
                     <a onclick="loadOl()" class="nav-link" href="#">
                         <i class="fas fa-long-arrow-alt-left"></i>
                     </a>

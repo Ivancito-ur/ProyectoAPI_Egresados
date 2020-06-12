@@ -407,6 +407,32 @@ function loadEn() {
   
 }
 
+function loadEv() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("contenedor").innerHTML = this.responseText;
+    }
+  };
+  xhttp.open("GET", "vista/director/eventos.php", true);
+  xhttp.send();
+  
+  
+}
+
+function loadLev() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("contenedor").innerHTML = this.responseText;
+    }
+  };
+  xhttp.open("GET", "vista/director/listadoEvento.php", true);
+  xhttp.send();
+  
+  
+}
+
 function loadTe() {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {

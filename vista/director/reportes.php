@@ -30,7 +30,7 @@
                       </div>
                     </div>
                     <div style="margin-top:20px; margin-bottom:30px">
-                      <a target="_blank"style="background-color: #dd4b39; border-color: #dd4b39; color: white" onclick=" generarReporteGrafica(event)" id="repor" type="button" class="btn btn-primary">Generar</a>
+                      <a target="_blank" style="background-color: #dd4b39; border-color: #dd4b39; color: white" onclick=" generarReporteGrafica(event)" id="repor" type="button" class="btn btn-primary">Generar</a>
                     </div>
                     <div id="informe" style="display:none; width:20%"class="alert alert-success" role="alert">
                     Generando Informe...
