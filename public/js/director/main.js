@@ -1008,8 +1008,6 @@ function generarReporte(){
   if(tipoReporte!="Promedio"){
   var canvas = document.getElementById("popChart");
   var image = canvas.toDataURL(); 
-
- 
   
   $.ajax({
     url: URLD + "directorControl/obtenerImagen",
@@ -1027,6 +1025,9 @@ function generarReporte(){
   }
   $("#repor").show();
   window.open(URLD + "directorControl/generarReporte/" + estudiante + "/" + tipoReporte );
+
+ 
+  
  
 }
 
