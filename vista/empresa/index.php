@@ -57,16 +57,28 @@
         <div class="collapse navbar-collapse" id="sidenav-collapse-main">
           <!-- Nav items -->
           <ul class="navbar-nav">
+          <li class="nav-item">
+              <a class="nav-link active" href="">
+                <i class="fas fa-list"></i>
+                <span class="nav-link-text">Ofertas Publicadas</span>
+              </a>
+            </li>
             <li class="nav-item">
-              <a onclick="loadTe()" class="nav-link active" href="#">
-                <i class="fas fa-id-badge"></i>
+              <a onclick="loadTe()" class="nav-link" href="#">
+                <i class="fas fa-paste"></i>
                 <span class="nav-link-text">Hoja Vida Egresados</span>
               </a>
             </li>
             <li class="nav-item">
-              <a onclick="loadTa()"class="nav-link active" href="#">
-                <i class="fas fa-id-badge"></i>
+              <a onclick="loadTa()" class="nav-link" href="#">
+                <i class="fas fa-paste"></i>
                 <span class="nav-link-text">Hoja Vida Estudiantes</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a onclick="loadOl()" class="nav-link" href="#">
+                <i class="far fa-newspaper"></i>
+                <span class="nav-link-text">Publicar Oferta Laboral</span>
               </a>
             </li>
           </ul>
@@ -190,9 +202,48 @@
     </div>
     <!-- Page content -->
     <div class="container-fluid mt--6" id="contenedor">
+      <div class="card">
+          <div class="card-header bg-transparent">
+              <div class="row align-items-center">
+                  <div class="col">
+                      <h6 class="text-uppercase text-muted ls-1 mb-1">Ofertas</h6>
+                      <h5 class="h3 mb-0">Oferta Publicadas</h5>
+                  </div>
+              </div>
+            </div>
+              <div class="card-body">
+                  <div class="box box-primary" style="border-top: 3px solid #3c8dbc; background-color: white; padding-bottom: 10px;">
+                    <div class="card-group">
+                      <div class="card">
+                      <div class="card-header"><button type="button" class="btn btn-light" style="background-color: #dd4b39; border-color: #dd4b39;">Remover Oferta</button></div>
+                      <div class="card-header">Header</div>
+                        <div class="card-body">
+                          <h5 class="card-title">Light card title</h5>
+                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                      </div>
+                      <div class="card">
+                      <div class="card-header"><button type="button" class="btn btn-light" style="background-color: #dd4b39; border-color: #dd4b39;">Remover Oferta</button></div>
+                      <div class="card-header">Header</div>
+                        <div class="card-body">
+                          <h5 class="card-title">Light card title</h5>
+                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                      </div>
+                      <div class="card">
+                      <div class="card-header"><button type="button" class="btn btn-light" style="background-color: #dd4b39; border-color: #dd4b39;">Remover Oferta</button></div>
+                      <div class="card-header">Header</div>
+                        <div class="card-body">
+                          <h5 class="card-title">Light card title</h5>
+                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
     </div>
-
-  </div>
   <div class="main-footer">
 
     <footer class="footer pt-0 container main-footer" style="padding-left: 25%">

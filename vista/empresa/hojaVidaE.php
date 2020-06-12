@@ -9,15 +9,14 @@
                 </div>
             </div>
         </div>
-        <br>
-        <div style="border-top: 3px solid #3c8dbc; background-color: white; padding-bottom: 10px;">
-        <div class="caja">
-            
-            
-        </div>
-          
-                
-        </div>
+        <div class="card-body">
+            <div style="border-top: 3px solid #3c8dbc; background-color: white; padding-bottom: 10px;">
+                <div class="caja">
+                    
+                        
+                    
+                </div>
+            </div>
         </div>
     </div>
 </div>

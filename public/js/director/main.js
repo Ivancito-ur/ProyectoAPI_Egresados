@@ -361,6 +361,39 @@ function loadR() {
   xhttp.send();
 }
 
+function loadAe() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("contenedor").innerHTML = this.responseText;
+    }
+  };
+  xhttp.open("GET", "vista/director/agregarE.php", true);
+  xhttp.send();
+}
+
+function loadLe() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("contenedor").innerHTML = this.responseText;
+    }
+  };
+  xhttp.open("GET", "vista/director/listarEmpresa.php", true);
+  xhttp.send();
+}
+
+function loadEn() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("contenedor").innerHTML = this.responseText;
+    }
+  };
+  xhttp.open("GET", "vista/director/encuesta.php", true);
+  xhttp.send();
+}
+
 function loadTe() {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
