@@ -4,6 +4,8 @@ var lista = [];
 var extTesis = "";
 var consta = "";
 let templateTesis = '';
+var validacionT ="Promedio";
+
 
 
 
@@ -359,7 +361,10 @@ function loadR() {
   };
   xhttp.open("GET", "vista/director/reportes.php", true);
   xhttp.send();
+  
+  
 }
+
 
 function loadAe() {
   var xhttp = new XMLHttpRequest();
@@ -370,7 +375,10 @@ function loadAe() {
   };
   xhttp.open("GET", "vista/director/agregarE.php", true);
   xhttp.send();
+  
+  
 }
+
 
 function loadLe() {
   var xhttp = new XMLHttpRequest();
@@ -381,7 +389,10 @@ function loadLe() {
   };
   xhttp.open("GET", "vista/director/listarEmpresa.php", true);
   xhttp.send();
+  
+  
 }
+
 
 function loadEn() {
   var xhttp = new XMLHttpRequest();
@@ -392,6 +403,8 @@ function loadEn() {
   };
   xhttp.open("GET", "vista/director/encuesta.php", true);
   xhttp.send();
+  
+  
 }
 
 function loadTe() {
@@ -540,8 +553,9 @@ function getPrueba() {
 
 function prueba11(lectura, razon, natu, compet, ingles) {
   
- 
+  
   var ctx = document.getElementById('myChart11');
+ 
   
   var myChart = new Chart(ctx, {
     type: 'bar',
@@ -880,16 +894,146 @@ function removerCodigo(cod) {
 
 }
 
+function graficaReport11(lectura, razon, natu, compet, ingles,lecturaP, razonP, comuniP, competP, inglesP ){
+  
+  var densityCanvas  = document.getElementById("popChart");
+ 
+  
+Chart.defaults.global.defaultFontFamily = "Lato";
+Chart.defaults.global.defaultFontSize = 18;
 
-function generarReporte(e){
+var densityDatas = {
+ 
+  data: [lectura, razon, natu, compet, ingles],
+  label: 'Pruebas saber 11',
+  backgroundColor: 'rgba(0, 99, 132, 0.6)',
+  borderWidth: 0,
+  yAxisID: "y-axis-density"
+};
+
+var gravityDatas = {
+  label: 'Pruebas saber Pro',
+  data: [lecturaP, razonP, comuniP, competP, inglesP],
+  backgroundColor: 'rgba(99, 132, 0, 0.6)',
+  borderWidth: 0,
+  yAxisID: "y-axis-gravity"
+};
+
+var planetDatas = {
+  labels: ['Lectura', 'Razonamiento', 'Naturales/Comunicacion', 'Competencia', 'Ingles'],
+  datasets: [densityDatas, gravityDatas]
+};
+
+var chartOptionsa = {
+  scales: {
+    xAxes: [{
+      barPercentage: 1,
+      categoryPercentage: 0.6
+    }],
+    yAxes: [{
+      id: "y-axis-density"
+    }, {
+      id: "y-axis-gravity"
+    }]
+  }
+};
+
+var barChart = new Chart(densityCanvas, {
+  type: 'bar',
+  data: planetDatas,
+  options: chartOptionsa
+});
+
+}
+
+
+function generarReporteGrafica(e){
 
   var estudiante = $('#exampleFormControlSelect1').val();
   var tipoReporte = $('#exampleFormControlSelect2').val();
+  var direccion;
 
-  window.open(URLD + "directorControl/generarReporte/" + estudiante + "/" + tipoReporte );
+  if(estudiante=="Egresado"){
+
+    if(tipoReporte=="Notas pruebas Saber 11 y Pro"){
+      direccion ="directorControl/promedioNotasAlumno";
+    }
+
+
+  }
+
+
+  if(estudiante=="Alumno"){
+
+    if(tipoReporte=="Notas pruebas Saber 11 y Pro"){
+      direccion ="directorControl/promedioNotasEgresado";
+    }
+
+
+  }
+
+ 
+
+
+
+ 
+  
+  httpRequest(URLD + direccion, function () {
+    var resp = this.responseText;
+    let ta = JSON.parse(resp);
+
+
+
+    
+    graficaReport11(ta[0].lectura_critica, ta[0].matematicas,ta[0].naturales, ta[0].sociales_ciudadanas, ta[0].ingles,
+      ta[0].lectura_criticaPro,ta[0].razonamiento_cuantitativoPro, ta[0].comunicacion_escritaPro,ta[0].competencias_ciudadanaPro,ta[0].inglesPro);
+    
   
 
+  });
+  $("#informe").show();
+  $("#repor").hide();
+  setTimeout(function () {
+    generarReporte();
+    $("#informe").fadeOut(2002);
+  }, 3000)
+ 
+ 
 }
+
+
+function generarReporte(){
+  var estudiante = $('#exampleFormControlSelect1').val();
+  var tipoReporte = $('#exampleFormControlSelect2').val();
+  if(tipoReporte!="Promedio"){
+  var canvas = document.getElementById("popChart");
+  var image = canvas.toDataURL(); 
+  
+  $.ajax({
+    url: URLD + "directorControl/obtenerImagen",
+    data:{
+        base64: image
+    },
+    type:"post",
+    success: function (data) {
+      console.log(data);
+    },
+    complete:function(){
+        console.log("Todo listo");
+    }
+  });
+  }
+  $("#repor").show();
+  window.open(URLD + "directorControl/generarReporte/" + estudiante + "/" + tipoReporte );
+
+ 
+  
+ 
+}
+
+
+
+
 
 
 
