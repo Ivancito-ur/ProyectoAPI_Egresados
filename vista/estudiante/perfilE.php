@@ -76,13 +76,19 @@
             <li class="nav-item">
               <a onclick="loadAc()" class="nav-link" href="#">
                 <i class="fas fa-edit"></i>
-                <span class="nav-link-text">Actualizar Datos</span>
+                <span class="nav-link-text">Actualizar datos</span>
               </a>
             </li>
             <li class="nav-item">
               <a onclick="loadTe()" class="nav-link" href="#">
-              <i class="fas fa-list"></i>
-                <span class="nav-link-text">Listado de Tesis</span>
+                <i class="fas fa-list"></i>
+                <span class="nav-link-text">Listado de tesis</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a onclick="loadOl()" class="nav-link" href="#">
+                <i class="far fa-newspaper"></i>
+                <span class="nav-link-text">Listado de ofertas laborales</span>
               </a>
             </li>
           </ul>

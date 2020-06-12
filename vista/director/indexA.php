@@ -107,6 +107,24 @@
                 <i class="fas fa-file-alt"></i>
                 <span class="nav-link-text">Reportes</span>
               </a>
+            </li>
+            <li class="nav-item">
+              <a onclick="loadAe()" class="nav-link" href="#">
+                <i class="fas fa-building"></i>
+                <span class="nav-link-text">Agregar empresa</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a onclick="loadLe()" class="nav-link" href="#">
+                <i class="ni ni-bullet-list-67 text-default"></i>
+                <span class="nav-link-text">Lista de empresas</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a onclick="loadEn()" class="nav-link" href="#">
+                <i class="fas fa-poll"></i>
+                <span class="nav-link-text">Encuestas</span>
+              </a>
             </li>    
           </ul>
           <!-- Divider -->

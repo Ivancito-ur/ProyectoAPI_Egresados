@@ -4,8 +4,8 @@
         <div class="card-header bg-transparent">
             <div class="row align-items-center">
                 <div class="col">
-                    <h6 class="text-uppercase text-muted ls-1 mb-1">Correo</h6>
-                    <h5 class="h3 mb-0">Envío de correos</h5>
+                    <h6 class="text-uppercase text-muted ls-1 mb-1">Encuesta</h6>
+                    <h5 class="h3 mb-0">Envíar Formulario</h5>
                 </div>
             </div>
         </div>
@@ -13,13 +13,16 @@
         <div class="card-body">
 
             <div class="row" style="border-top: 3px solid #3c8dbc; background-color: white; padding-bottom: 10px;">
-
                 <div class="col-lg-8">
                 <br>
                     <form>
                         <div class="form-group">
                             <label for="correo">Asunto</label>
                             <input type="text" class="form-control" id="asunto" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="correo">Url Formulario</label>
+                            <input type="url" class="form-control" id="url" required>
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlTextarea1">Mensaje</label>
@@ -37,6 +40,7 @@
                 </div>
                 <div class="col-lg-4" style="border-radius:5%;border-color: red;">
                     <div class="card border-danger mb-3" style="max-width: 18rem;">
+                        <br>
                         <div class="card-header">Envío</div>
                         <div class="card-body text-danger">
                             <h5 class="card-title">A quienes se dirigen ... </h5>

@@ -15,6 +15,32 @@ function loadAc() {
     return false;
   }
 
+  function loadOl() {
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("contenedor").innerHTML = this.responseText;
+      }
+    };
+    xhttp.open("GET", "vista/estudiante/listadoOfertas.php", true);
+    xhttp.send();
+    return false;
+  }
+
+  function loadDt() {
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("contenedor").innerHTML = this.responseText;
+      }
+    };
+    xhttp.open("GET", "vista/estudiante/detalleO.php", true);
+    xhttp.send();
+    return false;
+  }
+
   function loadTe() {
 
     var xhttp = new XMLHttpRequest();
