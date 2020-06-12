@@ -983,17 +983,19 @@ function generarReporteGrafica(e){
     let ta = JSON.parse(resp);
 
 
-    graficaReport11(ta[0].lectura_critica, ta[0].matematicas,ta[0].naturales, ta[0].sociales_ciudadanas, ta[0].ingles,
-    ta[0].lectura_criticaPro,ta[0].razonamiento_cuantitativoPro, ta[0].comunicacion_escritaPro,ta[0].competencias_ciudadanaPro,ta[0].inglesPro);
-  
 
+    
+    graficaReport11(ta[0].lectura_critica, ta[0].matematicas,ta[0].naturales, ta[0].sociales_ciudadanas, ta[0].ingles,
+      ta[0].lectura_criticaPro,ta[0].razonamiento_cuantitativoPro, ta[0].comunicacion_escritaPro,ta[0].competencias_ciudadanaPro,ta[0].inglesPro);
+    
+  
 
   });
   $("#informe").show();
   $("#repor").hide();
   setTimeout(function () {
     generarReporte();
-    $("#informe").fadeOut(2000);
+    $("#informe").fadeOut(2002);
   }, 3000)
  
  
