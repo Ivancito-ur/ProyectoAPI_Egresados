@@ -7,7 +7,7 @@
         $this->SetFont('Arial','B',15);
         $this->Cell(45);
         $this->SetTextColor(0,0,0);
-        $this->Cell(160,20, $_SESSION['repor'] .' Ingenieria Biotecnologica',0,0,'C');
+        $this->Cell(160,20, $_SESSION['repor'] .' Ingenieria Agroindustrial',0,0,'C');
         $this->Ln(30);
           
           
@@ -162,6 +162,18 @@
              $this->Ln();
              
          }
+         
+         $this->SetFont('Arial','B',14);
+         
+    }
+
+
+    function agregarImagen(){
+
+        $this->Cell(60,20, "Comparacion Grafica % ",0,0,'C');
+        $this->Image('public/imgTemp/image.png', 50 ,80, 180 , 80);
+
+
     }
 
     function Footer(){

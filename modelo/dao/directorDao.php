@@ -560,6 +560,34 @@ class directorDao extends Model{
 
     }
 
+
+    
+    function promedioNotasAlumno(){
+        try {
+            $statement = $this->db->connect()->prepare("SELECT AVG(p.lectura_critica) as lectura_critica,AVG(p.matematica) as matematicas ,AVG(p.sociales_ciudadanas) as sociales_ciudadanas,AVG(p.naturales) as naturales ,AVG(p.ingles) as ingles,AVG(pp.lectura_critica) as lectura_criticaPro,AVG(pp.razonamiento_cuantitativo) as razonamiento_cuantitativoPro,AVG(pp.competencias_ciudadana) as competencias_ciudadanaPro,AVG(pp.comunicacion_escrita) as comunicacion_escritaPro,AVG(pp.ingles) as inglesPro FROM pruebassaber11 p INNER JOIN historial h ON h.idSaber11=p.idSaber11 INNER JOIN estudiante e ON h.codigoEstudiante=e.codigoEstudiante INNER JOIN pruebassaberpro pp ON pp.idSaberPro=h.idSaberPro WHERE e.egresado=0 ");
+            $statement->execute();
+            $resultado = $statement->fetchAll(PDO::FETCH_ASSOC);
+            return  $resultado;
+        } catch (PDOException $e) {
+            return null;
+        }
+
+    }
+
+
+    function promedioNotasEgresado(){
+        try {
+            $statement = $this->db->connect()->prepare("SELECT AVG(p.lectura_critica) as lectura_critica,AVG(p.matematica) as matematicas ,AVG(p.sociales_ciudadanas) as sociales_ciudadanas,AVG(p.naturales) as naturales ,AVG(p.ingles) as ingles,AVG(pp.lectura_critica) as lectura_criticaPro,AVG(pp.razonamiento_cuantitativo) as razonamiento_cuantitativoPro,AVG(pp.competencias_ciudadana) as competencias_ciudadanaPro,AVG(pp.comunicacion_escrita) as comunicacion_escritaPro,AVG(pp.ingles) as inglesPro FROM pruebassaber11 p INNER JOIN historial h ON h.idSaber11=p.idSaber11 INNER JOIN estudiante e ON h.codigoEstudiante=e.codigoEstudiante INNER JOIN pruebassaberpro pp ON pp.idSaberPro=h.idSaberPro WHERE e.egresado=1");
+            $statement->execute();
+            $resultado = $statement->fetchAll(PDO::FETCH_ASSOC);
+            return  $resultado;
+        } catch (PDOException $e) {
+            return null;
+        }
+
+    }
+
+
     
 
 

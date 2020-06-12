@@ -509,7 +509,8 @@ class directorControl extends Controller
                 'Matematica', 'Sociales Ciudadanas', 'Naturales', 'Ingles');
                 $pdf->TablaNotas($headerPro,$header11, $resultadoPro, $resultado11);
                
-             
+                $pdf->AddPage();
+                $pdf->agregarImagen();
 
             
                 $pdf->Output('reporte_promedioA.pdf','I');
@@ -539,6 +540,7 @@ class directorControl extends Controller
                 $resultado11 = $this->model->listarEgresadosANotas11();
                 
                 $pdf->AddPage();
+               
                 
                 //, 
                 $headerPro=array('codigoEstudiante' , 'Lectura Critica', 
@@ -547,7 +549,8 @@ class directorControl extends Controller
                 'Matematica', 'Sociales Ciudadanas', 'Naturales', 'Ingles');
                 $pdf->TablaNotas($headerPro,$header11, $resultadoPro, $resultado11);
                
-             
+                $pdf->AddPage();
+                $pdf->agregarImagen();
 
             
                 $pdf->Output('reporte_promedioA.pdf','I');
@@ -566,16 +569,76 @@ class directorControl extends Controller
 
 
 
+    
     function obtenerImagen(){
      
-        $img = $_POST["valor"];
-        $img = str_replace('data:image/png;base64,', '', $img);
-        $fileData = base64_decode($img);
-        $fileName = uniqid().'.png';
-        file_put_contents($fileName, $fileData);
-        echo $img;
+        $baseFromJavascript =  $_POST["base64"];
+        $base_to_php = explode(',', $baseFromJavascript);
+        $data = base64_decode($base_to_php[1]);
+        $filepath =  "public/imgTemp/image.png";
+        file_put_contents($filepath, $data);
+       
     }
 
+
+    function promedioNotasAlumno(){
+        $resultadoPro = $this->model->promedioNotasAlumno();
+       
+
+        $json = array();
+        foreach ($resultadoPro as $est) {
+            $json[] = array(
+                'lectura_critica' => $est['lectura_critica'],
+                'matematicas' => $est['matematicas'],
+                'sociales_ciudadanas' => $est['sociales_ciudadanas'],
+                'naturales' => $est['naturales'],
+                'ingles' => $est['ingles'],
+                'lectura_criticaPro' => $est['lectura_criticaPro'],
+                'razonamiento_cuantitativoPro' => $est['razonamiento_cuantitativoPro'],
+                'competencias_ciudadanaPro' => $est['competencias_ciudadanaPro'],
+                'comunicacion_escritaPro' => $est['comunicacion_escritaPro'],
+                'inglesPro' => $est['inglesPro']
+                
+               
+
+            );
+        }
+        $JString = json_encode($json);
+        echo $JString;
+
+
+        
+    }
+    function promedioNotasEgresado(){
+        $resultadoPro = $this->model->promedioNotasEgresado();
+       
+
+        $json = array();
+        foreach ($resultadoPro as $est) {
+            $json[] = array(
+                'lectura_critica' => $est['lectura_critica'],
+                'matematicas' => $est['matematicas'],
+                'sociales_ciudadanas' => $est['sociales_ciudadanas'],
+                'naturales' => $est['naturales'],
+                'ingles' => $est['ingles'],
+                'lectura_criticaPro' => $est['lectura_criticaPro'],
+                'razonamiento_cuantitativoPro' => $est['razonamiento_cuantitativoPro'],
+                'competencias_ciudadanaPro' => $est['competencias_ciudadanaPro'],
+                'comunicacion_escritaPro' => $est['comunicacion_escritaPro'],
+                'inglesPro' => $est['inglesPro']
+                
+               
+
+            );
+        }
+        $JString = json_encode($json);
+        echo $JString;
+
+
+        
+    }
+    
+    
 
    
 }
