@@ -51,7 +51,6 @@ function recargaTesis() {
       var response = this.responseText;
       var resp = response.split("\n").join("");
       let tasks = JSON.parse(resp);
-      var cont = 0;
       var i = 0;
       for (var m = 0; m < tasks.length / 3; m++) {
         templateTesis += ` <div style="margin-bottom:10px"class="card-group">`
@@ -61,23 +60,20 @@ function recargaTesis() {
                   <div class="card">
                       <div class="form-group">
                           <div class="embed-responsive embed-responsive-16by9" id="pdf">
-                              <iframe class="embed-responsive-item" src="${tasks[cont].archivo}" allowfullscreen></iframe>
+                              <iframe class="embed-responsive-item" src="${tasks[j].archivo}" allowfullscreen></iframe>
                           </div>
                       </div>
                       <div class="card-body">
-                          <h5 class="card-title">Nombre(s): ${tasks[cont].nombres}</h5>
-                          <h5 class="card-title">Apellido(s): ${tasks[cont].apellidos}</h5>
-                          <h5 class="card-title">Correo: ${tasks[cont].correo}</h5>
-                          <h5 class="card-title">Telefono: ${tasks[cont].relefono}</h5>
-                          <h5 class="card-title">Promedio: ${tasks[cont].promedio}</h5>
+                          <h5 class="card-title">Nombre(s): ${tasks[j].nombres}</h5>
+                          <h5 class="card-title">Apellido(s): ${tasks[j].apellidos}</h5>
+                          <h5 class="card-title">Correo: ${tasks[j].correo}</h5>
+                          <h5 class="card-title">Telefono: ${tasks[j].relefono}</h5>
+                          <h5 class="card-title">Promedio: ${tasks[j].promedio}</h5>
                           
                       </div>
                   </div>`;
-          cont++;
-          console.log(cont)
           if ((i % 3) == 0) {
             templateTesis += `</div>`;
-            i = 0;
             break;
           }
         }
@@ -95,7 +91,6 @@ function recargaTesis() {
       var response = this.responseText;
       var resp = response.split("\n").join("");
       let tasks = JSON.parse(resp);
-      var cont = 0;
       var i = 0;
       for (var m = 0; m < tasks.length / 3; m++) {
         templateTesisA += ` <div style="margin-bottom:10px"class="card-group">`
@@ -105,23 +100,20 @@ function recargaTesis() {
                   <div class="card">
                       <div class="form-group">
                           <div class="embed-responsive embed-responsive-16by9" id="pdf">
-                              <iframe class="embed-responsive-item" src="${tasks[cont].archivo}" allowfullscreen></iframe>
+                              <iframe class="embed-responsive-item" src="${tasks[j].archivo}" allowfullscreen></iframe>
                           </div>
                       </div>
                       <div class="card-body">
-                          <h5 class="card-title">Nombre(s): ${tasks[cont].nombres}</h5>
-                          <h5 class="card-title">Apellido(s): ${tasks[cont].apellidos}</h5>
-                          <h5 class="card-title">Correo: ${tasks[cont].correo}</h5>
-                          <h5 class="card-title">Telefono: ${tasks[cont].relefono}</h5>
-                          <h5 class="card-title">Promedio: ${tasks[cont].promedio}</h5>
+                          <h5 class="card-title">Nombre(s): ${tasks[j].nombres}</h5>
+                          <h5 class="card-title">Apellido(s): ${tasks[j].apellidos}</h5>
+                          <h5 class="card-title">Correo: ${tasks[j].correo}</h5>
+                          <h5 class="card-title">Telefono: ${tasks[j].relefono}</h5>
+                          <h5 class="card-title">Promedio: ${tasks[j].promedio}</h5>
                           
                       </div>
                   </div>`;
-          cont++;
-          console.log(cont)
           if ((i % 3) == 0) {
             templateTesisA += `</div>`;
-            i = 0;
             break;
           }
         }

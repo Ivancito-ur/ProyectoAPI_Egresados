@@ -352,10 +352,6 @@ class directorDao extends Model
         }
     }
 
-
-
-
-
     function verificarEstudiantes($codigo)
     {
 
@@ -368,8 +364,6 @@ class directorDao extends Model
             return null;
         }
     }
-
-
 
     function getPruebaE($codigo)
     {
@@ -527,7 +521,7 @@ class directorDao extends Model
     function listarEstudiantesANotas11()
     {
         try {
-            $statement = $this->db->connect()->prepare("SELECT e.codigoEstudiante, p11.lectura_critica,
+            $statement = $this->db->connect()->prepare("SELECT e.codigoEstudiante,  p11.lectura_critica,
              p11.matematica, p11.sociales_ciudadanas, p11.naturales, p11.ingles , p.nombres , p.apellidos FROM estudiante e INNER JOIN historial h ON e.codigoEstudiante=h.codigoEstudiante INNER JOIN pruebassaber11 p11 ON p11.idSaber11=h.idSaber11 INNER JOIN persona p ON p.documento=e.documento WHERE e.egresado=1 ORDER BY e.codigoEstudiante  ASC");
             $statement->execute();
             $resultado = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -594,6 +588,8 @@ class directorDao extends Model
             return null;
         }
     }
+
+
     function crearEvento($titulo, $direccion, $ciudad, $fecha, $hora, $responable, $descripcion)
     {
         $statement = $this->db->connect()->prepare("INSERT INTO evento (titulo,direccion,fecha,hora,responsable,
@@ -614,5 +610,45 @@ class directorDao extends Model
             echo $th;
             return null;
         }
+    }
+
+
+    function listarEventos(){
+
+        try {
+            $statement = $this->db->connect()->prepare("SELECT id,titulo,direccion, fecha, hora,responsable,ciudad, descripcion FROM evento");
+            $statement->execute();
+            $resultado = $statement->fetchAll(PDO::FETCH_ASSOC);
+            return  $resultado;
+        } catch (PDOException $e) {
+            return null;
+        }
+
+    }
+
+
+    function eliminarEvento($codigo){
+        try {
+            $statement = $this->db->connect()->prepare("DELETE FROM evento WHERE id = $codigo");
+            $statement->execute();
+            return  true;
+        } catch (PDOException $e) {
+            return null;
+        }
+
+
+    }
+
+
+    function listarEmpresa(){
+        try {
+            $statement = $this->db->connect()->prepare("SELECT nombre, correo, telefono, celular, direccion , ciudad, fecha_registro FROM empresas");
+            $statement->execute();
+            $resultado = $statement->fetchAll(PDO::FETCH_ASSOC);
+            return  $resultado;
+        } catch (PDOException $e) {
+            return null;
+        }
+
     }
 }
