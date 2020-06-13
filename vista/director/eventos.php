@@ -41,6 +41,7 @@
                                 <div class="col-lg-6">
                                     <label for="correo">Hora</label>
                                     <input type="time" class="form-control" id="hora" required>
+                                    <span>Formato : hora:minutos (am/pm)</span>
                                 </div>
                             </div>
                         </div>

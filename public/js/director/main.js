@@ -17,7 +17,6 @@ function recargaTesis() {
     var response = this.responseText;
     var resp = response.split("\n").join("");
     let tasks = JSON.parse(resp);
-    var cont = 0;
     var i = 0;
     for (var m = 0; m < tasks.length / 3; m++) {
       templateTesis += ` <div style="margin-bottom:10px"class="card-group">`
@@ -27,19 +26,16 @@ function recargaTesis() {
                 <div class="card">
                     <div class="form-group">
                         <div class="embed-responsive embed-responsive-16by9" id="pdf">
-                            <iframe class="embed-responsive-item" src="${tasks[cont].archivo}" allowfullscreen></iframe>
+                            <iframe class="embed-responsive-item" src="${tasks[j].archivo}" allowfullscreen></iframe>
                         </div>
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title">${tasks[cont].titulo}</h5>
+                        <h5 class="card-title">${tasks[j].titulo}</h5>
                         
                     </div>
                 </div>`;
-        cont++;
-        console.log(cont)
         if ((i % 3) == 0) {
           templateTesis += `</div>`;
-          i = 0;
           break;
         }
       }
@@ -427,9 +423,13 @@ function loadLev() {
   };
   xhttp.open("GET", "vista/director/listadoEvento.php", true);
   xhttp.send();
+  recargarEventos();
 
+  
+  
 
 }
+
 
 function loadTe() {
   var xhttp = new XMLHttpRequest();
@@ -918,6 +918,8 @@ function removerCodigo(cod) {
 
 }
 
+//SEGUNDA ITERACION
+
 function graficaReport11(lectura, razon, natu, compet, ingles, lecturaP, razonP, comuniP, competP, inglesP) {
 
   var densityCanvas = document.getElementById("popChart");
@@ -1064,26 +1066,152 @@ function insertarEvento(e) {
   var hora = $('#hora').val();
   var responsable =$('#responsable').val();
   var descripcion = $('#descripcion').val();
+  var opcion = $('input:radio[name=envio]:checked').val(); 
 
-  opcion = $('input:radio[name=envio]:checked').val(); 
-  console.log(hora);
-  console.log(titulo);
-  console.log(direccion);
-  console.log(fecha);
-  console.log(descripcion);
+  if(titulo=="" || direccion=="" || ciudad=="" || fecha=="" || hora=="" || responsable=="" || descripcion=="" ){
 
+    $('#alertCorreo').show();
+    $('#alertCorreo2').hide();
+    $('#respuestaCorreo').text("Por favor llene todos los campos");
+    return;
+
+  }
+ 
+
+  $("body").css('cursor', 'wait');
+
+  $('#alertCorreo2').show();
+  $('#alertCorreo').hide();
+  $('#respuestaCorreo2').text("Enviando...");
   httpRequest(URLD + "directorControl/crearEvento/" + titulo + "/" + direccion + "/" + ciudad + "/" +
-  fecha + "/" + hora + "/" + responsable + "/" + descripcion, function () {
+  fecha + "/" + hora + "/" + responsable + "/" + descripcion + "/" + opcion, function () {
     $("body").css('cursor', 'default');
     const resp = this.responseText;
+   
     $('#alertCorreo2').show();
     $('#alertCorreo').hide();
     $('#respuestaCorreo2').text("Creado y enviado Correctamente");
     $('#cuerpo').val("");
     $('#asunto').val("");
+    $('#titulo').val("");
+    $('#direccion').val("");
+    $('#ciudad').val("");
+    $('#fecha').val("");
+    $('#hora').val("");
+    $('#responsable').val("");
+    $('#descripcion').val("");
+    $("body").css('cursor', 'default');
     setTimeout(function () {
       $("#alertCorreo2").fadeOut(1500);
     }, 3000)
   });
 
 }
+
+
+function recargarEventos(){
+  httpRequest(URLD + "directorControl/listarEventos", function () {
+
+    var response = this.responseText;
+    var resp = response.split("\n").join("");
+    let tasks = JSON.parse(resp);
+    let templateEventos= '';
+    var i = 0;
+    for (var m = 0; m < tasks.length / 3; m++) {
+      templateEventos += ` <div style="margin-bottom:10px"class="card-group">`
+      for (var j = i; j < tasks.length; j++) {
+        var idE= tasks[j].id;
+        i++;
+        templateEventos += `
+              <div class="card"> 
+              <div class="card-header">${tasks[j].titulo}</div>
+              <div class="card-body">
+                <h5 class="card-title">Ubicacion: ${tasks[j].ciudad}</h5>
+                <h5 class="card-title">Horario: ${tasks[j].fecha} / ${tasks[j].hora}</h5>
+                <p class="card-text">${tasks[j].descripcion}</p>
+                <p class="card-text" style="color:blue">Reponsable: ${tasks[j].responsable}</p>
+              </div>
+              <div style="padding:10px">
+                  <a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true" style="background-color: #dd4b39; border-color: #dd4b39;">Actualizar</a>
+                  <button type="button" onclick="eliminarEvento(${idE})"class="btn btn-secondary btn-lg" style="background-color: #dd4b39; border-color: #dd4b39; color: white;">Eliminar</button>
+              </div>
+            </div>
+               `;
+        if ((i % 3) == 0) {
+          templateEventos += `</div>`;
+          break;
+        }
+      }
+    }
+
+    templateEventos += `</div>`
+
+    $('.cajaE').html(templateEventos);
+
+
+
+  });
+
+
+}
+
+
+function eliminarEvento(codigo){
+  var aux = window.confirm("¿Realmente desea eliminar?");
+
+ if(aux){
+ httpRequest(URLD + "directorControl/eliminarEvento/" + codigo,function () {
+    recargarEventos();
+  });}
+
+  
+
+}
+
+
+function generarReporteEmpresa(){
+  $("#informe").show();
+  $("#reporEmprea").hide();
+  setTimeout(function () {
+    generarReporte();
+    $("#informe").fadeOut(2002);
+  }, 3000)
+}
+
+
+function tomarReporteEmpresa(){
+  $("#reporEmprea").show();
+  var estudiante = $('#exampleFormControlSelect1').val();
+  var tipoReporte ="";
+  window.open(URLD + "directorControl/generarReporte/" + estudiante + "/" + tipoReporte);
+}
+
+
+
+function bloquear(){
+  var estudiante = $('#exampleFormControlSelect1').val();
+  $('#exampleFormControlSelect2').hide();
+  $('#id1').hide();
+  $('#C2').hide();
+  $('#repor').hide();
+  $('#reporEmprea').show();
+  
+  
+  
+
+}
+
+
+function desbloquear(){
+  $('#exampleFormControlSelect2').show();
+  $('#id1').show();
+  $('#C2').show();
+  $('#reporEmprea').hide();
+  $('#repor').show();
+  
+
+}
+
+
+
+

@@ -1,20 +1,20 @@
 <?php
  require('fpdf.php');
-  class reportePDF extends FPDF {
+  class reporteEmpresa extends FPDF {
 
     function Header(){
         $this->Image('public/img/agro.png',243,8,30);
         $this->SetFont('Arial','B',15);
         $this->Cell(45);
         $this->SetTextColor(0,0,0);
-        $this->Cell(160,20, $_SESSION['repor'] .' Ingenieria Agroindustrial',0,0,'C');
-        $this->Ln(30);
+        $this->Cell(160,20, 'Empresas en convenio con Ingenieria Agroindustrial',0,0,'C');
+        $this->Ln(32);
           
           
 
     }
 
-    function TablaPromedio($header, $resul){
+    function TablaConvenio($header, $resul){
         //Colores, ancho de línea y fuente en negrita
         $this->SetFillColor(18, 67, 172);
         $this->SetTextColor(255);
@@ -27,9 +27,6 @@
         $this->Cell(10);
         for($i=0;$i<count($header);$i++){
         $aux =35;
-        if($i==4){
-            $aux =80;
-        }
         $this->Cell($aux,6,$header[$i],1,0,'C',1);
         }
 
@@ -50,12 +47,13 @@
             $cont++;
             
             $this->Cell(10);
-            $this->Cell(35,6,$value['codigoEstudiante'],1,0,'C',$fill);
-            $this->Cell(35,6,$value['documento'],1,0,'C',$fill);
-            $this->Cell(35,6,$value['nombres'],1,0,'C',$fill);
-            $this->Cell(35,6,$value['apellidos'],1,0,'C',$fill);
-            $this->Cell(80,6,$value['correoInstitucional'],1,0,'C',$fill);
-            $this->Cell(35,6,$value['promedio'],1,0,'C',$fill);
+            $this->Cell(35,6,$value['nombre'],1,0,'C',$fill);
+            $this->Cell(35,6,$value['correo'],1,0,'C',$fill);
+            $this->Cell(35,6,$value['telefono'],1,0,'C',$fill);
+            $this->Cell(35,6,$value['celular'],1,0,'C',$fill);
+            $this->Cell(35,6,$value['direccion'],1,0,'C',$fill);
+            $this->Cell(35,6,$value['ciudad'],1,0,'C',$fill);
+            $this->Cell(35,6,$value['fecha_registro'],1,0,'C',$fill);
             $this->Ln();
             
         }
