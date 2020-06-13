@@ -248,45 +248,46 @@ class directorControl extends Controller
         echo $JString;
     }
 
-    
+
     function ListarEstudianteActualizar($param)
     {
         $est = $this->model->listarEstudiantesActualizar($param[0]);
-       
-      
-            $json[] = array(
-                'codigoEstudiante' => $est['codigoEstudiante'],
-                'nombres' => $est['nombres'],
-                'apellidos' => $est['apellidos'],
-                'fechaIngreso' => $est['fechaIngreso'],
-                'promedio' => $est['promedio'],
-                'idPro' => $est['idSaberPro'],
-                'id11' => $est['idSaber11'],
-                'semestreCursado' => $est['semestreCursado'],
-                'materiasAprobadas' => $est['materiasAprobadas']
 
-            );
-        
+
+        $json[] = array(
+            'codigoEstudiante' => $est['codigoEstudiante'],
+            'nombres' => $est['nombres'],
+            'apellidos' => $est['apellidos'],
+            'fechaIngreso' => $est['fechaIngreso'],
+            'promedio' => $est['promedio'],
+            'idPro' => $est['idSaberPro'],
+            'id11' => $est['idSaber11'],
+            'semestreCursado' => $est['semestreCursado'],
+            'materiasAprobadas' => $est['materiasAprobadas']
+
+        );
+
         $JString = json_encode($json);
         echo $JString;
     }
 
     function EstudianteActualizar($param)
     {
-        
-        $resultado = $this->model->estudiantesActualizar($param[0] ,$param[1] ,$param[2],  $param[3] , $param[4] , $param[5] , $param[6] , $param[7], $param[8], $param[9]);
+
+        $resultado = $this->model->estudiantesActualizar($param[0], $param[1], $param[2],  $param[3], $param[4], $param[5], $param[6], $param[7], $param[8], $param[9]);
         echo $resultado;
     }
 
-    function validarCodigoPrueba($param){
+    function validarCodigoPrueba($param)
+    {
         $est = $this->model->verificarCodigoPruebapro($param[0]);
         $est2 = $this->model->verificarCodigoPrueba11($param[1]);
 
-        if($est==null){
+        if ($est == null) {
             echo 1;
             return;
         }
-        if($est2==null){
+        if ($est2 == null) {
             echo 2;
             return;
         }
@@ -308,17 +309,16 @@ class directorControl extends Controller
             return;
         }
 
-            $json[] = array(
-                'codigoEstudiante' => $resultado['codigoEstudiante'],
-                'nombres' => $resultado['nombres'],
-                'fechaIngreso' => $resultado['fechaIngreso'],
-                'fechaEgreso' => $resultado['fechaEgreso']
-            );
+        $json[] = array(
+            'codigoEstudiante' => $resultado['codigoEstudiante'],
+            'nombres' => $resultado['nombres'],
+            'fechaIngreso' => $resultado['fechaIngreso'],
+            'fechaEgreso' => $resultado['fechaEgreso']
+        );
 
 
-            $JString = json_encode($json);
-            echo $JString;
-        
+        $JString = json_encode($json);
+        echo $JString;
     }
     function actualizarFecha($param = null)
     {
@@ -473,117 +473,111 @@ class directorControl extends Controller
     }
 
 
-    function generarReporte($param){
+    function generarReporte($param)
+    {
         require('utils/fPDF/reportePDF.php');
-        
-      
 
 
-        if($param[0]=="Alumno"){
 
-          if($param[1]=="Promedio"){ 
-                $_SESSION['repor']="Reporte Promedio Alumno";
-                $pdf = new reportePDF('L','mm','A4');
+
+        if ($param[0] == "Alumno") {
+
+            if ($param[1] == "Promedio") {
+                $_SESSION['repor'] = "Reporte Promedio Alumno";
+                $pdf = new reportePDF('L', 'mm', 'A4');
                 $resultado = $this->model->listarEstudiantesAlumnos();
                 $pdf->AddPage();
-                $header=array('Codigo','Documento','Nombre','Apellido','Correo Institucional', 'Promedio');
+                $header = array('Codigo', 'Documento', 'Nombre', 'Apellido', 'Correo Institucional', 'Promedio');
                 $pdf->TablaPromedio($header, $resultado);
-                $pdf->Output('reporte_promedioA.pdf','I');
+                $pdf->Output('reporte_promedioA.pdf', 'I');
+            } else if ($param[1] == "Notas pruebas Saber 11 y Pro") {
 
+                $_SESSION['repor'] = "Reporte Notas Alumno";
+                $pdf = new reportePDF('L', 'mm', 'A4');
 
-            }
-            else if($param[1]=="Notas pruebas Saber 11 y Pro"){
-
-                $_SESSION['repor']="Reporte Notas Alumno";
-                $pdf = new reportePDF('L','mm','A4');
-                
                 $resultadoPro = $this->model->listarEstudiantesANotasPRO();
                 $resultado11 = $this->model->listarEstudiantesANotas11();
-                
+
                 $pdf->AddPage();
-                
+
                 //, 
-                $headerPro=array('codigoEstudiante' , 'Lectura Critica', 
-                'Razonamiento Cuantitativo', 'Comptencia Ciudadana' ,'Comunicacion Escrita', 'Ingles');
-                $header11=array('codigoEstudiante' , 'Lectura Critica', 
-                'Matematica', 'Sociales Ciudadanas', 'Naturales', 'Ingles');
-                $pdf->TablaNotas($headerPro,$header11, $resultadoPro, $resultado11);
-               
+                $headerPro = array(
+                    'codigoEstudiante', 'Lectura Critica',
+                    'Razonamiento Cuantitativo', 'Comptencia Ciudadana', 'Comunicacion Escrita', 'Ingles'
+                );
+                $header11 = array(
+                    'codigoEstudiante', 'Lectura Critica',
+                    'Matematica', 'Sociales Ciudadanas', 'Naturales', 'Ingles'
+                );
+                $pdf->TablaNotas($headerPro, $header11, $resultadoPro, $resultado11);
+
                 $pdf->AddPage();
                 $pdf->agregarImagen();
 
-            
-                $pdf->Output('reporte_promedioA.pdf','I');
 
-                
+                $pdf->Output('reporte_promedioA.pdf', 'I');
             }
+        } else if ($param[0] == "Egresado") {
 
-
-       }else if($param[0]=="Egresado"){
-
-            if($param[1]=="Promedio"){ 
-                $_SESSION['repor']="Reporte Promedio Egresado";
-                $pdf = new reportePDF('L','mm','A4');
+            if ($param[1] == "Promedio") {
+                $_SESSION['repor'] = "Reporte Promedio Egresado";
+                $pdf = new reportePDF('L', 'mm', 'A4');
                 $resultado = $this->model->listarEstudiantesEgresados();
                 $pdf->AddPage();
-                $header=array('Codigo','Documento','Nombre','Apellido','Correo Institucional', 'Promedio');
+                $header = array('Codigo', 'Documento', 'Nombre', 'Apellido', 'Correo Institucional', 'Promedio');
                 $pdf->TablaPromedio($header, $resultado);
-                $pdf->Output('reporte_promedioE.pdf','I');
+                $pdf->Output('reporte_promedioE.pdf', 'I');
+            } else if ($param[1] == "Notas pruebas Saber 11 y Pro") {
 
+                $_SESSION['repor'] = "Reporte Notas Egresado";
+                $pdf = new reportePDF('L', 'mm', 'A4');
 
-            }else if($param[1]=="Notas pruebas Saber 11 y Pro"){
-
-                $_SESSION['repor']="Reporte Notas Egresado";
-                $pdf = new reportePDF('L','mm','A4');
-                
                 $resultadoPro = $this->model->listarEgresadosANotasPRO();
                 $resultado11 = $this->model->listarEgresadosANotas11();
-                
+
                 $pdf->AddPage();
-               
-                
+
+
                 //, 
-                $headerPro=array('codigoEstudiante' , 'Lectura Critica', 
-                'Razonamiento Cuantitativo', 'Comptencia Ciudadana' ,'Comunicacion Escrita', 'Ingles');
-                $header11=array('codigoEstudiante' , 'Lectura Critica', 
-                'Matematica', 'Sociales Ciudadanas', 'Naturales', 'Ingles');
-                $pdf->TablaNotas($headerPro,$header11, $resultadoPro, $resultado11);
-               
+                $headerPro = array(
+                    'codigoEstudiante', 'Lectura Critica',
+                    'Razonamiento Cuantitativo', 'Comptencia Ciudadana', 'Comunicacion Escrita', 'Ingles'
+                );
+                $header11 = array(
+                    'codigoEstudiante', 'Lectura Critica',
+                    'Matematica', 'Sociales Ciudadanas', 'Naturales', 'Ingles'
+                );
+                $pdf->TablaNotas($headerPro, $header11, $resultadoPro, $resultado11);
+
                 $pdf->AddPage();
                 $pdf->agregarImagen();
 
-            
-                $pdf->Output('reporte_promedioA.pdf','I');
 
-
-
+                $pdf->Output('reporte_promedioA.pdf', 'I');
             }
-
-            
-
         }
 
         unset($_SESSION['repor']);
-        
     }
 
 
 
-    
-    function obtenerImagen(){
-     
+
+    function obtenerImagen()
+    {
+
         $baseFromJavascript =  $_POST["base64"];
         $base_to_php = explode(',', $baseFromJavascript);
         $data = base64_decode($base_to_php[1]);
         $filepath =  "public/imgTemp/image.png";
         file_put_contents($filepath, $data);
-       
     }
 
 
-    function promedioNotasAlumno(){
+    function promedioNotasAlumno()
+    {
         $resultadoPro = $this->model->promedioNotasAlumno();
-       
+
 
         $json = array();
         foreach ($resultadoPro as $est) {
@@ -598,20 +592,18 @@ class directorControl extends Controller
                 'competencias_ciudadanaPro' => $est['competencias_ciudadanaPro'],
                 'comunicacion_escritaPro' => $est['comunicacion_escritaPro'],
                 'inglesPro' => $est['inglesPro']
-                
-               
+
+
 
             );
         }
         $JString = json_encode($json);
         echo $JString;
-
-
-        
     }
-    function promedioNotasEgresado(){
+    function promedioNotasEgresado()
+    {
         $resultadoPro = $this->model->promedioNotasEgresado();
-       
+
 
         $json = array();
         foreach ($resultadoPro as $est) {
@@ -626,19 +618,26 @@ class directorControl extends Controller
                 'competencias_ciudadanaPro' => $est['competencias_ciudadanaPro'],
                 'comunicacion_escritaPro' => $est['comunicacion_escritaPro'],
                 'inglesPro' => $est['inglesPro']
-                
-               
+
+
 
             );
         }
         $JString = json_encode($json);
         echo $JString;
+    }
 
-
+    function crearEvento($param = null)
+    {
+        $titulo = $param[0];
+        $direccion = $param[1];
+        $ciudad = $param[2];
+        $fecha = $param[3];
+        $hora = $param[4];
+        $responsable = $param[5];
+        $descripcion = $param[6];
+        $this->model->crearEvento($titulo, $direccion,$ciudad,$fecha,$hora,$responsable,$descripcion);
+        return;
         
     }
-    
-    
-
-   
 }

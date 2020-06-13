@@ -4,7 +4,7 @@ var lista = [];
 var extTesis = "";
 var consta = "";
 let templateTesis = '';
-var validacionT ="Promedio";
+var validacionT = "Promedio";
 
 
 
@@ -93,7 +93,7 @@ function cargaDatos(e) {
     $('.respuesta').text("Introduzca un valor numerico positivo");
     return;
   }
-  if (busquedaCodigo=="") {
+  if (busquedaCodigo == "") {
     $('#alertCodigo').show();
     $('#alert2Codigo').hide();
     $('.respuesta').text("Introduzca Codigo a buscar");
@@ -122,11 +122,11 @@ function cargaDatos(e) {
       $('#alertCodigo').show();
       $('.respuesta').text("¡Usuario con fecha ya actualizada!");
       $("#fechaeF").val(task[0].fechaEgreso);
-      $("#fechaeF").prop("disabled",true);     
+      $("#fechaeF").prop("disabled", true);
       return;
     }
     $("#fechaeF").val(task[0].fechaEgreso);
-    $("#fechaeF").prop("disabled",false);   
+    $("#fechaeF").prop("disabled", false);
 
     $('#busquedaCodigoF').val("");
     $("#nombreF").val("");
@@ -140,9 +140,9 @@ function cargaDatos(e) {
 }
 
 
-function cargarDatosActualizar(e){
+function cargarDatosActualizar(e) {
   var codigo = $('#busquedaCodigo').val();
-  if(codigo==""){
+  if (codigo == "") {
     $('.respuestaACtu').text("Por favor ingrese el codigo.");
     $('#actualizarE2').hide();
     $('#actualizarE').show();
@@ -150,7 +150,7 @@ function cargarDatosActualizar(e){
   }
 
   httpRequest(URLD + "directorControl/ListarEstudianteActualizar/" + codigo, function () {
-   
+
     const resp = this.responseText;
     var aux = resp.split("\n").join("");
     console.log(aux);
@@ -158,7 +158,7 @@ function cargarDatosActualizar(e){
     const task = JSON.parse(aux);
     $("#codigo").val(task[0].codigoEstudiante);
     $("#nombre").val(task[0].nombres);
-    $("#apellido").val(task[0].apellidos );
+    $("#apellido").val(task[0].apellidos);
     $("#fechai").val(task[0].fechaIngreso);
     $("#promedio").val(task[0].promedio);
     $("#codigoPro").val(task[0].idPro);
@@ -171,43 +171,43 @@ function cargarDatosActualizar(e){
 
 }
 
-function actualizarDatosEstudiante(e){
+function actualizarDatosEstudiante(e) {
   e.preventDefault();
-    var codigoP = $('#busquedaCodigo').val();
-    var codigo = $("#codigo").val();
-    var nombre = $("#nombre").val();
-    var apellido = $("#apellido").val();
-    var fechaI = $("#fechai").val();
-    var promedio = $("#promedio").val();
-    var codigoPro = $("#codigoPro").val();
-    var codigo11 = $("#codigo11").val();
-    var semestre = $("#semestre").val();
-    var materias = $("#materias").val();
+  var codigoP = $('#busquedaCodigo').val();
+  var codigo = $("#codigo").val();
+  var nombre = $("#nombre").val();
+  var apellido = $("#apellido").val();
+  var fechaI = $("#fechai").val();
+  var promedio = $("#promedio").val();
+  var codigoPro = $("#codigoPro").val();
+  var codigo11 = $("#codigo11").val();
+  var semestre = $("#semestre").val();
+  var materias = $("#materias").val();
 
-  if(codigo=="" || nombre=="" ||apellido=="" ||fechaI=="" ||promedio=="" ||codigoPro=="" ||codigo11=="" || semestre=="" ||  materias=="" ){
+  if (codigo == "" || nombre == "" || apellido == "" || fechaI == "" || promedio == "" || codigoPro == "" || codigo11 == "" || semestre == "" || materias == "") {
     $('#garRespuesta').text("Por favor llene todos los valores");
     $('#gar2').hide();
     $('#gar').show();
     return;
   }
 
-  httpRequest(URLD + "directorControl/validarCodigoPrueba/" + codigoPro + "/" + codigo11 , function () {
+  httpRequest(URLD + "directorControl/validarCodigoPrueba/" + codigoPro + "/" + codigo11, function () {
 
     const resp = this.responseText;
     var aux = resp.split("\n").join("");
-    if(aux==1){
+    if (aux == 1) {
       $('#garRespuesta').text("Codigo de prueba saberPro no registrado");
       $('#gar2').hide();
       $('#gar').show();
       return;
     }
-    if(aux==2){
+    if (aux == 2) {
       $('#garRespuesta').text("Codigo de prueba saber11 no registrado");
       $('#gar2').hide();
       $('#gar').show();
       return;
     }
-    httpRequest(URLD + "directorControl/EstudianteActualizar/" + codigoP +  "/" + codigo  + "/"  + nombre + "/" + apellido +  "/" + fechaI + "/" + promedio + "/" + codigoPro + "/" + codigo11 + "/" + semestre + "/" + materias , function () {
+    httpRequest(URLD + "directorControl/EstudianteActualizar/" + codigoP + "/" + codigo + "/" + nombre + "/" + apellido + "/" + fechaI + "/" + promedio + "/" + codigoPro + "/" + codigo11 + "/" + semestre + "/" + materias, function () {
 
       const resp = this.responseText;
       var aux = resp.split("\n").join("");
@@ -217,7 +217,7 @@ function actualizarDatosEstudiante(e){
       setTimeout(function () {
         $("#gar2").fadeOut(1500);
       }, 3000)
-     
+
       $("#codigo").val("");
       $("#nombre").val("");
       $("#apellido").val("");
@@ -229,16 +229,14 @@ function actualizarDatosEstudiante(e){
       $("#materias").val("");
       return;
     });
-  
+
   });
 
   return false;
- 
 
- 
+
+
 }
-
-
 
 function actualizarFecha(e) {
   e.preventDefault();
@@ -255,9 +253,9 @@ function actualizarFecha(e) {
     $('#actu2').hide();
     $('#actu1').show();
     return;
-    
+
   }
- 
+
   httpRequest(URLD + "directorControl/actualizarFecha/" + fechae + "/" + codigo, function () {
 
     const resp = this.responseText;
@@ -361,8 +359,8 @@ function loadR() {
   };
   xhttp.open("GET", "vista/director/reportes.php", true);
   xhttp.send();
-  
-  
+
+
 }
 
 
@@ -375,8 +373,8 @@ function loadAe() {
   };
   xhttp.open("GET", "vista/director/agregarE.php", true);
   xhttp.send();
-  
-  
+
+
 }
 
 
@@ -389,8 +387,8 @@ function loadLe() {
   };
   xhttp.open("GET", "vista/director/listarEmpresa.php", true);
   xhttp.send();
-  
-  
+
+
 }
 
 
@@ -403,8 +401,8 @@ function loadEn() {
   };
   xhttp.open("GET", "vista/director/encuesta.php", true);
   xhttp.send();
-  
-  
+
+
 }
 
 function loadEv() {
@@ -416,8 +414,8 @@ function loadEv() {
   };
   xhttp.open("GET", "vista/director/eventos.php", true);
   xhttp.send();
-  
-  
+
+
 }
 
 function loadLev() {
@@ -429,8 +427,8 @@ function loadLev() {
   };
   xhttp.open("GET", "vista/director/listadoEvento.php", true);
   xhttp.send();
-  
-  
+
+
 }
 
 function loadTe() {
@@ -578,11 +576,11 @@ function getPrueba() {
 }
 
 function prueba11(lectura, razon, natu, compet, ingles) {
-  
-  
+
+
   var ctx = document.getElementById('myChart11');
- 
-  
+
+
   var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
@@ -862,7 +860,7 @@ function enviarTesis(e) {
 function explodeCodigo(e) {
   e.preventDefault();
   var codigo = $('#codigo').val();
-  if (parseInt(codigo, 10) < 1 || codigo== "" ) {   
+  if (parseInt(codigo, 10) < 1 || codigo == "") {
     $('.verificarC').text("Introduzca un valor numerico postivo");
     return;
   }
@@ -920,101 +918,92 @@ function removerCodigo(cod) {
 
 }
 
-function graficaReport11(lectura, razon, natu, compet, ingles,lecturaP, razonP, comuniP, competP, inglesP ){
-  
-  var densityCanvas  = document.getElementById("popChart");
- 
-  
-Chart.defaults.global.defaultFontFamily = "Lato";
-Chart.defaults.global.defaultFontSize = 18;
+function graficaReport11(lectura, razon, natu, compet, ingles, lecturaP, razonP, comuniP, competP, inglesP) {
 
-var densityDatas = {
- 
-  data: [lectura, razon, natu, compet, ingles],
-  label: 'Pruebas saber 11',
-  backgroundColor: 'rgba(0, 99, 132, 0.6)',
-  borderWidth: 0,
-  yAxisID: "y-axis-density"
-};
+  var densityCanvas = document.getElementById("popChart");
 
-var gravityDatas = {
-  label: 'Pruebas saber Pro',
-  data: [lecturaP, razonP, comuniP, competP, inglesP],
-  backgroundColor: 'rgba(99, 132, 0, 0.6)',
-  borderWidth: 0,
-  yAxisID: "y-axis-gravity"
-};
 
-var planetDatas = {
-  labels: ['Lectura', 'Razonamiento', 'Naturales/Comunicacion', 'Competencia', 'Ingles'],
-  datasets: [densityDatas, gravityDatas]
-};
+  Chart.defaults.global.defaultFontFamily = "Lato";
+  Chart.defaults.global.defaultFontSize = 18;
 
-var chartOptionsa = {
-  scales: {
-    xAxes: [{
-      barPercentage: 1,
-      categoryPercentage: 0.6
-    }],
-    yAxes: [{
-      id: "y-axis-density"
-    }, {
-      id: "y-axis-gravity"
-    }]
-  }
-};
+  var densityDatas = {
 
-var barChart = new Chart(densityCanvas, {
-  type: 'bar',
-  data: planetDatas,
-  options: chartOptionsa
-});
+    data: [lectura, razon, natu, compet, ingles],
+    label: 'Pruebas saber 11',
+    backgroundColor: 'rgba(0, 99, 132, 0.6)',
+    borderWidth: 0,
+    yAxisID: "y-axis-density"
+  };
+
+  var gravityDatas = {
+    label: 'Pruebas saber Pro',
+    data: [lecturaP, razonP, comuniP, competP, inglesP],
+    backgroundColor: 'rgba(99, 132, 0, 0.6)',
+    borderWidth: 0,
+    yAxisID: "y-axis-gravity"
+  };
+
+  var planetDatas = {
+    labels: ['Lectura', 'Razonamiento', 'Naturales/Comunicacion', 'Competencia', 'Ingles'],
+    datasets: [densityDatas, gravityDatas]
+  };
+
+  var chartOptionsa = {
+    scales: {
+      xAxes: [{
+        barPercentage: 1,
+        categoryPercentage: 0.6
+      }],
+      yAxes: [{
+        id: "y-axis-density"
+      }, {
+        id: "y-axis-gravity"
+      }]
+    }
+  };
+
+  var barChart = new Chart(densityCanvas, {
+    type: 'bar',
+    data: planetDatas,
+    options: chartOptionsa
+  });
 
 }
 
 
-function generarReporteGrafica(e){
+function generarReporteGrafica(e) {
 
   var estudiante = $('#exampleFormControlSelect1').val();
   var tipoReporte = $('#exampleFormControlSelect2').val();
   var direccion;
 
-  if(estudiante=="Egresado"){
+  if (estudiante == "Egresado") {
 
-    if(tipoReporte=="Notas pruebas Saber 11 y Pro"){
-      direccion ="directorControl/promedioNotasAlumno";
+    if (tipoReporte == "Notas pruebas Saber 11 y Pro") {
+      direccion = "directorControl/promedioNotasAlumno";
     }
 
 
   }
 
 
-  if(estudiante=="Alumno"){
+  if (estudiante == "Alumno") {
 
-    if(tipoReporte=="Notas pruebas Saber 11 y Pro"){
-      direccion ="directorControl/promedioNotasEgresado";
+    if (tipoReporte == "Notas pruebas Saber 11 y Pro") {
+      direccion = "directorControl/promedioNotasEgresado";
     }
 
 
   }
 
- 
-
-
-
- 
-  
   httpRequest(URLD + direccion, function () {
     var resp = this.responseText;
     let ta = JSON.parse(resp);
 
+    graficaReport11(ta[0].lectura_critica, ta[0].matematicas, ta[0].naturales, ta[0].sociales_ciudadanas, ta[0].ingles,
+      ta[0].lectura_criticaPro, ta[0].razonamiento_cuantitativoPro, ta[0].comunicacion_escritaPro, ta[0].competencias_ciudadanaPro, ta[0].inglesPro);
 
 
-    
-    graficaReport11(ta[0].lectura_critica, ta[0].matematicas,ta[0].naturales, ta[0].sociales_ciudadanas, ta[0].ingles,
-      ta[0].lectura_criticaPro,ta[0].razonamiento_cuantitativoPro, ta[0].comunicacion_escritaPro,ta[0].competencias_ciudadanaPro,ta[0].inglesPro);
-    
-  
 
   });
   $("#informe").show();
@@ -1023,45 +1012,39 @@ function generarReporteGrafica(e){
     generarReporte();
     $("#informe").fadeOut(2002);
   }, 3000)
- 
- 
+
+
 }
 
 
-function generarReporte(){
+function generarReporte() {
   var estudiante = $('#exampleFormControlSelect1').val();
   var tipoReporte = $('#exampleFormControlSelect2').val();
-  if(tipoReporte!="Promedio"){
-  var canvas = document.getElementById("popChart");
-  var image = canvas.toDataURL(); 
-  
-  $.ajax({
-    url: URLD + "directorControl/obtenerImagen",
-    data:{
+  if (tipoReporte != "Promedio") {
+    var canvas = document.getElementById("popChart");
+    var image = canvas.toDataURL();
+
+    $.ajax({
+      url: URLD + "directorControl/obtenerImagen",
+      data: {
         base64: image
-    },
-    type:"post",
-    success: function (data) {
-      console.log(data);
-    },
-    complete:function(){
+      },
+      type: "post",
+      success: function (data) {
+        console.log(data);
+      },
+      complete: function () {
         console.log("Todo listo");
-    }
-  });
+      }
+    });
   }
   $("#repor").show();
-  window.open(URLD + "directorControl/generarReporte/" + estudiante + "/" + tipoReporte );
+  window.open(URLD + "directorControl/generarReporte/" + estudiante + "/" + tipoReporte);
 
- 
-  
- 
+
+
+
 }
-
-
-
-
-
-
 
 function removeItemFromArr(arr, item) {
   var i = arr.indexOf(item);
@@ -1071,9 +1054,36 @@ function removeItemFromArr(arr, item) {
   }
 }
 
+function insertarEvento(e) {
+  e.preventDefault();
 
+  var titulo = $('#titulo').val();
+  var direccion = $('#direccion').val();
+  var ciudad = $('#ciudad').val();
+  var fecha= $('#fecha').val();
+  var hora = $('#hora').val();
+  var responsable =$('#responsable').val();
+  var descripcion = $('#descripcion').val();
 
+  opcion = $('input:radio[name=envio]:checked').val(); 
+  console.log(hora);
+  console.log(titulo);
+  console.log(direccion);
+  console.log(fecha);
+  console.log(descripcion);
 
+  httpRequest(URLD + "directorControl/crearEvento/" + titulo + "/" + direccion + "/" + ciudad + "/" +
+  fecha + "/" + hora + "/" + responsable + "/" + descripcion, function () {
+    $("body").css('cursor', 'default');
+    const resp = this.responseText;
+    $('#alertCorreo2').show();
+    $('#alertCorreo').hide();
+    $('#respuestaCorreo2').text("Creado y enviado Correctamente");
+    $('#cuerpo').val("");
+    $('#asunto').val("");
+    setTimeout(function () {
+      $("#alertCorreo2").fadeOut(1500);
+    }, 3000)
+  });
 
-
-
+}
