@@ -22,7 +22,7 @@ class Correo {
                 $mail->isSMTP();                                            // Send using SMTP
                 $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
                 $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-                $mail->Username   = 'apiegresados@gmail.com';                     // SMTP username
+                $mail->Username   = 'apiegresados2@gmail.com';                     // SMTP username
                 $mail->Password   = 'rasengan2000';                               // SMTP password
                 $mail->SMTPSecure = 'tls';         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
                 $mail->Port       = '587';                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
@@ -31,12 +31,12 @@ class Correo {
                
                 
                 if($cant==0){
-                    $mail->setFrom('apiegresados@gmail.com', 'Notificacion Ing. Agroindustrial');
+                    $mail->setFrom('apiegresados2@gmail.com', 'Notificacion Ing. Agroindustrial');
                     foreach($correos as $cor){
                         $mail->addAddress($cor['correoInstitucional'], '');     // Add a recipient
                     }
                 }else if($cant==1){
-                    $mail->setFrom('apiegresados@gmail.com', 'Recuperacion de Cuenta');
+                    $mail->setFrom('apiegresados2@gmail.com', 'Recuperacion de Cuenta');
                     $mail->addAddress($correos['correoInstitucional'], ''); 
                 }
 
@@ -58,7 +58,7 @@ class Correo {
         }
 
 
-        function correoEventos($correos, $titulo, $descripcion){
+        function correoEventos($correos, $titulo, $descripcion, $cual){
             require 'PHPMailer/Exception.php';
             require 'PHPMailer/PHPMailer.php';
             require 'PHPMailer/SMTP.php';
@@ -74,13 +74,17 @@ class Correo {
                 $mail->isSMTP();                                            // Send using SMTP
                 $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
                 $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-                $mail->Username   = 'apiegresados@gmail.com';                     // SMTP username
+                $mail->Username   = 'apiegresados2@gmail.com';                     // SMTP username
                 $mail->Password   = 'rasengan2000';                               // SMTP password
                 $mail->SMTPSecure = 'tls';         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
                 $mail->Port       = '587';                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
                 //Recipients
-                $mail->setFrom('apiegresados@gmail.com', 'Invitacion de Evento Ing.Agroindustrial');
+                if($cual==0){
+                $mail->setFrom('apiegresados2@gmail.com', 'Invitacion de Evento Ing.Agroindustrial');
+                }else{
+                    $mail->setFrom('apiegresados2@gmail.com', 'Encuesta Organizada Ing.Agroindustrial');
+                }
     
                 foreach($correos as $cor){
                     $mail->addAddress($cor['correoInstitucional'], '');     // Add a recipient
@@ -98,6 +102,9 @@ class Correo {
                 echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
             }
         }
+
+
+     
 
 
 

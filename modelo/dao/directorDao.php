@@ -590,10 +590,18 @@ class directorDao extends Model
     }
 
 
-    function crearEvento($titulo, $direccion, $ciudad, $fecha, $hora, $responable, $descripcion)
-    {
+    function crearEvento($titulo, $direccion, $ciudad, $fecha, $hora, $responable, $descripcion, $destinario){
+
+    if($destinario=="0"){
+        $destinario="TODOS";
+    }else if($destinario=="1"){
+        $destinario="EGRESADOS";
+    }else{
+        $destinario="ESTUDIANTES";
+    }
+    
         $statement = $this->db->connect()->prepare("INSERT INTO evento (titulo,direccion,fecha,hora,responsable,
-            ciudad,descripcion) VALUES (:titulo,:direccion,:fecha,:hora,:responsable,:ciudad,:descripcion)");
+            ciudad,descripcion,destinatario) VALUES (:titulo,:direccion,:fecha,:hora,:responsable,:ciudad,:descripcion,:destinatario)");
         try {
             $statement->execute([
                 ':titulo' => $titulo,
@@ -602,7 +610,8 @@ class directorDao extends Model
                 ':hora' => $hora,
                 ':responsable' => $responable,
                 ':ciudad' => $ciudad,
-                ':descripcion' => $descripcion
+                ':descripcion' => $descripcion,
+                ':destinatario' => $destinario
             ]);
             $resultado = $statement->fetchAll();
             return true;
@@ -650,5 +659,26 @@ class directorDao extends Model
             return null;
         }
 
+    }
+
+
+    function insertNoticia($fecha_publicacion,$titulo,$cuerpo,$autor,$destinatario){
+        $query = $this->db->connect()->prepare("INSERT INTO noticia (fecha_publicacion 	titulo 	cuerpo 	autor 	destinatario)
+         values (:fecha_publicacion,:titulo,:cuerpo,:autor,:destinatario)");
+        try {
+            $query->execute([
+                ':fecha_publicacion' =>  $fecha_publicacion,
+                ':titulo' =>  $titulo,
+                ':cuerpo' =>  $cuerpo,
+                ':autor' =>  $autor,
+                ':destinatario' =>  $destinatario
+
+            ]);
+            $resultado = $query->fetchAll();
+            return true;
+        } catch (PDOException $e) {
+            return false;
+        }
+      	
     }
 }

@@ -36,6 +36,7 @@
   <link rel="stylesheet" href="<?php echo constant('URL') ?>public/assets/css/argon.css?v=1.2.0" type="text/css">
 
   <link rel="stylesheet" href="<?php echo constant('URL') ?>public/css/director/estiloAdm.css">
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 
   
