@@ -650,8 +650,6 @@ class directorDao extends Model
 
 
     }
-
-
     function listarEmpresa(){
         try {
             $statement = $this->db->connect()->prepare("SELECT nombre, correo, telefono, celular, direccion , ciudad, fecha_registro FROM empresas");
@@ -661,6 +659,5 @@ class directorDao extends Model
         } catch (PDOException $e) {
             return null;
         }
-
     }
 }

@@ -1156,7 +1156,6 @@ function recargarEventos(){
       templateEventos += ` <div style="margin-bottom:10px"class="card-group">`
       for (var j = i; j < tasks.length; j++) {
         var idE= tasks[j].id;
-        console.log(resp);
         i++;
         templateEventos += `
               <div class="card"> 
@@ -1168,8 +1167,8 @@ function recargarEventos(){
                 <p class="card-text" style="color:blue">Reponsable: ${tasks[j].responsable}</p>
                 <p class="card-text" style="color:black">Destinatarios: ${tasks[j].destinatario}</p>
               </div>
-              <div style="padding:10px">
-                  <a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true" style="background-color: #dd4b39; border-color: #dd4b39;">Actualizar</a>
+              <div style="padding:10px">                  
+                  <button type="button" onclick="actualizarEvento(${idE})"class="btn btn-secondary btn-lg" style="background-color: #dd4b39; border-color: #dd4b39; color: white;">Actualizar</button>
                   <button type="button" onclick="eliminarEvento(${idE})"class="btn btn-secondary btn-lg" style="background-color: #dd4b39; border-color: #dd4b39; color: white;">Eliminar</button>
               </div>
             </div>
@@ -1200,11 +1199,14 @@ function eliminarEvento(codigo){
  httpRequest(URLD + "directorControl/eliminarEvento/" + codigo,function () {
     recargarEventos();
   });}
-
-  
-
 }
 
+function actualizarEvento(codigo){
+ if(aux){
+ httpRequest(URLD + "directorControl/eliminarEvento/" + codigo,function () {
+    recargarEventos();
+  });}
+}
 
 function generarReporteEmpresa(){
   $("#informe").show();
