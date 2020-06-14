@@ -91,6 +91,18 @@
                 <span class="nav-link-text">Listado de ofertas laborales</span>
               </a>
             </li>
+            <li class="nav-item">
+              <a onclick="loadEvpu()" class="nav-link" href="#">
+                <i class="fas fa-list"></i>
+                <span class="nav-link-text">Listado de eventos</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a onclick="loadVn()" class="nav-link" href="#">
+                <i class="fas fa-newspaper"></i>
+                <span class="nav-link-text">Noticias</span>
+              </a>
+            </li>
           </ul>
           <!-- Divider -->
           <hr class="my-3">
@@ -207,7 +219,7 @@
       </div>
     </div>
     <!-- Page content -->
-    <div class="container" id="contenedor">
+    <div class="container-fluid mt--6" id="contenedor">
 
       
       <div class="row">

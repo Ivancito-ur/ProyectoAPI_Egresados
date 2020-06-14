@@ -414,6 +414,45 @@ function loadEv() {
 
 }
 
+function loadNo() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("contenedor").innerHTML = this.responseText;
+    }
+  };
+  xhttp.open("GET", "vista/director/agregarN.php", true);
+  xhttp.send();
+  
+  
+}
+
+function loadLno() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("contenedor").innerHTML = this.responseText;
+    }
+  };
+  xhttp.open("GET", "vista/director/listarNoticia.php", true);
+  xhttp.send();
+  
+  
+}
+
+function loadAnot() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("contenedor").innerHTML = this.responseText;
+    }
+  };
+  xhttp.open("GET", "vista/director/actualizarN.php", true);
+  xhttp.send();
+  
+  
+}
+
 function loadLev() {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
