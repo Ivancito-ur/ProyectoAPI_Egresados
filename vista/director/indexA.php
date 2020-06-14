@@ -137,7 +137,19 @@
                 <i class="ni ni-bullet-list-67 text-default"></i>
                 <span class="nav-link-text">Listado de eventos</span>
               </a>
-            </li>    
+            </li>
+            <li class="nav-item">
+              <a onclick="loadNo()" class="nav-link" href="#">
+                <i class="fas fa-tv"></i>
+                <span class="nav-link-text">Publicar noticia</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a onclick="loadLno()" class="nav-link" href="#">
+                <i class="fas fa-newspaper"></i>
+                <span class="nav-link-text">Noticias publicadas</span>
+              </a>
+            </li>   
           </ul>
           <!-- Divider -->
           <hr class="my-3">
