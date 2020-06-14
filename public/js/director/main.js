@@ -763,6 +763,7 @@ function enviarCorreo(e) {
   }
   $("body").css('cursor', 'wait');
   $('#alertCorreo2').show();
+  $('#alertCorreo').hide();
   $('#respuestaCorreo2').text("Enviando...");
   httpRequest(URLD + "directorControl/enviarCorreos/" + asunto + "/" + cuerpo + "/" + opcion, function () {
     $("body").css('cursor', 'default');
@@ -1122,6 +1123,7 @@ function insertarEvento(e) {
   fecha + "/" + hora + "/" + responsable + "/" + descripcion + "/" + opcion, function () {
     $("body").css('cursor', 'default');
     const resp = this.responseText;
+    alert(resp);
    
     $('#alertCorreo2').show();
     $('#alertCorreo').hide();
@@ -1193,12 +1195,24 @@ function recargarEventos(){
 
 
 function eliminarEvento(codigo){
-  var aux = window.confirm("¿Realmente desea eliminar?");
+  swal({
+    title: "¿Realmente desea eliminar el evento?",
+    text: "Esta opcion es irreversible",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  })
+  .then((willDelete) => {
+    if (willDelete) {
+      swal("Evento eliminado de la lista!", {
+        icon: "success",
+      });
+      httpRequest(URLD + "directorControl/eliminarEvento/" + codigo,function () {
+        recargarEventos();
+       });
+    } 
+  });
 
- if(aux){
- httpRequest(URLD + "directorControl/eliminarEvento/" + codigo,function () {
-    recargarEventos();
-  });}
 }
 
 function actualizarEvento(codigo){
@@ -1234,10 +1248,6 @@ function bloquear(){
   $('#C2').hide();
   $('#repor').hide();
   $('#reporEmprea').show();
-  
-  
-  
-
 }
 
 
@@ -1247,8 +1257,54 @@ function desbloquear(){
   $('#C2').show();
   $('#reporEmprea').hide();
   $('#repor').show();
-  
+}
 
+
+function enviarCorreoEncuesta(e) {
+  e.preventDefault();
+  var cuerpo,asunto,url,expresion;
+  expresion=/docs.google.com/;
+  url=$("#url").val();
+  cuerpo=$("#cuerpo").val();
+  asunto=$("#asunto").val();
+  var opcion = $('input:radio[name=envio]:checked').val(); //Obtiene el valor sobre a quienes se envías
+  // 0 para todos ; 1 para egresados ; 2 para estudiantes
+  if (cuerpo === "" || asunto === "" || url==="") {
+    $('#alertCorreo2').hide();
+    $('#alertCorreo').show();
+    $('#respuestaCorreo').text("Por favor, Llene todos los campos antes de enviar.");
+    return;
+  }else if(!expresion.test(url)){
+    $('#alertCorreo2').hide();
+    $('#alertCorreo').show();
+    $('#respuestaCorreo').text("Esta no es una direccion valida de formulario");
+    return;
+  }
+  cuerpo=$("#cuerpo").val() +"\n Direccion del Formulario: "+url;
+  $("body").css('cursor', 'wait');
+  $('#alertCorreo').hide();
+  $('#alertCorreo2').show();
+  $('#respuestaCorreo2').text("Enviando...");
+  $.ajax({
+    url: URLD + "directorControl/enviarCorreoEncuesta",
+    data: {
+       asuntoE:asunto, cuerpoE :cuerpo, opcionE:opcion
+    },
+    type: "post",
+    success: function (data) {
+      console.log(data);
+      $("body").css('cursor', 'default');
+      $('#alertCorreo2').show();
+      $('#alertCorreo').hide();
+      $('#respuestaCorreo2').text("Enviado Correctamente");
+      $('#cuerpo').val("");
+      $('#asunto').val("");
+      $("#url").val("");
+      setTimeout(function () {
+        $("#alertCorreo2").fadeOut(1500);
+      }, 3000)
+    }
+  });
 }
 
 

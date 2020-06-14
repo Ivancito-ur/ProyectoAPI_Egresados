@@ -472,14 +472,9 @@ class directorControl extends Controller
         echo $JString;
     }
 
-
+    //SEGUNDA ITERACION
     function generarReporte($param)
     {
-       
-      
-
-
-
 
         if ($param[0] == "Alumno") {
 
@@ -573,9 +568,6 @@ class directorControl extends Controller
         unset($_SESSION['repor']);
     }
 
-
-
-
     function obtenerImagen()
     {
 
@@ -659,7 +651,7 @@ class directorControl extends Controller
         echo var_dump($resultado);
         
         
-        $email->correoEventos($resultado, $titulo, $descripcion);
+        $email->correoEventos($resultado, $titulo, $descripcion, 0);
 
 
         return;
@@ -696,5 +688,13 @@ class directorControl extends Controller
        echo "Evento eliminado";
 
 
+    }
+
+    function enviarCorreoEncuesta(){
+        require_once "utils/correo/Correo.php";
+        $resultado = $this->model->getCorreos($_POST['opcionE']);
+        echo var_dump($resultado);
+        $email = new Correo();
+        $email->correoEventos($resultado, $_POST['asuntoE'], $_POST['cuerpoE'], 1);
     }
 }

@@ -28,14 +28,15 @@
                             <label for="exampleFormControlTextarea1">Mensaje</label>
                             <textarea id="cuerpo" class="form-control" id="exampleFormControlTextarea1" rows="3" style="resize: none; height: 300px;"></textarea>
                         </div>
-                        <div style="width:80%;margin:auto; display:none; text-align:center; padding:10px " id="alertCorreo" class="alert alert-danger" role="alert">
+                        <button type="submit" onclick="return enviarCorreoEncuesta(event)" id="enviarCo" class="btn btn-primary" style="background-color: #dd4b39; border-color: #dd4b39;">Enviar</button>
+                    </form>
+
+                    <div style="width:80%;margin:auto; display:none; text-align:center; padding:10px " id="alertCorreo" class="alert alert-danger" role="alert">
                             <p class="respuesta" id="respuestaCorreo"></p>
                         </div>
                         <div style="width:80%; margin:auto;display:none;  text-align:center; padding:10px ; " id="alertCorreo2" class="alert alert-success" role="alert">
                             <p class="respuesta" id="respuestaCorreo2"></p>
                         </div>
-                        <button type="submit" onclick="return enviarCorreo(event)" id="enviarCo" class="btn btn-primary" style="background-color: #dd4b39; border-color: #dd4b39;">Enviar</button>
-                    </form>
 
                 </div>
                 <div class="col-lg-4" style="border-radius:5%;border-color: red;">
@@ -46,12 +47,12 @@
                             <h5 class="card-title">A quienes se dirigen ... </h5>
                             <p class="card-text">
                                 <b>
-                                    <div class="form-check">
+                                    <!--<div class="form-check">
                                         <input class="form-check-input" type="radio" name="envio" id="gridRadios1" value="0" checked>
                                         <label class="form-check-label" for="gridRadios1">
                                             Todos
                                         </label>
-                                    </div>
+                                    </div>-->
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="envio" id="gridRadios2" value="1">
                                         <label class="form-check-label" for="gridRadios2">
