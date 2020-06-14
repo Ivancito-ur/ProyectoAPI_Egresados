@@ -463,10 +463,6 @@ function loadLev() {
   xhttp.open("GET", "vista/director/listadoEvento.php", true);
   xhttp.send();
   recargarEventos();
-
-  
-  
-
 }
 
 
@@ -1160,15 +1156,17 @@ function recargarEventos(){
       templateEventos += ` <div style="margin-bottom:10px"class="card-group">`
       for (var j = i; j < tasks.length; j++) {
         var idE= tasks[j].id;
+        console.log(resp);
         i++;
         templateEventos += `
               <div class="card"> 
               <div class="card-header">${tasks[j].titulo}</div>
               <div class="card-body">
                 <h5 class="card-title">Ubicacion: ${tasks[j].ciudad}</h5>
-                <h5 class="card-title">Horario: ${tasks[j].fecha} / ${tasks[j].hora}</h5>
+                <h5 class="card-title">Horario: Fecha  ${tasks[j].fecha} / Hora ${tasks[j].hora}</h5>
                 <p class="card-text">${tasks[j].descripcion}</p>
                 <p class="card-text" style="color:blue">Reponsable: ${tasks[j].responsable}</p>
+                <p class="card-text" style="color:black">Destinatarios: ${tasks[j].destinatario}</p>
               </div>
               <div style="padding:10px">
                   <a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true" style="background-color: #dd4b39; border-color: #dd4b39;">Actualizar</a>

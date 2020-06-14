@@ -650,7 +650,8 @@ class directorControl extends Controller
         $hora = $param[4];
         $responsable = $param[5];
         $descripcion = $param[6];
-        $this->model->crearEvento($titulo, $direccion,$ciudad,$fecha,$hora,$responsable,$descripcion);
+        $opcion = $param[7];
+        $this->model->crearEvento($titulo, $direccion,$ciudad,$fecha,$hora,$responsable,$descripcion,$opcion);
 
         $particpan = $param[7];
         $resultado = $this->model->getCorreos($particpan);
@@ -678,7 +679,8 @@ class directorControl extends Controller
                 'hora' => $est['hora'],
                 'ciudad' => $est['ciudad'],
                 'descripcion' => $est['descripcion'],
-                'responsable' => $est['responsable']
+                'responsable' => $est['responsable'],
+                'destinatario' => $est['destinatario']
             );
         }
         $JString = json_encode($json);

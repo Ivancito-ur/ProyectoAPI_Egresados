@@ -590,10 +590,21 @@ class directorDao extends Model
     }
 
 
-    function crearEvento($titulo, $direccion, $ciudad, $fecha, $hora, $responable, $descripcion)
+    function crearEvento($titulo, $direccion, $ciudad, $fecha, $hora, $responable, $descripcion,$opcion)
     {
+        $destinatario = "";
+        if ($opcion==="0") {
+            $destinatario = "TODOS";
+        }
+        elseif ($opcion==="1") {
+            $destinatario = "EGRESADOS";
+        }
+        else {
+            $destinatario = "ESTUDIANTES";
+        }
+        
         $statement = $this->db->connect()->prepare("INSERT INTO evento (titulo,direccion,fecha,hora,responsable,
-            ciudad,descripcion) VALUES (:titulo,:direccion,:fecha,:hora,:responsable,:ciudad,:descripcion)");
+            ciudad,descripcion,destinatario) VALUES (:titulo,:direccion,:fecha,:hora,:responsable,:ciudad,:descripcion,:destinatario)");
         try {
             $statement->execute([
                 ':titulo' => $titulo,
@@ -602,7 +613,8 @@ class directorDao extends Model
                 ':hora' => $hora,
                 ':responsable' => $responable,
                 ':ciudad' => $ciudad,
-                ':descripcion' => $descripcion
+                ':descripcion' => $descripcion,
+                ':destinatario' => $destinatario
             ]);
             $resultado = $statement->fetchAll();
             return true;
@@ -616,7 +628,7 @@ class directorDao extends Model
     function listarEventos(){
 
         try {
-            $statement = $this->db->connect()->prepare("SELECT id,titulo,direccion, fecha, hora,responsable,ciudad, descripcion FROM evento");
+            $statement = $this->db->connect()->prepare("SELECT * FROM evento");
             $statement->execute();
             $resultado = $statement->fetchAll(PDO::FETCH_ASSOC);
             return  $resultado;
