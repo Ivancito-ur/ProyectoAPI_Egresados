@@ -39,6 +39,7 @@
 
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 </head>
 
@@ -212,33 +213,8 @@
               </div>
             </div>
               <div class="card-body">
-                  <div class="box box-primary" style="border-top: 3px solid #3c8dbc; background-color: white; padding-bottom: 10px;">
-                    <div class="card-group">
-                      <div class="card">
-                      <div class="card-header"><button type="button" class="btn btn-light" style="background-color: #dd4b39; border-color: #dd4b39;">Remover Oferta</button></div>
-                      <div class="card-header">Header</div>
-                        <div class="card-body">
-                          <h5 class="card-title">Light card title</h5>
-                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </div>
-                      </div>
-                      <div class="card">
-                      <div class="card-header"><button type="button" class="btn btn-light" style="background-color: #dd4b39; border-color: #dd4b39;">Remover Oferta</button></div>
-                      <div class="card-header">Header</div>
-                        <div class="card-body">
-                          <h5 class="card-title">Light card title</h5>
-                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </div>
-                      </div>
-                      <div class="card">
-                      <div class="card-header"><button type="button" class="btn btn-light" style="background-color: #dd4b39; border-color: #dd4b39;">Remover Oferta</button></div>
-                      <div class="card-header">Header</div>
-                        <div class="card-body">
-                          <h5 class="card-title">Light card title</h5>
-                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </div>
-                      </div>
-                    </div>
+                  <div class="box box-primary cajaO" style="border-top: 3px solid #3c8dbc; background-color: white; padding-bottom: 10px;">
+                  
                   </div>
                 </div>
               </div>

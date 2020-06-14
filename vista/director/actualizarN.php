@@ -18,25 +18,25 @@
                 <br>
                     <form>
                         <div class="form-group">
-                            <label for="correo">Titulo</label>
-                            <input type="text" class="form-control" id="asunto" required>
+                            <label for="tituloN">Titulo</label>
+                            <input type="text" class="form-control" id="tituloN" required>
                         </div>
                         <div class="form-group">
-                            <label for="correo">Autor</label>
-                            <input type="text" class="form-control" id="asunto" required>
+                            <label for="autorN">Autor</label>
+                            <input type="text" class="form-control" id="autorN" required>
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlTextarea1">Noticia</label>
-                            <textarea id="cuerpo" class="form-control" id="exampleFormControlTextarea1" rows="3" style="resize: none; height: 300px;"></textarea>
+                            <label for="cuerpoN">Noticia</label>
+                            <textarea id="cuerpoN" class="form-control" id="exampleFormControlTextarea1" rows="3" style="resize: none; height: 300px;"></textarea>
                         </div>
-                        <div style="width:80%;margin:auto; display:none; text-align:center; padding:10px " id="alertCorreo" class="alert alert-danger" role="alert">
+                        <button type="submit" onclick="return actualizarNoticia(event)" id="enviarCo" class="btn btn-primary" style="background-color: #dd4b39; border-color: #dd4b39;">Actualizar</button>
+                    </form>
+                    <div style="width:80%;margin:auto; display:none; text-align:center; padding:10px " id="alertCorreo" class="alert alert-danger" role="alert">
                             <p class="respuesta" id="respuestaCorreo"></p>
                         </div>
                         <div style="width:80%; margin:auto;display:none;  text-align:center; padding:10px ; " id="alertCorreo2" class="alert alert-success" role="alert">
                             <p class="respuesta" id="respuestaCorreo2"></p>
-                        </div>
-                        <button type="submit" onclick="return enviarCorreo(event)" id="enviarCo" class="btn btn-primary" style="background-color: #dd4b39; border-color: #dd4b39;">Actualizar</button>
-                    </form>
+                    </div>
 
                 </div>
                 <div class="col-lg-4" style="border-radius:5%;border-color: red;">
@@ -47,19 +47,19 @@
                             <p class="card-text">
                                 <b>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="envio" id="gridRadios1" value="0" checked>
+                                        <input class="form-check-input" type="radio" name="envioNO" id="gridRadios1" value="0" checked>
                                         <label class="form-check-label" for="gridRadios1">
                                             Todos
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="envio" id="gridRadios2" value="1">
+                                        <input class="form-check-input" type="radio" name="envioNO" id="gridRadios2" value="1">
                                         <label class="form-check-label" for="gridRadios2">
                                             Egresados
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="envio" id="gridRadios3" value="2">
+                                        <input class="form-check-input" type="radio" name="envioNO" id="gridRadios3" value="2">
                                         <label class="form-check-label" for="gridRadios3">
                                             Estudiantes activos
                                         </label>

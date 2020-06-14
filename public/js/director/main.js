@@ -2,9 +2,12 @@
 let templateCodigos = '';
 var lista = [];
 var extTesis = "";
+var extConvenio = "";
 var consta = "";
 let templateTesis = '';
 var validacionT = "Promedio";
+var globalIdEvento="";
+var globalIdNoticia="";
 
 
 
@@ -436,11 +439,12 @@ function loadLno() {
   };
   xhttp.open("GET", "vista/director/listarNoticia.php", true);
   xhttp.send();
-  
+  recargarNoticias();
+ 
   
 }
 
-function loadAnot() {
+function loadAnot(id,fecha,titulo,cuerpo,autor, destinatario) {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
@@ -449,6 +453,10 @@ function loadAnot() {
   };
   xhttp.open("GET", "vista/director/actualizarN.php", true);
   xhttp.send();
+  setTimeout(function () {
+    cargaDatosNoticia(id,fecha,titulo,cuerpo,autor, destinatario);
+  }, 100)
+  
   
   
 }
@@ -497,6 +505,21 @@ function loadPr() {
   //pruebaICFES("myChart");
 }
 
+function loadAev(id, titulo,direccion,fecha,hora,ciudad,descripcion,responsable, destinatario) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("contenedor").innerHTML = this.responseText;
+    }
+  };
+  xhttp.open("GET", "vista/director/actualizarEvento.php", true);
+  xhttp.send();
+  setTimeout(function () {
+    cargaDatosEvento(id, titulo,direccion,fecha,hora,ciudad,descripcion,responsable, destinatario);
+  }, 100)
+  
+ 
+}
 
 
 function loadLi() {
@@ -1123,8 +1146,6 @@ function insertarEvento(e) {
   fecha + "/" + hora + "/" + responsable + "/" + descripcion + "/" + opcion, function () {
     $("body").css('cursor', 'default');
     const resp = this.responseText;
-    alert(resp);
-   
     $('#alertCorreo2').show();
     $('#alertCorreo').hide();
     $('#respuestaCorreo2').text("Creado y enviado Correctamente");
@@ -1160,7 +1181,7 @@ function recargarEventos(){
         var idE= tasks[j].id;
         i++;
         templateEventos += `
-              <div class="card"> 
+              <div class="card" style=" margin: 10px 10px 10px 10px;"> 
               <div class="card-header">${tasks[j].titulo}</div>
               <div class="card-body">
                 <h5 class="card-title">Ubicacion: ${tasks[j].ciudad}</h5>
@@ -1170,7 +1191,7 @@ function recargarEventos(){
                 <p class="card-text" style="color:black">Destinatarios: ${tasks[j].destinatario}</p>
               </div>
               <div style="padding:10px">                  
-                  <button type="button" onclick="actualizarEvento(${idE})"class="btn btn-secondary btn-lg" style="background-color: #dd4b39; border-color: #dd4b39; color: white;">Actualizar</button>
+                  <button type="button" onclick="traerEvento(${idE})"class="btn btn-secondary btn-lg" style="background-color: #dd4b39; border-color: #dd4b39; color: white;">Actualizar</button>
                   <button type="button" onclick="eliminarEvento(${idE})"class="btn btn-secondary btn-lg" style="background-color: #dd4b39; border-color: #dd4b39; color: white;">Eliminar</button>
               </div>
             </div>
@@ -1215,11 +1236,67 @@ function eliminarEvento(codigo){
 
 }
 
-function actualizarEvento(codigo){
- if(aux){
- httpRequest(URLD + "directorControl/eliminarEvento/" + codigo,function () {
-    recargarEventos();
-  });}
+function traerEvento(codigo){
+
+  httpRequest(URLD + "directorControl/traerEvento/" + codigo,function () {
+    var response = this.responseText;
+    var resp = response.split("\n").join("");
+    let tasks = JSON.parse(resp);
+    loadAev(tasks[0].id, tasks[0].titulo,tasks[0].direccion,tasks[0].fecha,tasks[0].hora,tasks[0].ciudad,tasks[0].descripcion,tasks[0].responsable, tasks[0].destinatario );
+  });
+
+}
+
+
+function cargaDatosEvento(id, titulo,direccion,fecha,hora,ciudad,descripcion,responsable, destinatario){
+ 
+  $("#tituloAc").val(titulo);
+  $('#direccionAc').val(direccion);
+  $('#ciudadaC').val(ciudad);
+  $('#fechaAc').val(fecha);
+  $('#horaAc').val(hora);
+  $('#responsableAc').val(responsable);
+  $('#descripcionAc').val(descripcion);
+  globalIdEvento=id;
+}
+
+function actualizarEvento(e){
+e.preventDefault();
+  var titulo = $('#tituloAc').val();
+  var direccion = $('#direccionAc').val();
+  var ciudad = $('#fechaAc').val();
+  var fecha= $('#fechaAc').val();
+  var hora = $('#horaAc').val();
+  var responsable =$('#responsableAc').val();
+  var descripcion = $('#descripcionAc').val();
+  var opcion = $('input:radio[name=envioAc]:checked').val(); 
+
+  if(titulo=="" || direccion=="" || ciudad=="" || fecha=="" || hora=="" || responsable=="" || descripcion=="" ){
+
+    $('#alertCorreo').show();
+    $('#alertCorreo2').hide();
+    $('#respuestaCorreo').text("Por favor llene todos los campos");
+    return;
+
+  }
+  httpRequest(URLD + "directorControl/actualizarEvento/" + globalIdEvento + "/" + titulo + "/" + direccion + "/" + ciudad + "/" +
+  fecha + "/" + hora + "/" + responsable + "/" + descripcion + "/" + opcion  ,function () {
+  $('#tituloAc').val("");
+  $('#direccionAc').val("");
+  $('#fechaAc').val("");
+  $('#fechaAc').val("");
+  $('#horaAc').val("");
+  $('#responsableAc').val("");
+  $('#descripcionAc').val("");
+  swal({
+    title: "Actualizacion de evento",
+    text: "Accion exitosa",
+    icon: "success",
+    button: "Ok",
+  });
+  loadLev();
+  });
+return false;
 }
 
 function generarReporteEmpresa(){
@@ -1238,8 +1315,6 @@ function tomarReporteEmpresa(){
   var tipoReporte ="";
   window.open(URLD + "directorControl/generarReporte/" + estudiante + "/" + tipoReporte);
 }
-
-
 
 function bloquear(){
   var estudiante = $('#exampleFormControlSelect1').val();
@@ -1306,6 +1381,275 @@ function enviarCorreoEncuesta(e) {
     }
   });
 }
+
+
+
+function insetarNoticia(e){
+  e.preventDefault();
+  var titulo=$("#titulo").val();
+  var autor=$("#autor").val();
+  var dt = new Date();
+  var fecha = dt.getFullYear() + "-" + dt.getMonth() + "-" + dt.getHours() ;
+  var cuerpo=$("#cuerpo").val();
+  var opcion = $('input:radio[name=envioN]:checked').val(); 
+
+  if(titulo=="" || autor=="" || fecha=="" || cuerpo=="" ){
+    $('#alertCorreo').show();
+    $('#alertCorreo2').hide();
+    $('#respuestaCorreo').text("Por favor llene todos los campos");
+    return;
+  }
+  $('#alertCorreo').hide();
+  httpRequest(URLD + "directorControl/crearNoticia/" + titulo + "/" + autor + "/" + fecha + "/" + cuerpo + "/" + opcion ,function () {
+    $('#alertCorreo2').show();
+    $('#alertCorreo').hide();
+    $('#respuestaCorreo2').text("Noticia Creada Correctamente");
+    $('#titulo').val("");
+    $('#autor').val("");
+    $('#fecha').val("");
+    $('#cuerpo').val("");
+    setTimeout(function () {
+      $("#alertCorreo2").fadeOut(1500);
+    }, 2000)
+
+  });
+
+}
+
+
+function recargarNoticias(){
+  httpRequest(URLD + "directorControl/listarNoticias", function () {
+
+    var response = this.responseText;
+    var resp = response.split("\n").join("");
+    let tasks = JSON.parse(resp);
+    let templateNoticias= '';
+    for (var m = 0; m < tasks.length ; m++) {
+      templateNoticias += 
+      `<table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Fecha de publicacion</th>
+                <th scope="col">Titulo de la noticia</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>${tasks[m].fecha}</td>
+                <td>${tasks[m].titulo}</td>
+                <td><a href="#" onclick="traerNoticia(${tasks[m].id})" class="btn btn-primary btn-lg active" role="button" aria-pressed="true" style="background-color: #dd4b39; border-color: #dd4b39;">Actualizar</a></td>
+            </tr>
+        </tbody> 
+      </table>`;
+    }
+    
+
+
+    $('.cajaN').html(templateNoticias);
+
+
+
+  });
+
+
+}
+
+
+function traerNoticia(codigo){
+  httpRequest(URLD + "directorControl/traerNoticia/" + codigo,function () {
+    var response = this.responseText;
+    var resp = response.split("\n").join("");
+    let tasks = JSON.parse(resp);
+    loadAnot(tasks[0].id, tasks[0].fecha,tasks[0].titulo,tasks[0].cuerpo,tasks[0].autor, tasks[0].destinatario );
+  });
+}
+
+
+function  cargaDatosNoticia(id,fecha,titulo,cuerpo,autor, destinatario){
+ 
+  $("#tituloN").val(titulo);
+  $('#autorN').val(autor);
+  $('#cuerpoN').val(cuerpo);
+  globalIdNoticia=id;
+}
+
+
+function actualizarNoticia(e){
+  e.preventDefault();
+    var titulo = $('#tituloN').val();
+    var autor = $('#autorN').val();
+    var cuerpo = $('#cuerpoN').val();
+    var dt = new Date();
+    var fecha = dt.getFullYear() + "-" + dt.getMonth() + "-" + dt.getHours() ;
+    var opcion = $('input:radio[name=envioNO]:checked').val(); 
+  
+    if(titulo=="" || autor=="" || cuerpo=="" ){
+  
+      $('#alertCorreo').show();
+      $('#alertCorreo2').hide();
+      $('#respuestaCorreo').text("Por favor llene todos los campos");
+      return;
+  
+    }
+    httpRequest(URLD + "directorControl/actualizarNoticia/" + globalIdNoticia + "/" + titulo + "/" + autor + "/" + cuerpo + "/" +
+    fecha + "/"+ opcion  ,function () {
+    $('#tituloN').val("");
+    $('#autorN').val("");
+    $('#cuerpoN').val("");
+    swal({
+      title: "Actualizacion de noticia",
+      text: "Accion exitosa",
+      icon: "success",
+      button: "Ok",
+    });
+    loadLno();
+    });
+  return false;
+}
+
+function cargaConvenio() {
+  $(document).on('change', 'input[type="file"]', function () {
+    var fileName = this.files[0].name;
+    var res = fileName.substring(0, 30);
+    $('.nameArchivo').text(res);
+    extConvenio = fileName.split('.').pop();
+    console.log(fileName);
+    extConvenio = extConvenio.toLowerCase();
+    switch (extConvenio) {
+      case 'pdf':
+        $('#alertCorreo').hide();
+        $('#alertCorreo2').show();
+        $('#respuestaCorreo2').text("Cargado Correctamente");
+        break;
+      default:
+        $('#respuestaCorreo').text("error de extension, " + extConvenio + "  " + "Por favor seleccione un archivo .pdf");
+        $('#alertCorreo2').hide();
+        $('#alertCorreo').show();
+        this.value = '';
+        this.files[0].name = '';
+    }
+  });
+}
+
+
+function insertaEmpresa(e) {
+  e.preventDefault();
+  var nit, nombre, correo, telefono, celular, direccion, contra;
+  nit = document.getElementById("nitEmpresa").value;
+  nombre = document.getElementById("nombreEmpresa").value;
+  correo = document.getElementById("correoEmpresa").value;
+  telefono = document.getElementById("telefonoEmpresa").value;
+  celular = document.getElementById("celularEmpresa").value;
+  direccion = document.getElementById("direccionEmpresa").value;
+  contra = document.getElementById("contraEmpresa").value;
+  var gropu = $('#inputGroupFile012').val();
+  var ciudadEmpresa = $('#ciudadEmpresa').val(); 
+  var fecha = $('#fecha').val();
+
+
+  httpRequest(URLD + "directorControl/getCodigoConvenio/" + nit  ,function () {
+    
+    var response = this.responseText;
+    var resp = response.split("\n").join("");
+    if(resp==0){
+      $('#codigoConvenio').show();
+      return;
+    }
+  });
+  $('#codigoConvenio').hide();
+  
+  var expresion=/\w+@\w+\.+[a-z]/;
+ if (ciudadEmpresa =="" || fecha =="" ||  nit === "" || nombre === "" || correo === "" || telefono === "" || celular === "" || direccion === "" || contra === "") {
+    $('#alertCorreo2').hide();
+    $('#alertCorreo').show();
+    $('#respuestaCorreo').text("Por favor, Llene todos los campos antes de Continuar.");
+    return false;
+  } else if(nit.length>100){
+    $('#alertCorreo2').hide();
+    $('#alertCorreo').show();
+    $('#respuestaCorreo').text("El Nit de la empresa no puede ser tan largo.");
+    return false;
+  }else if(nombre.length>25){
+    $('#alertCorreo2').hide();
+    $('#alertCorreo').show();
+    $('#respuestaCorreo').text("El Nombre de la empresa no puede superar los 25 caracteres.");
+    return false;
+  }else if(correo.length>50){
+    $('#alertCorreo2').hide();
+    $('#alertCorreo').show();
+    $('#respuestaCorreo').text("El Correo de la empresa no puede superar los 50 caracteres.");
+    return false;
+  }else if(telefono.length>9){
+    $('#alertCorreo2').hide();
+    $('#alertCorreo').show();
+    $('#respuestaCorreo').text("Telefono invalido (Supera los 9 digitos permitidos)");
+    return false;
+  }else if(celular.length>25){
+    $('#alertCorreo2').hide();
+    $('#alertCorreo').show();
+    $('#respuestaCorreo').text("Numero de Celular invalido (Supera los digitos permitidos)");
+    return false;
+  }else if(contra.length>100){
+    $('#alertCorreo2').hide();
+    $('#alertCorreo').show();
+    $('#respuestaCorreo').text("Tu contraseña es muy larga");
+    return false;
+  }
+  else if(isNaN(telefono)){
+    $('#alertCorreo2').hide();
+    $('#alertCorreo').show();
+    $('#respuestaCorreo').text("El telefono debe ser un numero");
+    return false;
+  }else if(isNaN(celular)){
+    $('#alertCorreo2').hide();
+    $('#alertCorreo').show();
+    $('#respuestaCorreo').text("El celular debe ser un numero");
+    return false;
+  }else if(!expresion.test(correo)){
+    $('#alertCorreo2').hide();
+    $('#alertCorreo').show();
+    $('#respuestaCorreo').text("El correo ingresado no es valido");
+    return false;
+  }else if (extConvenio != "pdf" || gropu=="") {
+    $('#alertCorreo2').hide();
+    $('#alertCorreo').show();
+    $('#respuestaCorreo').text("error de extension, " + extTesis + "  " + "Por favor seleccione un archivo .pdf");
+    return;
+  }
+  $('#alertCorreo2').hide();
+
+
+  var parametros = new FormData($(".formularioConvenio")[0]);
+  $.ajax({
+    type: "POST",
+    url: URLD + "directorControl/registrarEmpresa",
+    data: parametros,
+    contentType: false,
+    processData: false,
+    success: function (data) {
+      $('#nitEmpresa').val("");
+      $('#nombreEmpresa').val("");
+      $('#correoEmpresa').val("");
+      $('#telefonoEmpresa').val("");
+      $('#celularEmpresa').val("");
+      $('#direccionEmpresa').val("");
+      $('#contraEmpresa').val("");
+      $(".nameArchivo").text("...");
+      $('#ciudadEmpresa').val(""); 
+      $('#fecha').val("");
+      swal({
+        title: "Empresa Registrada Correctamente",
+        text: "Accion exitosa",
+        icon: "success",
+        button: "Ok",
+      });
+      
+    }
+  });
+  return false;
+}
+  
 
 
 
