@@ -590,16 +590,19 @@ class directorDao extends Model
     }
 
 
-    function crearEvento($titulo, $direccion, $ciudad, $fecha, $hora, $responable, $descripcion, $destinario){
-
-    if($destinario=="0"){
-        $destinario="TODOS";
-    }else if($destinario=="1"){
-        $destinario="EGRESADOS";
-    }else{
-        $destinario="ESTUDIANTES";
-    }
-    
+    function crearEvento($titulo, $direccion, $ciudad, $fecha, $hora, $responable, $descripcion,$opcion)
+    {
+        $destinatario = "";
+        if ($opcion==="0") {
+            $destinatario = "TODOS";
+        }
+        elseif ($opcion==="1") {
+            $destinatario = "EGRESADOS";
+        }
+        else {
+            $destinatario = "ESTUDIANTES";
+        }
+        
         $statement = $this->db->connect()->prepare("INSERT INTO evento (titulo,direccion,fecha,hora,responsable,
             ciudad,descripcion,destinatario) VALUES (:titulo,:direccion,:fecha,:hora,:responsable,:ciudad,:descripcion,:destinatario)");
         try {
@@ -611,7 +614,7 @@ class directorDao extends Model
                 ':responsable' => $responable,
                 ':ciudad' => $ciudad,
                 ':descripcion' => $descripcion,
-                ':destinatario' => $destinario
+                ':destinatario' => $destinatario
             ]);
             $resultado = $statement->fetchAll();
             return true;
@@ -625,7 +628,7 @@ class directorDao extends Model
     function listarEventos(){
 
         try {
-            $statement = $this->db->connect()->prepare("SELECT id,titulo,direccion, fecha, hora,responsable,ciudad, descripcion FROM evento");
+            $statement = $this->db->connect()->prepare("SELECT * FROM evento");
             $statement->execute();
             $resultado = $statement->fetchAll(PDO::FETCH_ASSOC);
             return  $resultado;
@@ -647,8 +650,6 @@ class directorDao extends Model
 
 
     }
-
-
     function listarEmpresa(){
         try {
             $statement = $this->db->connect()->prepare("SELECT nombre, correo, telefono, celular, direccion , ciudad, fecha_registro FROM empresas");
@@ -658,7 +659,6 @@ class directorDao extends Model
         } catch (PDOException $e) {
             return null;
         }
-
     }
 
 

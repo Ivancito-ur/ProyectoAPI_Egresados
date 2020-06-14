@@ -463,10 +463,6 @@ function loadLev() {
   xhttp.open("GET", "vista/director/listadoEvento.php", true);
   xhttp.send();
   recargarEventos();
-
-  
-  
-
 }
 
 
@@ -1168,12 +1164,13 @@ function recargarEventos(){
               <div class="card-header">${tasks[j].titulo}</div>
               <div class="card-body">
                 <h5 class="card-title">Ubicacion: ${tasks[j].ciudad}</h5>
-                <h5 class="card-title">Horario: ${tasks[j].fecha} / ${tasks[j].hora}</h5>
+                <h5 class="card-title">Horario: Fecha  ${tasks[j].fecha} / Hora ${tasks[j].hora}</h5>
                 <p class="card-text">${tasks[j].descripcion}</p>
                 <p class="card-text" style="color:blue">Reponsable: ${tasks[j].responsable}</p>
+                <p class="card-text" style="color:black">Destinatarios: ${tasks[j].destinatario}</p>
               </div>
-              <div style="padding:10px">
-                  <a href="#"  class="btn btn-primary btn-lg active" role="button" aria-pressed="true" style="background-color: #dd4b39; border-color: #dd4b39;">Actualizar</a>
+              <div style="padding:10px">                  
+                  <button type="button" onclick="actualizarEvento(${idE})"class="btn btn-secondary btn-lg" style="background-color: #dd4b39; border-color: #dd4b39; color: white;">Actualizar</button>
                   <button type="button" onclick="eliminarEvento(${idE})"class="btn btn-secondary btn-lg" style="background-color: #dd4b39; border-color: #dd4b39; color: white;">Eliminar</button>
               </div>
             </div>
@@ -1216,14 +1213,14 @@ function eliminarEvento(codigo){
     } 
   });
 
- 
- 
- 
-
-  
-
 }
 
+function actualizarEvento(codigo){
+ if(aux){
+ httpRequest(URLD + "directorControl/eliminarEvento/" + codigo,function () {
+    recargarEventos();
+  });}
+}
 
 function generarReporteEmpresa(){
   $("#informe").show();
