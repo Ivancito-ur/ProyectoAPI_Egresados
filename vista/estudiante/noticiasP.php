@@ -12,22 +12,9 @@
 
         <div class="card-body">
 
-            <div class="row" style="border-top: 3px solid #3c8dbc; background-color: white; padding-bottom: 10px;">
+            <div class=" cajaN row" style="border-top: 3px solid #3c8dbc; background-color: white; padding-bottom: 10px;">
 
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Fecha de publicacion</th>
-                            <th scope="col">Titulo de la noticia</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>fecha</td>
-                            <td><a href="#" onclick="loadDtnot()">titulo</a></td>
-                        </tr>
-                    </tbody>
-                </table>
+                
 
             </div>
         </div>

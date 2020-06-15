@@ -1,4 +1,6 @@
-﻿const URLD = "http://localhost/ProyectoAPI_Egresados/";
+﻿
+
+const URLD = "http://localhost/ProyectoAPI_Egresados/";
 let templateCodigos = '';
 var lista = [];
 var extTesis = "";
@@ -8,9 +10,6 @@ let templateTesis = '';
 var validacionT = "Promedio";
 var globalIdEvento="";
 var globalIdNoticia="";
-
-
-
 
 
 
@@ -50,7 +49,6 @@ function recargaTesis() {
 
   });
 }
-
 
 function cargaHojaVida() {
   $(document).on('change', 'input[type="file"]', function () {
@@ -137,7 +135,6 @@ function cargaDatos(e) {
   });
 
 }
-
 
 function cargarDatosActualizar(e) {
   var codigo = $('#busquedaCodigo').val();
@@ -279,8 +276,6 @@ function actualizarFecha(e) {
 
 }
 
-
-
 function cargarExcel(e, p) {
   e.preventDefault();
   var parametros = new FormData($(".formularioCompleto")[0]);
@@ -362,7 +357,6 @@ function loadR() {
 
 }
 
-
 function loadAe() {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
@@ -376,7 +370,6 @@ function loadAe() {
 
 }
 
-
 function loadLe() {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
@@ -386,10 +379,13 @@ function loadLe() {
   };
   xhttp.open("GET", "vista/director/listarEmpresa.php", true);
   xhttp.send();
+  recargarEmpresa();
+
+
+
 
 
 }
-
 
 function loadEn() {
   var xhttp = new XMLHttpRequest();
@@ -473,7 +469,6 @@ function loadLev() {
   recargarEventos();
 }
 
-
 function loadTe() {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
@@ -521,7 +516,6 @@ function loadAev(id, titulo,direccion,fecha,hora,ciudad,descripcion,responsable,
  
 }
 
-
 function loadLi() {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
@@ -556,7 +550,6 @@ function loadLi() {
 
   });
 }
-
 
 function capturar(e) {
   let busca = $('#buscador').val();
@@ -595,7 +588,6 @@ function httpRequest(url, callback) {
 }
 
 //COMPRACION DE LAS GRAFICAS GRAFICAS 
-
 function getPrueba() {
   var busquedaCodigo = $('#buscarPrueba').val();
   if (busquedaCodigo == "" || parseInt(busquedaCodigo, 10) < 1) {
@@ -676,8 +668,6 @@ function prueba11(lectura, razon, natu, compet, ingles) {
     }
   });
 }
-
-
 
 function pruebaPRO(lectura, razon, comuni, compet, ingles) {
   var ctx = document.getElementById('myChart').getContext('2d');
@@ -768,8 +758,6 @@ function comparacionPruebas(lectu1, lectu2, razo1, razo2, compe1, compe2, ingles
   });
 }
 
-
-
 function enviarCorreo(e) {
   e.preventDefault();
   var cuerpo = $('#cuerpo').val();
@@ -802,7 +790,6 @@ function enviarCorreo(e) {
   });
   return false;
 }
-
 
 //se carga el archivo(hasta ahora en la vista inicial)
 function cargaTesis() {
@@ -861,9 +848,7 @@ function guardarTesis(e) {
   return false;
 }
 
-
 //En esta seccion del codigo se carga la tesis del estudiante y/o estudiantes asigandos
-
 function enviarTesis(e) {
   e.preventDefault();
   for (let index = 0; index < lista.length; index++) {
@@ -915,7 +900,6 @@ function enviarTesis(e) {
 }
 
 //En esta seccion del codigo se verifica la existencia tanto en la tabla estudiante_tesis , como en la tabla estudiante
-
 function explodeCodigo(e) {
   e.preventDefault();
   var codigo = $('#codigo').val();
@@ -965,7 +949,6 @@ function explodeCodigo(e) {
 
 }
 
-
 function removerCodigo(cod) {
   removeItemFromArr(lista, cod);
   $("#" + cod).remove();
@@ -976,6 +959,8 @@ function removerCodigo(cod) {
   return false;
 
 }
+
+
 
 //SEGUNDA ITERACION
 
@@ -1031,7 +1016,6 @@ function graficaReport11(lectura, razon, natu, compet, ingles, lecturaP, razonP,
 
 }
 
-
 function generarReporteGrafica(e) {
 
   var estudiante = $('#exampleFormControlSelect1').val();
@@ -1076,7 +1060,6 @@ function generarReporteGrafica(e) {
 
 
 }
-
 
 function generarReporte() {
   var estudiante = $('#exampleFormControlSelect1').val();
@@ -1166,7 +1149,6 @@ function insertarEvento(e) {
 
 }
 
-
 function recargarEventos(){
   httpRequest(URLD + "directorControl/listarEventos", function () {
 
@@ -1214,7 +1196,6 @@ function recargarEventos(){
 
 }
 
-
 function eliminarEvento(codigo){
   swal({
     title: "¿Realmente desea eliminar el evento?",
@@ -1246,7 +1227,6 @@ function traerEvento(codigo){
   });
 
 }
-
 
 function cargaDatosEvento(id, titulo,direccion,fecha,hora,ciudad,descripcion,responsable, destinatario){
  
@@ -1308,7 +1288,6 @@ function generarReporteEmpresa(){
   }, 3000)
 }
 
-
 function tomarReporteEmpresa(){
   $("#reporEmprea").show();
   var estudiante = $('#exampleFormControlSelect1').val();
@@ -1325,7 +1304,6 @@ function bloquear(){
   $('#reporEmprea').show();
 }
 
-
 function desbloquear(){
   $('#exampleFormControlSelect2').show();
   $('#id1').show();
@@ -1333,7 +1311,6 @@ function desbloquear(){
   $('#reporEmprea').hide();
   $('#repor').show();
 }
-
 
 function enviarCorreoEncuesta(e) {
   e.preventDefault();
@@ -1382,8 +1359,6 @@ function enviarCorreoEncuesta(e) {
   });
 }
 
-
-
 function insetarNoticia(e){
   e.preventDefault();
   var titulo=$("#titulo").val();
@@ -1416,7 +1391,6 @@ function insetarNoticia(e){
 
 }
 
-
 function recargarNoticias(){
   httpRequest(URLD + "directorControl/listarNoticias", function () {
 
@@ -1443,18 +1417,11 @@ function recargarNoticias(){
         </tbody> 
       </table>`;
     }
-    
-
 
     $('.cajaN').html(templateNoticias);
 
-
-
   });
-
-
 }
-
 
 function traerNoticia(codigo){
   httpRequest(URLD + "directorControl/traerNoticia/" + codigo,function () {
@@ -1465,15 +1432,13 @@ function traerNoticia(codigo){
   });
 }
 
-
-function  cargaDatosNoticia(id,fecha,titulo,cuerpo,autor, destinatario){
+function cargaDatosNoticia(id,fecha,titulo,cuerpo,autor, destinatario){
  
   $("#tituloN").val(titulo);
   $('#autorN').val(autor);
   $('#cuerpoN').val(cuerpo);
   globalIdNoticia=id;
 }
-
 
 function actualizarNoticia(e){
   e.preventDefault();
@@ -1531,7 +1496,6 @@ function cargaConvenio() {
     }
   });
 }
-
 
 function insertaEmpresa(e) {
   e.preventDefault();
@@ -1649,6 +1613,77 @@ function insertaEmpresa(e) {
   });
   return false;
 }
+
+function recargarEmpresa(){
+  httpRequest(URLD + "directorControl/listarEmpresa", function () {
+
+    var response = this.responseText;
+    var resp = response.split("\n").join("");
+    let tasks = JSON.parse(resp);
+    let templateEmpresa= '';
+    var i = 0;
+    for (var m = 0; m < tasks.length / 3; m++) {
+      templateEmpresa += `<div class="card-group">`
+      for (var j = i; j < tasks.length; j++) {
+        i++;
+        templateEmpresa += `      
+        <div class="card" style="margin: 10px 10px 10px 10px">
+        <div class="form-group">
+          <h4 class="control-label" style="padding-left: 10px;">Convenio</h4>
+          <div class="embed-responsive embed-responsive-16by9" id="pdf">
+              <iframe class="embed-responsive-item" src="${tasks[j].documento_convenio}"
+                  allowfullscreen></iframe>
+          </div>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">${tasks[j].nombre}</h5>
+          <p class="card-text">${tasks[j].correo}</p>
+          <p class="card-text">${tasks[j].telefono}</p>
+          <p class="card-text">${tasks[j].celular}</p>
+          <p class="card-text">${tasks[j].direccion}</p>
+          <p class="card-text">${tasks[j].ciudad}</p>
+
+          <p class="card-text" style="color:blue">${tasks[j].fecha_registro}</p>
+        </div>
+        <button onclick="eliminarEmpresa(${tasks[j].nitEmpresa})" type="button" class="btn btn-light" style="background-color: #dd4b39; border-color: #dd4b39; width: 50%;">Eliminar</button>
+        </div>
+        `;
+        if ((i % 3) == 0) {
+          templateEmpresa += `</div>`;
+          break;
+        }
+      }
+    }
+
+    templateEmpresa += `</div>`
+
+    $('.cajaE').html(templateEmpresa);
+  });
+
+}
+
+function eliminarEmpresa(codigo){
+
+  swal({
+    title: "¿Realmente desea eliminar la empresa?",
+    text: "Esta opcion es irreversible",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  })
+  .then((willDelete) => {
+    if (willDelete) {
+      swal("Empresa eliminada de la lista!", {
+        icon: "success",
+      });
+      httpRequest(URLD + "directorControl/eliminarEmpresa/" + codigo,function () {
+        recargarEmpresa();
+       });
+    } 
+  });
+    
+}
+
   
 
 

@@ -10,29 +10,11 @@
             </div>
               <div class="card-body">
                   <div class="box box-primary" style="border-top: 3px solid #3c8dbc; background-color: white; padding-bottom: 10px;">
-                    <div class="card-group">
-                      <div class="card">
-                      <div class="card-header"><a onclick="loadDt()" href="#">Header</a></div>
-                        <div class="card-body">
-                          <h5 class="card-title">Light card title</h5>
-                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </div>
-                      </div>
-                      <div class="card">
-                      <div class="card-header"><a onclick="loadDt()" href="#">Header</a></div>
-                        <div class="card-body">
-                          <h5 class="card-title">Light card title</h5>
-                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </div>
-                      </div>
-                      <div class="card">
-                      <div class="card-header"><a onclick="loadDt()" href="#">Header</a></div>
-                        <div class="card-body">
-                          <h5 class="card-title">Light card title</h5>
-                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </div>
-                      </div>
-                    </div>
+                    
+                    <div class=" cajaO ">
+                      
+                      
+                     
                   </div>
                 </div>
               </div>

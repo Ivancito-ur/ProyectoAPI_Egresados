@@ -94,7 +94,7 @@ class estudianteDao extends Model{
     }
 
     
-    public function otorgarPermiso($codigo, $validar){
+    function otorgarPermiso($codigo, $validar){
         if($validar==0){
             try{
                 $statement = $this->db->connect()->prepare("UPDATE hojavida SET autorizar='0' WHERE codigoEstudiante=$codigo ");
@@ -116,7 +116,95 @@ class estudianteDao extends Model{
 
 
 
+    function listarOferta(){
+        try{
+            $statement = $this->db->connect()->prepare("SELECT * FROM oferta o INNER JOIN empresas e ON o.nitEmpresa=e.nitEmpresa ");
+            $statement->execute();
+            $resultado = $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $resultado;
+        }catch(PDOException $e){
+            return null;
+        }
+    }
 
+
+    function getOferta($codigo){
+        try{
+            $statement = $this->db->connect()->prepare("SELECT * FROM oferta o INNER JOIN empresas e ON o.nitEmpresa=e.nitEmpresa WHERE o.id=$codigo ");
+            $statement->execute();
+            $resultado = $statement->fetch(PDO::FETCH_ASSOC);
+            return $resultado;
+        }catch(PDOException $e){
+            return null;
+        }
+    }
+
+    function listarEvento($participan){
+       // echo $particpan;
+        try{
+            $statement = $this->db->connect()->prepare("SELECT * FROM evento WHERE (destinatario= :participan or destinatario='TODOS')");
+            $statement->execute([
+                ':participan'=>$participan
+            ]);
+            $resultado = $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $resultado;
+        }catch(PDOException $e){
+            return null;
+        }
+    }
+
+    function getEvento($codigo){
+        try{
+            $statement = $this->db->connect()->prepare("SELECT * FROM evento WHERE id=$codigo ");
+            $statement->execute();
+            $resultado = $statement->fetch(PDO::FETCH_ASSOC);
+            return $resultado;
+        }catch(PDOException $e){
+            return null;
+        }
+    }
+
+    function listarNoticias($participan){
+        try{
+            $statement = $this->db->connect()->prepare("SELECT * FROM noticia WHERE (destinatario= :participan or destinatario='TODOS')");
+            $statement->execute([
+                ':participan'=>$participan
+            ]);
+            $resultado = $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $resultado;
+        }catch(PDOException $e){
+            return null;
+        }
+    }
+
+    function getNoticia($codigo){
+        try{
+            $statement = $this->db->connect()->prepare("SELECT * FROM noticia WHERE id=$codigo ");
+            $statement->execute();
+            $resultado = $statement->fetch(PDO::FETCH_ASSOC);
+            return $resultado;
+        }catch(PDOException $e){
+            return null;
+        }
+    }
+
+
+    function getUltimaNoticia($participan){
+        try{
+            $statement = $this->db->connect()->prepare("SELECT MAX(id) as id , fecha_publicacion, titulo, cuerpo, autor, destinatario FROM noticia WHERE (destinatario= :participan or destinatario='TODOS')");
+            $statement->execute([
+                ':participan'=>$participan
+            ]);
+            $resultado = $statement->fetch(PDO::FETCH_ASSOC);
+            return $resultado;
+        }catch(PDOException $e){
+            return null;
+        }
+    }
+
+    
+  
+    
 
 }
 

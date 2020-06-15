@@ -5,6 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ingenieria Agroindustrial</title>
+  <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
@@ -47,6 +49,10 @@
   <link rel="stylesheet" href="<?php echo constant('URL') ?>public/assets/css/argon.css?v=1.2.0" type="text/css">
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  
+
+ 
 
 </head>
 <?php $codigo = $_SESSION['usuario']; ?>
@@ -85,12 +91,14 @@
                 <span class="nav-link-text">Listado de tesis</span>
               </a>
             </li>
+            <?php if($this->datos['egresado']==0):?>
             <li class="nav-item">
               <a onclick="loadOl()" class="nav-link" href="#">
                 <i class="far fa-newspaper"></i>
                 <span class="nav-link-text">Listado de ofertas laborales</span>
               </a>
             </li>
+            <?php endif ?>
             <li class="nav-item">
               <a onclick="loadEvpu()" class="nav-link" href="#">
                 <i class="fas fa-list"></i>
@@ -278,13 +286,7 @@
             </div>
 
           </div>
-
-
         </div>
-
-        
-        
-        
         <div class="col-5">
           <div class="card">
           <div class="card-header bg-transparent">
@@ -321,10 +323,10 @@
                   </div>
                 </div>
                 <button type="submit"  id="cargaHojaVida" class="btn btn-primary" style="background-color: #dd4b39; border-color: #dd4b39;">Cargar</button>
-                <div style="text-align:center; padding:10px ; margin-top:15px" id="alert" class="alert alert-danger" role="alert">
+                <div style="display:none; text-align:center; padding:10px ; margin-top:15px" id="alert" class="alert alert-danger" role="alert">
                   <p class="respuesta" id="respuesta"></p>
                 </div>
-                <div style="text-align:center; padding:10px ; margin-top:15px" id="alert2" class="alert alert-success" role="alert">
+                <div style="display:none; text-align:center; padding:10px ; margin-top:15px" id="alert2" class="alert alert-success" role="alert">
                   Cargado Correctamente
                 </div>
               </form>
