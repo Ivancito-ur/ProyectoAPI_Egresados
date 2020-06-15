@@ -14,6 +14,7 @@ class directorControl extends Controller
         $this->view->datos = [];
         $this->view->cantidad = [];
         $this->view->cantidadTesis = [];
+        $this->view->cantidadEmpresa =[];
     }
 
 
@@ -299,7 +300,9 @@ class directorControl extends Controller
         $this->view->datos = $this->model->cargarEstuTesis();
         $this->view->cantidad = $this->model->listarEstudiantes();
         $this->view->cantidadTesis = $this->model->getTesis();
+        $this->view->cantidadEmpresa = $this->model->listarEmpresa();
     }
+
     function buscarCodigo($param = null)
     {
         $codigo = $param[0];
@@ -320,6 +323,8 @@ class directorControl extends Controller
         $JString = json_encode($json);
         echo $JString;
     }
+
+
     function actualizarFecha($param = null)
     {
         $fecha = $param[0];
@@ -697,4 +702,140 @@ class directorControl extends Controller
         $email = new Correo();
         $email->correoEventos($resultado, $_POST['asuntoE'], $_POST['cuerpoE'], 1);
     }
+
+
+
+    function traerEvento($param){
+       $resultado = $this->model->getEvento($param[0]);
+       $json = array();
+            $json[] = array(
+                'id' => $resultado['id'],
+                'titulo' => $resultado['titulo'],
+                'direccion' => $resultado['direccion'],
+                'fecha' => $resultado['fecha'],
+                'hora' => $resultado['hora'],
+                'ciudad' => $resultado['ciudad'],
+                'descripcion' => $resultado['descripcion'],
+                'responsable' => $resultado['responsable'],
+                'destinatario' => $resultado['destinatario']
+            );
+        $JString = json_encode($json);
+        echo $JString; 
+    }
+
+
+    function actualizarEvento($param){
+        $id = $param[0];
+        $titulo = $param[1];
+        $direccion = $param[2];
+        $ciudad = $param[3];
+        $fecha = $param[4];
+        $hora = $param[5];
+        $responsable = $param[6];
+        $descripcion = $param[7];
+        $opcion = $param[8];
+        echo $this->model->actualizarEvento($id, $titulo, $direccion,$ciudad,$fecha,$hora,$responsable,$descripcion,$opcion);
+    }
+
+
+    function crearNoticia($param){
+        $titulo = $param[0];
+        $autor = $param[1];
+        $fecha = $param[2];
+        $cuerpo = $param[3];
+        $destinatario =  $param[4];
+        echo $this->model->insertNoticia( $fecha,$titulo,$cuerpo,$autor,$destinatario);
+       
+
+    }
+
+
+    function listarNoticias(){
+        $resultado = $this->model->listarNoticia();
+        $json = array();
+        foreach ($resultado as $est) {
+            $json[] = array(
+                'id' => $est['id'],
+                'fecha' => $est['fecha_publicacion'],
+                'titulo' => $est['titulo'],
+                'cuerpo' => $est['cuerpo'],
+                'autor' => $est['autor'],
+                'destinatario' => $est['destinatario'],
+            );
+        }
+        $JString = json_encode($json);
+        echo $JString;
+    }
+
+
+    function traerNoticia($param){
+        $resultado = $this->model->getNoticia($param[0]);
+        $json = array();
+             $json[] = array(
+                'id' => $resultado['id'],
+                'fecha' => $resultado['fecha_publicacion'],
+                'titulo' => $resultado['titulo'],
+                'cuerpo' => $resultado['cuerpo'],
+                'autor' => $resultado['autor'],
+                'destinatario' => $resultado['destinatario']
+             );
+         $JString = json_encode($json);
+         echo $JString; 
+    }
+
+    function actualizarNoticia($param){
+        $id = $param[0];
+        $titulo = $param[1];
+        $autor = $param[2];
+        $cuerpo = $param[3];
+        $fecha = $param[4];
+        $opcion = $param[5];
+        echo $this->model->actualizarNoticia($id, $titulo, $autor,$cuerpo,$fecha,$opcion);
+        
+    }
+
+
+    function registrarEmpresa(){
+        $nit = $_POST['nitEmpresa'];
+
+        $ruta = $_FILES['archivo']['tmp_name'];
+        echo $ruta;
+
+        $nombre = $_POST['nitEmpresa'] . ".pdf"; 
+       
+        $nombreEmpresa = $_POST['nombreEmpresa'];
+        $correo = $_POST['correoEmpresa'];
+        $telefono = $_POST['telefonoEmpresa'];
+        $celular = $_POST['celularEmpresa'];
+        $direccion = $_POST['direccionEmpresa'];
+        $contra = $_POST['contraEmpresa'];
+        $ciudad = $_POST['ciudadEmpresa'];
+        $fecha = $_POST['fecha'];
+
+        
+        $destino = "almacen/convenio/" . $nombre;
+
+
+        if ($ruta != "") {
+            if (copy($ruta, $destino)) { //Se copia el archivo de la ruta a la carpeta del server
+                $this->model->insertarEmpresa($nit,$nombreEmpresa,$correo,$telefono,$celular,$direccion,$contra,$destino, $ciudad, $fecha);
+                echo 2;
+            } else {
+                echo 1;
+            }
+        }
+        echo 0;
+    }
+
+
+    function getCodigoConvenio($param){
+        $resultado = $this->model->getCodigoEmpresa($param[0]);
+        if($resultado==""){
+           echo 1;
+            return;
+        }
+        echo 0;
+    }
+
+ 
 }

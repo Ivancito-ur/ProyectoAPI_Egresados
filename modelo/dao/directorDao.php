@@ -240,9 +240,6 @@ class directorDao extends Model
         }
     }
 
-
-
-
     function uptadeFechaegreso($fecha, $codigo)
     {
         try {
@@ -650,6 +647,7 @@ class directorDao extends Model
 
 
     }
+
     function listarEmpresa(){
         try {
             $statement = $this->db->connect()->prepare("SELECT nombre, correo, telefono, celular, direccion , ciudad, fecha_registro FROM empresas");
@@ -662,8 +660,67 @@ class directorDao extends Model
     }
 
 
-    function insertNoticia($fecha_publicacion,$titulo,$cuerpo,$autor,$destinatario){
-        $query = $this->db->connect()->prepare("INSERT INTO noticia (fecha_publicacion 	titulo 	cuerpo 	autor 	destinatario)
+    function getEvento($codigo){
+        try {
+            $statement = $this->db->connect()->prepare("SELECT * FROM evento WHERE id = $codigo");
+            $statement->execute();
+            $resultado = $statement->fetch(PDO::FETCH_ASSOC);
+            return $resultado;
+        } catch (PDOException $e) {
+            return null;
+        }
+    }
+
+
+    function actualizarEvento($id, $titulo, $direccion,$ciudad,$fecha,$hora,$responsable,$descripcion,$opcion){
+        $destinatario = "";
+        if ($opcion==="0") {
+            $destinatario = "TODOS";
+        }
+        elseif ($opcion==="1") {
+            $destinatario = "EGRESADOS";
+        }
+        else {
+            $destinatario = "ESTUDIANTES";
+        }
+
+        try {
+            $statement = $this->db->connect()->prepare("UPDATE evento SET titulo=:titulo, direccion=:direccion, ciudad=:ciudad, fecha=:fecha, hora=:hora,responsable=:responsable, descripcion=:descripcion, destinatario=:opcion WHERE id=$id");
+            $statement->execute([
+                ':titulo' => $titulo,
+                ':direccion' => $direccion,
+                ':ciudad' => $ciudad,
+                ':fecha' => $fecha,
+                ':hora' => $hora,
+                ':responsable' => $responsable,
+                ':descripcion' => $descripcion,
+                ':opcion' => $destinatario
+            ]);
+            $aux =  $statement->rowCount();
+            return substr($aux, 0, 1);
+        } catch (PDOException $e) {
+            return null;
+        }
+        
+
+
+    }
+
+
+    function insertNoticia($fecha_publicacion,$titulo,$cuerpo,$autor,$opcion){
+        $destinatario = "";
+        if ($opcion==="0") {
+            $destinatario = "TODOS";
+        }
+        elseif ($opcion==="1") {
+            $destinatario = "EGRESADOS";
+        }
+        else {
+            $destinatario = "ESTUDIANTES";
+        }
+       
+       
+       $query = $this->db->connect()->prepare("INSERT INTO noticia (fecha_publicacion,titulo ,cuerpo,autor,destinatario)
          values (:fecha_publicacion,:titulo,:cuerpo,:autor,:destinatario)");
         try {
             $query->execute([
@@ -681,4 +738,102 @@ class directorDao extends Model
         }
       	
     }
+
+
+    function listarNoticia(){
+        try {
+            $statement = $this->db->connect()->prepare("SELECT id, fecha_publicacion, titulo, cuerpo,autor, destinatario FROM noticia");
+            $statement->execute();
+            $resultado = $statement->fetchAll(PDO::FETCH_ASSOC);
+            return  $resultado;
+        } catch (PDOException $e) {
+            return null;
+        }
+    }
+
+
+    function getNoticia($codigo){
+        try {
+            $statement = $this->db->connect()->prepare("SELECT * FROM noticia WHERE id = $codigo");
+            $statement->execute();
+            $resultado = $statement->fetch(PDO::FETCH_ASSOC);
+            return $resultado;
+        } catch (PDOException $e) {
+            return null;
+        }
+    }
+
+
+    function actualizarNoticia($id, $titulo, $autor,$cuerpo,$fecha,$opcion){
+
+        $destinatario = "";
+        if ($opcion==="0") {
+            $destinatario = "TODOS";
+        }
+        elseif ($opcion==="1") {
+            $destinatario = "EGRESADOS";
+        }
+        else {
+            $destinatario = "ESTUDIANTES";
+        }
+
+        try {
+            $statement = $this->db->connect()->prepare("UPDATE noticia SET titulo=:titulo, fecha_publicacion=:fecha, cuerpo=:cuerpo, autor=:autor, destinatario=:opcion WHERE id=$id");
+            $statement->execute([
+                ':titulo' => $titulo,
+                ':fecha' => $fecha,
+                ':cuerpo' => $cuerpo,
+                ':autor' => $autor,
+                ':opcion' => $destinatario
+            ]);
+            $aux =  $statement->rowCount();
+            return substr($aux, 0, 1);
+        } catch (PDOException $e) {
+            return null;
+        }
+        
+
+
+    }
+
+    function insertarEmpresa($nit,$nombreEmpresa,$correo,$telefono,$celular,$direccion,$contra,$destino, $ciudad, $fecha){
+     $query = $this->db->connect()->prepare("INSERT INTO empresas (nitEmpresa, nombre, correo, telefono, celular, direccion, ciudad, fecha_registro, contrasena, documento_convenio) VALUES (:nitEmpresa, :nombre, :correo, :telefono, :celular, :direccion, :ciudad, :fecha_registro, :contrasena, :documento_convenio)");
+     try {
+        $query->execute([
+            ':nitEmpresa' => $nit,
+            ':nombre' => $nombreEmpresa,
+            ':correo' => $correo,
+            ':telefono' => $telefono,
+            ':celular' => $celular,
+            ':direccion' => $direccion,
+            ':ciudad' => $ciudad,
+            ':fecha_registro' => $fecha,
+            ':contrasena' => $contra,
+            ':documento_convenio'=>$destino
+        ]);
+        $resultado = $query->fetchAll();
+        return $resultado;
+     } catch (PDOException $e) {
+        return false;
+     }
+    }
+
+    function getCodigoEmpresa($codigo){
+        try {
+            $statement = $this->db->connect()->prepare("SELECT * FROM empresas WHERE nitEmpresa=:codigo");
+            $statement->execute([
+                ':codigo'=>$codigo
+            ]);
+            $resultado = $statement->fetch(PDO::FETCH_ASSOC);
+            return  $resultado;
+        } catch (PDOException $e) {
+            return null;
+        }
+    }
+
+
+
+
+
+
 }

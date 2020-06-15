@@ -18,11 +18,11 @@ $(document).ready(function () {
     httpRequest(URLD + "loginControl/validarEstudiante/" + codigo + "/" + documento + "/" + contraseña, function () {
 
       var resp = this.responseText;
-      if (resp == "0") {
+      if (resp == 0) {
         $('.respuesta').text("Usuario y/o contraseña incorrecto");
         $('.alert').show();
         return;
-      } else if (resp == "1") {
+      } else if (resp == 1) {
         window.location.href = URLD + "estudianteControl";
       }
 
@@ -50,11 +50,11 @@ function verificarDatosAdmin(e) {
     var resp = this.responseText;
 
     console.log(resp);
-    if (resp == "0") {
+    if (resp == 0) {
       $('.respuesta').text("Usuario y/o contraseña incorrecto");
       $('.alert').show();
       return;
-    } else if (resp == "1") {
+    } else if (resp == 1) {
       window.location.href = URLD + "directorControl";
     }
 
@@ -80,11 +80,11 @@ function verificarDatosEmpresa(e) {
     var resp = this.responseText;
 
     console.log(resp);
-    if (resp == "0") {
+    if (resp == 0) {
       $('.respuestaEmpre').text("Usuario y/o contraseña incorrecto");
       $('#respuestaEmpresa').show();
       return;}
-    if (resp == "1") {
+    if (resp == 1) {
       window.location.href = URLD + "empresaControl";
     }
 

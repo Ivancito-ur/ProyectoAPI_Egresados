@@ -12,25 +12,8 @@
 
         <div class="card-body">
 
-            <div class="row" style="border-top: 3px solid #3c8dbc; background-color: white; padding-bottom: 10px;">
-
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Fecha de publicacion</th>
-                            <th scope="col">Titulo de la noticia</th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>.......</td>
-                            <td>............</td>
-                            <td><a href="#" onclick="loadAnot()" class="btn btn-primary btn-lg active" role="button" aria-pressed="true" style="background-color: #dd4b39; border-color: #dd4b39;">Actualizar</a></td>
-                        </tr>
-                    </tbody>
-                </table>
-
+            <div class="cajaN row" style="border-top: 3px solid #3c8dbc; background-color: white; padding-bottom: 10px;">
+ 
             </div>
         </div>
     </div>

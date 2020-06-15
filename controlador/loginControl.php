@@ -38,12 +38,12 @@
           //if($url==null)return;
           $resultado = $this->model->verificarEstudiante($url[0], $url[1], $url[2]);
           if(empty($resultado)){
-            echo "0";
+            echo 0;
             return;
           }
           $_SESSION["usuario"] = $resultado->getcodigoEstudiante();
           $_SESSION["documento"] =  $resultado->getDocumento();
-          echo "1";
+          echo 1;
           //echo $url[0];
         }
 
@@ -52,12 +52,12 @@
           if($url==null)return;
           $resultado = $this->model->verificarDirector($url[0], $url[1], $url[2]);
           if(empty($resultado)){
-            echo "0";
+            echo 0;
             return;
           }
           $_SESSION["administrador"] = $resultado->getcodigoDirector();
           $_SESSION["documentoAdmin"] =  $resultado->getDocumento();
-          echo "1";
+          echo 1;
           //echo $url[0];
         }
 
@@ -65,11 +65,11 @@
           if($url==null)return;
           $resultado = $this->model->verificarEmpresa($url[0], $url[1]);
           if(empty($resultado)){
-            echo "0";
+            echo 0;
             return;
           }
-          $_SESSION["empresa"] = "entro";
-          echo "1";
+          $_SESSION["empresa"] = $resultado['nitEmpresa'];
+          echo 1;
           //echo $url[0];
         }
 

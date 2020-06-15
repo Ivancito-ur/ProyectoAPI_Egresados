@@ -25,7 +25,7 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="inputSalario">Salario</label>
-                                    <input type="text" class="form-control" id="inputSalario">
+                                    <input onkeyup="capturarDinero(event)" type="text" class="form-control" id="inputSalario" placeholder="$">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="inputTelefono">Telefono</label>
@@ -42,8 +42,15 @@
                                     <textarea class="form-control" id="exampleFormControlRequerimientos" rows="3" style="height:300px; resize: none;"></textarea>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary" style="background-color: #dd4b39; border-color: #dd4b39;">Publicar</button>
+                            <button onclick="return insertarOferta(event)" type="submit" class="btn btn-primary" style="background-color: #dd4b39; border-color: #dd4b39;">Publicar</button>
                         </form>
+
+                        <div style="width:80%;margin:auto; display:none; text-align:center; padding:10px " id="alertCorreo" class="alert alert-danger" role="alert">
+                            <p class="respuesta" id="respuestaCorreo"></p>
+                        </div>
+                        <div style="width:80%; margin:auto;display:none;  text-align:center; padding:10px ; " id="alertCorreo2" class="alert alert-success" role="alert">
+                            <p class="respuesta" id="respuestaCorreo2"></p>
+                        </div>
             </div>
         </div>
     </div>

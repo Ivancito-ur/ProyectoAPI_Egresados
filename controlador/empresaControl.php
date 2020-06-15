@@ -62,5 +62,37 @@
           echo $JString;
         }
 
+
+        function crearOferta($param){
+          echo $this->model->crearOferta($param[0], $param[1],$param[2],$param[3], $param[4],$param[5],  $_SESSION["empresa"] );
+        }
+
+
+        function listarOferta(){
+          $resultado = $this->model->listarOferta( $_SESSION["empresa"]);
+          $json = array();
+          foreach ($resultado as $est) {
+              $json[] = array(
+                  'id' => $est['id'],
+                  'empleo' => $est['empleo'],
+                  'jornada' => $est['jornada'],
+                  'salario' => $est['salario'],
+                  'telefono' => $est['telefono'],
+                  'descripcion' => $est['descripcion'],
+                  'requerimientos' => $est['requerimientos']
+              );
+          }
+          $JString = json_encode($json);
+          echo $JString;
+        }
+
+
+        function eliminarOferta($param){
+          $codigo = $param[0];
+          $this->model->eliminarOferta($codigo);
+          echo "Evento eliminado";
+
+        }
+
     }
 ?>
