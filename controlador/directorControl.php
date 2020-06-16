@@ -14,7 +14,7 @@ class directorControl extends Controller
         $this->view->datos = [];
         $this->view->cantidad = [];
         $this->view->cantidadTesis = [];
-        $this->view->cantidadEmpresa =[];
+        $this->view->cantidadEmpresa = [];
     }
 
 
@@ -157,17 +157,21 @@ class directorControl extends Controller
 
                     //Caso especial de fechas
                     $fecha_ingreso_g = $objPHPExcel->getActiveSheet()->getCell('L' . $i);
-                    $fecha_ingreso = $fecha_ingreso_g->getValue();
-                    if (PHPExcel_Shared_Date::isDateTime($fecha_ingreso_g)) {
-                        $fecha_ingreso = date($format = "Y-m-d", PHPExcel_Shared_Date::ExcelToPHP($fecha_ingreso));
-                    }
-
-
                     $fecha_egreso_g = $objPHPExcel->getActiveSheet()->getCell('M' . $i);
-                    $fecha_egreso = $fecha_egreso_g->getValue();
-                    if (PHPExcel_Shared_Date::isDateTime($fecha_egreso_g)) {
-                        $fecha_egreso = date($format = "Y-m-d", PHPExcel_Shared_Date::ExcelToPHP($fecha_egreso));
+
+                    if ($i != 1) {
+                        $fecha_ingreso = $fecha_ingreso_g->getValue();
+                        if (PHPExcel_Shared_Date::isDateTime($fecha_ingreso_g)) {
+                            $fecha_ingreso = date($format = "Y-m-d", PHPExcel_Shared_Date::ExcelToPHP($fecha_ingreso));
+                        }
+
+                        $fecha_egreso = $fecha_egreso_g->getValue();
+                        if (PHPExcel_Shared_Date::isDateTime($fecha_egreso_g)) {
+                            $fecha_egreso = date($format = "Y-m-d", PHPExcel_Shared_Date::ExcelToPHP($fecha_egreso));
+                        }
                     }
+
+
 
 
                     ////////////////////////////////////
@@ -205,7 +209,6 @@ class directorControl extends Controller
                         if ($documento != "") {
                             $this->model->insertar_persona($nombres, $apellidos, $documento, $celular, $telefono, $direccion, $correo, $tipo_documento, $conexion);
                         }
-
 
                         if ($codigo != "") {
                             # code... 
@@ -492,9 +495,6 @@ class directorControl extends Controller
                 $header = array('Codigo', 'Documento', 'Nombre', 'Apellido', 'Correo Institucional', 'Promedio');
                 $pdf->TablaPromedio($header, $resultado);
                 $pdf->Output('reporte_promedioA.pdf', 'I');
-
-
-
             } else if ($param[1] == "Notas pruebas Saber 11 y Pro") {
                 require('utils/fPDF/reporteNota.php');
                 $_SESSION['repor'] = "Reporte Notas Alumno";
@@ -504,11 +504,11 @@ class directorControl extends Controller
                 $resultado11 = $this->model->listarEstudiantesANotas11();
                 $pdfN->AddPage();
                 $headerPro = array(
-                    'codigoEstudiante', 'Nombre' , 'Apellido ', 'Lectura Critica',
+                    'codigoEstudiante', 'Nombre', 'Apellido ', 'Lectura Critica',
                     'RazonamientoC.', 'CompetenciaC.', 'ComunicacionE.', 'Ingles'
                 );
                 $header11 = array(
-                    'codigoEstudiante', 'Nombre' , 'Apellido ', 'Lectura Critica',
+                    'codigoEstudiante', 'Nombre', 'Apellido ', 'Lectura Critica',
                     'Matematica', 'Sociales Ciudadanas', 'Naturales', 'Ingles'
                 );
                 $pdfN->TablaNotas($headerPro, $header11, $resultadoPro, $resultado11);
@@ -516,8 +516,6 @@ class directorControl extends Controller
                 $pdfN->agregarImagen();
                 $pdfN->Output('reporte_promedioA.pdf', 'I');
             }
-
-
         } else if ($param[0] == "Egresado") {
 
             if ($param[1] == "Promedio") {
@@ -529,8 +527,6 @@ class directorControl extends Controller
                 $header = array('Codigo', 'Documento', 'Nombre', 'Apellido', 'Correo Institucional', 'Promedio');
                 $pdf->TablaPromedio($header, $resultado);
                 $pdf->Output('reporte_promedioE.pdf', 'I');
-
-
             } else if ($param[1] == "Notas pruebas Saber 11 y Pro") {
                 require('utils/fPDF/reporteNota.php');
                 $_SESSION['repor'] = "Reporte Notas Egresado";
@@ -540,11 +536,11 @@ class directorControl extends Controller
                 $resultado11 = $this->model->listarEgresadosANotas11();
                 $pdfN->AddPage();
                 $headerPro = array(
-                    'codigoEstudiante', 'Nombre' , 'Apellido ', 'Lectura Critica',
+                    'codigoEstudiante', 'Nombre', 'Apellido ', 'Lectura Critica',
                     'Razonamiento Cuantitativo', 'Comptencia Ciudadana', 'Comunicacion Escrita', 'Ingles'
                 );
                 $header11 = array(
-                    'codigoEstudiante', 'Nombre' , 'Apellido ', 'Lectura Critica',
+                    'codigoEstudiante', 'Nombre', 'Apellido ', 'Lectura Critica',
                     'Matematica', 'Sociales Ciudadanas', 'Naturales', 'Ingles'
                 );
                 $pdfN->TablaNotas($headerPro, $header11, $resultadoPro, $resultado11);
@@ -552,23 +548,19 @@ class directorControl extends Controller
                 $pdfN->AddPage();
                 $pdfN->agregarImagen();
                 $pdfN->Output('reporte_promedioA.pdf', 'I');
-
-
             }
-        }else if($param[0]=="Empresa Convenio"){
+        } else if ($param[0] == "Empresa Convenio") {
 
             require('utils/fPDF/reporteEmpresa.php');
             $pdfE = new reporteEmpresa('L', 'mm', 'A4');
             $resultadoE = $this->model->listarEmpresa();
             $pdfE->AddPage();
             $headerPro = array(
-                'Nombre', 'Correo', 'Telefono', 'Celular', 'Direccion' , 'Ciudad', 'Fecha Registro'
+                'Nombre', 'Correo', 'Telefono', 'Celular', 'Direccion', 'Ciudad', 'Fecha Registro'
             );
-            $pdfE->TablaConvenio($headerPro,$resultadoE);
+            $pdfE->TablaConvenio($headerPro, $resultadoE);
 
             $pdfE->Output('reporte_promedioA.pdf', 'I');
-
-
         }
         unset($_SESSION['repor']);
     }
@@ -648,23 +640,23 @@ class directorControl extends Controller
         $responsable = $param[5];
         $descripcion = $param[6];
         $opcion = $param[7];
-        $this->model->crearEvento($titulo, $direccion,$ciudad,$fecha,$hora,$responsable,$descripcion,$opcion);
+        $this->model->crearEvento($titulo, $direccion, $ciudad, $fecha, $hora, $responsable, $descripcion, $opcion);
 
         $particpan = $param[7];
         $resultado = $this->model->getCorreos($particpan);
         $email = new Correo();
         echo var_dump($resultado);
-        
-        
+
+
         $email->correoEventos($resultado, $titulo, $descripcion, 0);
 
 
         return;
-        
     }
 
 
-    function listarEventos(){
+    function listarEventos()
+    {
         $resultado = $this->model->listarEventos();
         $json = array();
         foreach ($resultado as $est) {
@@ -682,20 +674,17 @@ class directorControl extends Controller
         }
         $JString = json_encode($json);
         echo $JString;
-
-
     }
 
     function eliminarEvento($param)
     {
-       $codigo = $param[0];
-       $this->model->eliminarEvento($codigo);
-       echo "Evento eliminado";
-
-
+        $codigo = $param[0];
+        $this->model->eliminarEvento($codigo);
+        echo "Evento eliminado";
     }
 
-    function enviarCorreoEncuesta(){
+    function enviarCorreoEncuesta()
+    {
         require_once "utils/correo/Correo.php";
         $resultado = $this->model->getCorreos($_POST['opcionE']);
         echo var_dump($resultado);
@@ -704,26 +693,28 @@ class directorControl extends Controller
     }
 
 
-    function traerEvento($param){
-       $resultado = $this->model->getEvento($param[0]);
-       $json = array();
-            $json[] = array(
-                'id' => $resultado['id'],
-                'titulo' => $resultado['titulo'],
-                'direccion' => $resultado['direccion'],
-                'fecha' => $resultado['fecha'],
-                'hora' => $resultado['hora'],
-                'ciudad' => $resultado['ciudad'],
-                'descripcion' => $resultado['descripcion'],
-                'responsable' => $resultado['responsable'],
-                'destinatario' => $resultado['destinatario']
-            );
+    function traerEvento($param)
+    {
+        $resultado = $this->model->getEvento($param[0]);
+        $json = array();
+        $json[] = array(
+            'id' => $resultado['id'],
+            'titulo' => $resultado['titulo'],
+            'direccion' => $resultado['direccion'],
+            'fecha' => $resultado['fecha'],
+            'hora' => $resultado['hora'],
+            'ciudad' => $resultado['ciudad'],
+            'descripcion' => $resultado['descripcion'],
+            'responsable' => $resultado['responsable'],
+            'destinatario' => $resultado['destinatario']
+        );
         $JString = json_encode($json);
-        echo $JString; 
+        echo $JString;
     }
 
 
-    function actualizarEvento($param){
+    function actualizarEvento($param)
+    {
         $id = $param[0];
         $titulo = $param[1];
         $direccion = $param[2];
@@ -733,22 +724,22 @@ class directorControl extends Controller
         $responsable = $param[6];
         $descripcion = $param[7];
         $opcion = $param[8];
-        echo $this->model->actualizarEvento($id, $titulo, $direccion,$ciudad,$fecha,$hora,$responsable,$descripcion,$opcion);
+        echo $this->model->actualizarEvento($id, $titulo, $direccion, $ciudad, $fecha, $hora, $responsable, $descripcion, $opcion);
     }
 
 
-    function crearNoticia($param){
+    function crearNoticia($param)
+    {
         $titulo = $param[0];
         $autor = $param[1];
         $fecha = $param[2];
         $cuerpo = $param[3];
         $destinatario =  $param[4];
-        echo $this->model->insertNoticia( $fecha,$titulo,$cuerpo,$autor,$destinatario);
-       
-
+        echo $this->model->insertNoticia($fecha, $titulo, $cuerpo, $autor, $destinatario);
     }
 
-    function listarNoticias(){
+    function listarNoticias()
+    {
         $resultado = $this->model->listarNoticia();
         $json = array();
         foreach ($resultado as $est) {
@@ -765,41 +756,43 @@ class directorControl extends Controller
         echo $JString;
     }
 
-    function traerNoticia($param){
+    function traerNoticia($param)
+    {
         $resultado = $this->model->getNoticia($param[0]);
         $json = array();
-             $json[] = array(
-                'id' => $resultado['id'],
-                'fecha' => $resultado['fecha_publicacion'],
-                'titulo' => $resultado['titulo'],
-                'cuerpo' => $resultado['cuerpo'],
-                'autor' => $resultado['autor'],
-                'destinatario' => $resultado['destinatario']
-             );
-         $JString = json_encode($json);
-         echo $JString; 
+        $json[] = array(
+            'id' => $resultado['id'],
+            'fecha' => $resultado['fecha_publicacion'],
+            'titulo' => $resultado['titulo'],
+            'cuerpo' => $resultado['cuerpo'],
+            'autor' => $resultado['autor'],
+            'destinatario' => $resultado['destinatario']
+        );
+        $JString = json_encode($json);
+        echo $JString;
     }
 
-    function actualizarNoticia($param){
+    function actualizarNoticia($param)
+    {
         $id = $param[0];
         $titulo = $param[1];
         $autor = $param[2];
         $cuerpo = $param[3];
         $fecha = $param[4];
         $opcion = $param[5];
-        echo $this->model->actualizarNoticia($id, $titulo, $autor,$cuerpo,$fecha,$opcion);
-        
+        echo $this->model->actualizarNoticia($id, $titulo, $autor, $cuerpo, $fecha, $opcion);
     }
 
 
-    function registrarEmpresa(){
+    function registrarEmpresa()
+    {
         $nit = $_POST['nitEmpresa'];
 
         $ruta = $_FILES['archivo']['tmp_name'];
         echo $ruta;
 
-        $nombre = $_POST['nitEmpresa'] . ".pdf"; 
-       
+        $nombre = $_POST['nitEmpresa'] . ".pdf";
+
         $nombreEmpresa = $_POST['nombreEmpresa'];
         $correo = $_POST['correoEmpresa'];
         $telefono = $_POST['telefonoEmpresa'];
@@ -809,13 +802,13 @@ class directorControl extends Controller
         $ciudad = $_POST['ciudadEmpresa'];
         $fecha = $_POST['fecha'];
 
-        
+
         $destino = "almacen/convenio/" . $nombre;
 
 
         if ($ruta != "") {
             if (copy($ruta, $destino)) { //Se copia el archivo de la ruta a la carpeta del server
-                $this->model->insertarEmpresa($nit,$nombreEmpresa,$correo,$telefono,$celular,$direccion,$contra,$destino, $ciudad, $fecha);
+                $this->model->insertarEmpresa($nit, $nombreEmpresa, $correo, $telefono, $celular, $direccion, $contra, $destino, $ciudad, $fecha);
                 echo 2;
             } else {
                 echo 1;
@@ -825,16 +818,18 @@ class directorControl extends Controller
     }
 
 
-    function getCodigoConvenio($param){
+    function getCodigoConvenio($param)
+    {
         $resultado = $this->model->getCodigoEmpresa($param[0]);
-        if($resultado==""){
-           echo 1;
+        if ($resultado == "") {
+            echo 1;
             return;
         }
         echo 0;
     }
-    						
-    function listarEmpresa(){
+
+    function listarEmpresa()
+    {
         $resultado = $this->model->listarEmpresa();
         $json = array();
         foreach ($resultado as $est) {
@@ -856,12 +851,8 @@ class directorControl extends Controller
 
     function eliminarEmpresa($param)
     {
-       $codigo = $param[0];
-       $this->model->eliminarEmpresa($codigo);
-       echo "Evento eliminado";
-
-
+        $codigo = $param[0];
+        $this->model->eliminarEmpresa($codigo);
+        echo "Evento eliminado";
     }
-
- 
 }
