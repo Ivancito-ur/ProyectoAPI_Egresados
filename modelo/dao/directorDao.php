@@ -650,7 +650,7 @@ class directorDao extends Model
 
     function listarEmpresa(){
         try {
-            $statement = $this->db->connect()->prepare("SELECT nombre, correo, telefono, celular, direccion , ciudad, fecha_registro FROM empresas");
+            $statement = $this->db->connect()->prepare("SELECT * FROM empresas");
             $statement->execute();
             $resultado = $statement->fetchAll(PDO::FETCH_ASSOC);
             return  $resultado;
@@ -830,6 +830,19 @@ class directorDao extends Model
             return null;
         }
     }
+
+    function eliminarEmpresa($codigo){
+        try {
+            $statement = $this->db->connect()->prepare("DELETE FROM empresas WHERE nitEmpresa = $codigo");
+            $statement->execute();
+            return  true;
+        } catch (PDOException $e) {
+            return null;
+        }
+
+
+    }
+
 
 
 

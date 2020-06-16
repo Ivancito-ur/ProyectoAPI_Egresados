@@ -686,7 +686,7 @@ class directorControl extends Controller
 
     }
 
-     function eliminarEvento($param)
+    function eliminarEvento($param)
     {
        $codigo = $param[0];
        $this->model->eliminarEvento($codigo);
@@ -702,7 +702,6 @@ class directorControl extends Controller
         $email = new Correo();
         $email->correoEventos($resultado, $_POST['asuntoE'], $_POST['cuerpoE'], 1);
     }
-
 
 
     function traerEvento($param){
@@ -749,7 +748,6 @@ class directorControl extends Controller
 
     }
 
-
     function listarNoticias(){
         $resultado = $this->model->listarNoticia();
         $json = array();
@@ -766,7 +764,6 @@ class directorControl extends Controller
         $JString = json_encode($json);
         echo $JString;
     }
-
 
     function traerNoticia($param){
         $resultado = $this->model->getNoticia($param[0]);
@@ -835,6 +832,35 @@ class directorControl extends Controller
             return;
         }
         echo 0;
+    }
+    						
+    function listarEmpresa(){
+        $resultado = $this->model->listarEmpresa();
+        $json = array();
+        foreach ($resultado as $est) {
+            $json[] = array(
+                'nitEmpresa' => $est['nitEmpresa'],
+                'nombre' => $est['nombre'],
+                'correo' => $est['correo'],
+                'telefono' => $est['telefono'],
+                'celular' => $est['celular'],
+                'direccion' => $est['direccion'],
+                'ciudad' => $est['ciudad'],
+                'fecha_registro' => $est['fecha_registro'],
+                'documento_convenio' => $est['documento_convenio']
+            );
+        }
+        $JString = json_encode($json);
+        echo $JString;
+    }
+
+    function eliminarEmpresa($param)
+    {
+       $codigo = $param[0];
+       $this->model->eliminarEmpresa($codigo);
+       echo "Evento eliminado";
+
+
     }
 
  

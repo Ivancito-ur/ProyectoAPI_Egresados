@@ -14,10 +14,11 @@
         </div>
             <div class="card-body">
                 <div class="box box-primary" style="border-top: 3px solid #3c8dbc; background-color: white; padding-bottom: 10px;">
-                    <h4 class="h3 mb-0">titulo que tiene la noticia....</h4>
+                    <h4 id="titulo" class="h3 mb-0"></h4>
                     <br>
                     <div>
-                        <label for="exampleFormControlTextarea1">fecha...</label>
+                        <label style="color:blue; display:block" id="autor" for=""></label>
+                        <label id="fecha" for=""></label>
                         <textarea id="cuerpo" class="form-control" id="exampleFormControlTextarea1" rows="3" style="resize: none; height: 500px;" readonly></textarea>
                     </div>    
             </div>

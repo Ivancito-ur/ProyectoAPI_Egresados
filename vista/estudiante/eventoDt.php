@@ -17,27 +17,27 @@
                         <form>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="inputEmpleo">Titulo</label>
-                                    <input type="text" class="form-control" id="inputEmpleo" readonly>
+                                    <label for="Titulo">Titulo</label>
+                                    <input type="text" class="form-control" id="Titulo" readonly>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="inputJornada">Lugar</label>
-                                    <input type="text" class="form-control" id="inputJornada" readonly>
+                                    <label for="Lugar">Lugar</label>
+                                    <input type="text" class="form-control" id="Lugar" readonly>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="inputSalario">Fecha</label>
-                                    <input type="text" class="form-control" id="inputSalario" readonly>
+                                    <label for="Fecha">Fecha</label>
+                                    <input type="text" class="form-control" id="Fecha" readonly>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="inputTelefono">Hora</label>
-                                    <input type="text" class="form-control" id="inputTelefono" readonly>
+                                    <label for="Hora">Hora</label>
+                                    <input type="text" class="form-control" id="Hora" readonly>
                                 </div>
                             </div>
                             <div class="form-group col-md-6">
-                                    <label for="exampleFormControlRequerimientos">Resumen</label>
-                                    <textarea class="form-control" id="exampleFormControlRequerimientos" rows="3" style="height:300px; resize: none;" readonly></textarea>
+                                    <label for="Resumen">Resumen</label>
+                                    <textarea class="form-control" id="Resumen" rows="3" style="height:300px; resize: none;" readonly></textarea>
                                 </div>
                         </form>
             </div>
