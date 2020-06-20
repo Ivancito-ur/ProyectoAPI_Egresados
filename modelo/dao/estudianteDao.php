@@ -11,7 +11,7 @@ class estudianteDao extends Model{
 
     public function getEstudiante($codigo){
         try{
-            $statement = $this->db->connect()->prepare("SELECT * FROM estudiante e INNER JOIN persona p ON e.documento= p.documento WHERE e.codigoEstudiante=:codigoEstudiante" );
+            $statement = $this->db->connect()->prepare("SELECT * FROM estudiante e INNER JOIN persona p ON e.documento= p.documento  WHERE e.codigoEstudiante=:codigoEstudiante" );
             $statement->execute(array(
                 ':codigoEstudiante' => $codigo
             ));
@@ -201,6 +201,50 @@ class estudianteDao extends Model{
             return null;
         }
     }
+
+    public function getActuEstudiante($codigo){
+        try{
+            $statement = $this->db->connect()->prepare("SELECT CASE WHEN ee.empresaNit IS NULL THEN 0 ELSE ee.empresaNit END AS empresaNit, e.correoInstitucional,e.egresado, p.celular, p.correo, p.telefono, p.direccion, p.nombres, p.apellidos, e.fechaIngreso, e.fechaEgreso FROM estudiante e INNER JOIN persona p ON e.documento= p.documento LEFT JOIN empresa_estudiante ee ON ee.codigoEstudiante=e.codigoEstudiante WHERE e.codigoEstudiante=:codigoEstudiante" );
+            $statement->execute(array(
+                ':codigoEstudiante' => $codigo
+            ));
+            $resultado = $statement->fetch();
+            return $resultado;
+        }catch(PDOException $e){
+            return null;
+        }
+    }
+
+    function listarEmpresa($codigo){
+        try {
+            $statement = $this->db->connect()->prepare("SELECT * FROM empresas WHERE nitEmpresa=:codigoE");
+            $statement->execute(array(
+                ':codigoE' => $codigo
+            ));
+            $resultado = $statement->fetch(PDO::FETCH_ASSOC);
+            return  $resultado;
+        } catch (PDOException $e) {
+            return null;
+        }
+    }
+
+    public function insertEstEmp($codigoE, $fecha, $empresaNit){
+ 
+        $query = $this->db->connect()->prepare('INSERT INTO empresa_estudiante (codigoEstudiante, fecha_registro, empresaNit) VALUES (:codigoEstudiante, :fecha_registro, :empresaNit)');
+        try{
+            $query->execute([
+                ':codigoEstudiante' =>$codigoE ,
+                ':fecha_registro' => $fecha,
+                ':empresaNit' => $empresaNit
+            ]);
+            return true;
+        }catch(PDOException $e){
+            return false;
+        }
+    }
+
+
+
 
     
   

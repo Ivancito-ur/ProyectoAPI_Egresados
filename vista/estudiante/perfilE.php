@@ -278,8 +278,8 @@
                     <input type="email" class="form-control" id="correop" value="<?php echo $this->datos['correo'] ?>" readonly>
                   </div>
                   <div class="form-group">
-                    <label for="empresa">Empresa Actual</label>
-                    <input type="text" class="form-control" id="empresa" value="" readonly>
+                    <label for="empresa">Nit Empresa Actual</label>
+                    <input type="text" class="form-control" id="empresa" value="<?php echo $this->datos['empresaNit']?> " readonly>
                   </div>
                 </form>
               </div>

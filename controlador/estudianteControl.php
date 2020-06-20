@@ -37,13 +37,20 @@ class estudianteControl extends Controller{
 
         function getDatos(){
              $codigo = $_SESSION['usuario'];
-             $this->view->datos = $this->model->getEstudiante($codigo);
+             $this->view->datos = $this->model->getActuEstudiante($codigo);
         }
 
 
         function actualizarDatos($param = null){
           if($param == null)return;
+          $codigo = $_SESSION['usuario'];
+          $this->model->insertEstEmp($codigo, $param[5], $param[4]);
           $this->model->updateDatos([ 'documento' => $_SESSION['documento'],'celular' => $param[0], 'telefono' => $param[1], 'direccion' =>$param[2], 'correo'=>$param[3]]);
+
+        
+
+
+
         }
 
         function cargarPDF($param = null){
@@ -241,6 +248,35 @@ class estudianteControl extends Controller{
           
           $JString = json_encode($json);
           echo $JString;
+        }
+
+        function getActuEstudiante(){
+          $codigo = $_SESSION['usuario'];
+          $resultado = $this->model->getActuEstudiante($codigo);
+
+          $json[] = array(
+            'celular' => $resultado['celular'],
+            'telefono' => $resultado['telefono'],
+            'direccion' => $resultado['direccion'],
+            'correo' => $resultado['correo'],
+            'empresaNit' => $resultado['empresaNit']
+          );
+
+
+          $JString = json_encode($json);
+          echo $JString;
+
+        }
+
+        function getEmpresa($param)
+        {
+            $resultado = $this->model->listarEmpresa($param[0]);
+            if($resultado==""){
+              echo 0;
+              return;
+            }
+            echo 1;
+          
         }
 
 

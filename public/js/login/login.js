@@ -2,11 +2,11 @@
 const URLD = "http://localhost/ProyectoAPI_Egresados/";
 var templateToken = "";
 $('.alert').hide();
-$(document).ready(function () {
-  $('.alert').hide();
+ $('.alert').hide();
 
   //METODO PARA LA VERIFICACION DE DATOS DE ESTUDIANTE
-  $("#ingresar").click(function (e) {
+
+  function verificarDatosEstu(e){
     var codigo = $('#inpCodigo').val();
     var documento = $('#inputDocumento').val();
     var contraseña = $('#inputPassword').val();
@@ -28,9 +28,9 @@ $(document).ready(function () {
 
     });
     e.preventDefault();
-  });
+  
+  }
 
-});
 
 
 //VERIFICAR DATOS ADMINISTRADOR

@@ -33,8 +33,9 @@
                         <label for="correo">Correo Personal</label>
                         <input type="email" class="form-control" id="correo" aria-describedby="emailHelp">
                     </div>
-                    <div class="form-group">
-                        <label for="empresa">Empresa Actual</label>
+                    <p class="empresaO" style="display:none;color:orange">Aun no cuentas con una empresa</p>
+                    <div class="empresaCaja form-group">
+                        <label for="empresa">Nit Empresa Actual</label>
                         <input type="text" class="form-control" id="empresa">
                     </div>
                     <div class="form-group form-check">

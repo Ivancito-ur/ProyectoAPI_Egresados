@@ -502,7 +502,7 @@ class directorDao extends Model
     function listarEstudiantesANotasPRO()
     {
         try {
-            $statement = $this->db->connect()->prepare("SELECT e.codigoEstudiante, pro.lectura_critica, 
+            $statement = $this->db->connect()->prepare("SELECT DISTINCT (e.codigoEstudiante) as codigoEstudiante , pro.lectura_critica, 
             pro.razonamiento_cuantitativo, pro.competencias_ciudadana, pro.comunicacion_escrita, pro.ingles , 
             p.nombres , p.apellidos FROM estudiante e INNER JOIN historial h ON e.codigoEstudiante=h.codigoEstudiante INNER JOIN pruebassaberpro pro 
             ON h.idSaberPro=pro.idSaberPro  INNER JOIN persona p ON p.documento=e.documento WHERE e.egresado=1 ORDER BY e.codigoEstudiante  ASC ");
@@ -518,7 +518,7 @@ class directorDao extends Model
     function listarEstudiantesANotas11()
     {
         try {
-            $statement = $this->db->connect()->prepare("SELECT e.codigoEstudiante,  p11.lectura_critica,
+            $statement = $this->db->connect()->prepare("SELECT DISTINCT (e.codigoEstudiante) as codigoEstudiante ,  p11.lectura_critica,
              p11.matematica, p11.sociales_ciudadanas, p11.naturales, p11.ingles , p.nombres , p.apellidos FROM estudiante e INNER JOIN historial h ON e.codigoEstudiante=h.codigoEstudiante INNER JOIN pruebassaber11 p11 ON p11.idSaber11=h.idSaber11 INNER JOIN persona p ON p.documento=e.documento WHERE e.egresado=1 ORDER BY e.codigoEstudiante  ASC");
             $statement->execute();
             $resultado = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -532,7 +532,7 @@ class directorDao extends Model
     function listarEgresadosANotasPRO()
     {
         try {
-            $statement = $this->db->connect()->prepare("SELECT e.codigoEstudiante, pro.lectura_critica, 
+            $statement = $this->db->connect()->prepare("SELECT  DISTINCT (e.codigoEstudiante) as codigoEstudiante , pro.lectura_critica, 
             pro.razonamiento_cuantitativo, pro.competencias_ciudadana, pro.comunicacion_escrita, pro.ingles , 
             p.nombres , p.apellidos FROM estudiante e INNER JOIN historial h ON e.codigoEstudiante=h.codigoEstudiante INNER JOIN pruebassaberpro pro 
             ON h.idSaberPro=pro.idSaberPro  INNER JOIN persona p ON p.documento=e.documento WHERE e.egresado=0 ORDER BY e.codigoEstudiante  ASC ");
@@ -548,7 +548,7 @@ class directorDao extends Model
     function listarEgresadosANotas11()
     {
         try {
-            $statement = $this->db->connect()->prepare("SELECT e.codigoEstudiante, p11.lectura_critica,
+            $statement = $this->db->connect()->prepare("SELECT  DISTINCT (e.codigoEstudiante) as codigoEstudiante, p11.lectura_critica,
              p11.matematica, p11.sociales_ciudadanas, p11.naturales, p11.ingles , p.nombres , p.apellidos FROM estudiante e INNER JOIN historial h ON e.codigoEstudiante=h.codigoEstudiante 
              INNER JOIN pruebassaber11 p11 ON p11.idSaber11=h.idSaber11 INNER JOIN persona p ON p.documento=e.documento WHERE e.egresado=0 ORDER BY e.codigoEstudiante  ASC");
             $statement->execute();

@@ -553,6 +553,7 @@ function loadLi() {
 
 function capturar(e) {
   let busca = $('#buscador').val();
+  if($('#buscador').val()!=""){
   httpRequest(URLD + "directorControl/buscarEstudiante/" + busca, function () {
     var response = this.responseText;
     if (!response.error) {
@@ -573,7 +574,7 @@ function capturar(e) {
       //console.log(template);
       $('tbody').html(template);
     }
-  });
+  });}
 }
 
 function httpRequest(url, callback) {
@@ -1682,6 +1683,10 @@ function eliminarEmpresa(codigo){
     } 
   });
     
+}
+
+function descargarFormato(){
+  window.open(URLD + "directorControl/descargarFormato");
 }
 
   

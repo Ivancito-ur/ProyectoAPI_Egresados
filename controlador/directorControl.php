@@ -528,6 +528,7 @@ class directorControl extends Controller
                 $pdf->TablaPromedio($header, $resultado);
                 $pdf->Output('reporte_promedioE.pdf', 'I');
             } else if ($param[1] == "Notas pruebas Saber 11 y Pro") {
+
                 require('utils/fPDF/reporteNota.php');
                 $_SESSION['repor'] = "Reporte Notas Egresado";
                 $_SESSION['tamaño'] = "si";
@@ -548,6 +549,7 @@ class directorControl extends Controller
                 $pdfN->AddPage();
                 $pdfN->agregarImagen();
                 $pdfN->Output('reporte_promedioA.pdf', 'I');
+
             }
         } else if ($param[0] == "Empresa Convenio") {
 
@@ -854,5 +856,16 @@ class directorControl extends Controller
         $codigo = $param[0];
         $this->model->eliminarEmpresa($codigo);
         echo "Evento eliminado";
+    }
+
+
+    function descargarFormato(){
+        $archivo = "almacen/formato/copia_estudiantes_formato_prueba.xlsx";
+        $nombre = "copia_estudiantes_formato_prueba.xlsx";
+        header('Content-Disposition: attachment; filename=' . $nombre );
+        header("Content-Type: application/vnd.openxmlformats-   officedocument.spreadsheetml.sheet");
+        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+        header('Content-Length: '.filesize($archivo));
+        readfile($archivo);
     }
 }

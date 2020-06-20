@@ -3,15 +3,25 @@
 const URLD = "http://localhost/ProyectoAPI_Egresados/";
 var codigoNoticia="";
 var codigoN="";
+var tipoEstdudiante="";
 
-getUltimaNoticia();
+
+httpRequest(URLD + "estudianteControl/verificarOferta", function () {
+
+  var response = this.responseText;
+  var resp = response.split("\n").join("");
+  let tasks = JSON.parse(resp);
+  tipoEstdudiante=tasks[0].egresado;
+});
+
+//getUltimaNoticia();
 
 
 $('#alert').hide();   
 $('#alert2').hide();   
 
   function loadAc() {
-
+    var destinatario = "";
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
@@ -20,8 +30,51 @@ $('#alert2').hide();
     };
     xhttp.open("GET", "vista/estudiante/actualizar.php", true);
     xhttp.send();
+
+    httpRequest(URLD + "estudianteControl/verificarOferta", function () {
+
+      var response = this.responseText;
+      var resp = response.split("\n").join("");
+      let tasks = JSON.parse(resp);
+      if (tasks[0].egresado===0) {
+        destinatario = "EGRESADOS";
+      }
+      else if (tasks[0].egresado===1) {
+        destinatario = "ESTUDIANTES";
+      }
+
+      httpRequest(URLD + "estudianteControl/getActuEstudiante", function () {
+
+        var response = this.responseText;
+        var resp = response.split("\n").join("");
+        let tasks = JSON.parse(resp);
+  
+  
+        $("#celular").val(tasks[0].celular);
+        $("#telefono").val(tasks[0].telefono);
+        $("#direccion").val(tasks[0].direccion);
+        $("#correo").val(tasks[0].correo);
+        if(destinatario=="ESTUDIANTES"){
+          $('.empresaCaja').hide(); 
+          return;
+          
+        }
+        if(tasks[0].empresaNit=="0"){
+          $('.empresaO').show(); 
+          return;
+        }
+        $("#empresa").val(tasks[0].empresaNit);
+   
+       
+  
+      });
+
+    });
     return false;
   }
+
+
+
 
   function loadOl() {
 
@@ -37,7 +90,7 @@ $('#alert2').hide();
   }
 
   function loadDt(id) {
-
+    setTimeout(function () {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
@@ -61,7 +114,7 @@ $('#alert2').hide();
 
 
     });
-    
+  }, 100)
    
   }
 
@@ -79,7 +132,8 @@ $('#alert2').hide();
   }
 
   function loadDtev(id) {
-
+    setTimeout(function () {
+     
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
@@ -104,7 +158,7 @@ $('#alert2').hide();
 
 
     });
-   
+  }, 100)
   }
 
   function loadVn() {
@@ -117,11 +171,16 @@ $('#alert2').hide();
     };
     xhttp.open("GET", "vista/estudiante/noticiasP.php", true);
     xhttp.send();
-    recargarNoticias();
+    setTimeout(function () {
+      recargarNoticias();
+    }, 100)
+   
   }
 
   function loadDtnot(id) {
-
+    setTimeout(function () {
+     
+  
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
@@ -146,6 +205,7 @@ $('#alert2').hide();
 
 
     });
+  }, 100)
   }
 
   function loadTe() {
@@ -255,6 +315,23 @@ function actualizarDatos(e){
   var direccion=$('#direccion').val();
   var correo=$('#correo').val();
   var empresa=$('#empresa').val();
+  var dt = new Date();
+  var fecha = dt.getFullYear() + "-" + dt.getMonth() + "-" + dt.getHours() ;
+  var respT="";
+
+  httpRequest(URLD + "estudianteControl/getEmpresa/" + empresa ,function(){
+          
+    respT = this.responseText;
+    if(respT==0){
+      $(".empresaO").css("color", "red");
+      $(".empresaO").text("Nit de la empresa invalido");
+      return;
+    }else{
+      $(".empresaO").css("color", "green");
+      $(".empresaO").text("Nit de la empresa valido");
+    }
+
+  });   
   if(celular=="" || telefono=="" || direccion=="" || correo==""){
     $('#respuestaACTU').text("Por favor, Introduce todos los valores");
     $('#alertACTU2').hide();  
@@ -269,7 +346,7 @@ function actualizarDatos(e){
     
   }
   $('#alertACTU').hide();
-  httpRequest(URLD + "estudianteControl/actualizarDatos/" + celular + "/" + telefono + "/" + direccion + "/" + correo + "/" + empresa ,function(){
+  httpRequest(URLD + "estudianteControl/actualizarDatos/" + celular + "/" + telefono + "/" + direccion + "/" + correo + "/" + empresa  + "/" + fecha,function(){
           
   var resp = this.responseText;
   console.log(resp);
@@ -352,12 +429,8 @@ function permiso(e){
 
 
 function recargarOferta(){
-  httpRequest(URLD + "estudianteControl/verificarOferta", function () {
-
-    var response = this.responseText;
-    var resp = response.split("\n").join("");
-    let tasks = JSON.parse(resp);
-    if(tasks[0].egresado==0){
+ 
+    if(tipoEstdudiante==0){
 
       httpRequest(URLD + "estudianteControl/listarOferta", function () {
         var response = this.responseText;
@@ -393,22 +466,17 @@ function recargarOferta(){
     
       });
     }
-  });
+ 
 
 }
 
 function recargarEvento(){
-  httpRequest(URLD + "estudianteControl/verificarOferta", function () {
-
-    var response = this.responseText;
-    var resp = response.split("\n").join("");
-    let tasks = JSON.parse(resp);
-
+  
     var destinatario = "";
-        if (tasks[0].egresado===0) {
+        if (tipoEstdudiante===0) {
           destinatario = "EGRESADOS";
         }
-        else if (tasks[0].egresado===1) {
+        else if (tipoEstdudiante===1) {
           destinatario = "ESTUDIANTES";
         }
         else {
@@ -444,27 +512,22 @@ function recargarEvento(){
           $('.cajaE').html(templateEvento);
         });
       
-    });
+    
   
 }
 
 function recargarNoticias(){
 
-  httpRequest(URLD + "estudianteControl/verificarOferta", function () {
-
-    var response = this.responseText;
-    var resp = response.split("\n").join("");
-    let tasks = JSON.parse(resp);
-    var aux=0;
     var destinatario = "";
-
-   if(aux==0){
-    if (tasks[0].egresado===0) {
+    if (tipoEstdudiante===0) {
       destinatario = "EGRESADOS";
     }
-    else if (tasks[0].egresado===1) {
+    else if (tipoEstdudiante===1) {
       destinatario = "ESTUDIANTES";
-    }}
+    }
+    else {
+      destinatario = "TODOS";
+    }
 
           httpRequest(URLD + "estudianteControl/listarNoticias/" + destinatario, function () {
 
@@ -495,7 +558,7 @@ function recargarNoticias(){
             }
             $('.cajaN').html(templateNoticias);
           });
-  });
+  
 
 }
 
@@ -503,19 +566,17 @@ function recargarNoticias(){
 function getUltimaNoticia(){
 
 
-  httpRequest(URLD + "estudianteControl/verificarOferta", function () {
 
-    var response = this.responseText;
-    var resp = response.split("\n").join("");
-    let tasks = JSON.parse(resp);
-    var aux=0;
+
     var destinatario = "";
-
-    if (tasks[0].egresado===0) {
+    if (tipoEstdudiante===0) {
       destinatario = "EGRESADOS";
     }
-    else if (tasks[0].egresado===1) {
+    else if (tipoEstdudiante===1) {
       destinatario = "ESTUDIANTES";
+    }
+    else {
+      destinatario = "TODOS";
     }
 
 
@@ -541,6 +602,24 @@ function getUltimaNoticia(){
       })
       
     });
-  });
+  
+}
+
+
+function notNit(e){
+  Swal.fire({
+    title: '<strong><u>¿No encuentras tu nit?</u></strong>',
+    icon: 'question',
+    html:   `<p>Eso se debe porque la empresa en la que estas laborando no tiene convenio con Ing. Agroindustrial.
+    <strong>Utiliza la opcion 00010 y escribe tu empresa</strong></p> `
+    ,
+    showCloseButton: true,
+    showCancelButton: true,
+    focusConfirm: false,
+    confirmButtonText:
+      '<i class="fa fa-thumbs-up"></i> Bien!',
+    confirmButtonAriaLabel: 'Thumbs up, great!'
+  })
+
 }
 
