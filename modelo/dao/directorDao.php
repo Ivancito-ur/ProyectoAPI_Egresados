@@ -256,17 +256,27 @@ class directorDao extends Model
         }
     }
 
+    
+    function listarEstudiantes($tipo){
 
-    function listarEstudiantes()
-    {
+        if($tipo=="no"){
+            try {
+                $statement = $this->db->connect()->prepare("SELECT e.codigoEstudiante, e.documento, p.nombres, p.apellidos, p.celular, e.correoInstitucional, e.fechaIngreso, e.fechaEgreso , e.promedio FROM estudiante e INNER JOIN persona p ON e.documento= p.documento");
+                $statement->execute();
+                $resultado = $statement->fetchAll(PDO::FETCH_ASSOC);
+                return  $resultado;
+            } catch (PDOException $e) {
+                return null;
+            }
+        }else{
         try {
-            $statement = $this->db->connect()->prepare("SELECT e.codigoEstudiante, e.documento, p.nombres, p.apellidos, p.celular, e.correoInstitucional, e.fechaIngreso, e.fechaEgreso , e.promedio FROM estudiante e INNER JOIN persona p ON e.documento= p.documento");
+            $statement = $this->db->connect()->prepare("SELECT e.codigoEstudiante, e.documento, p.nombres, p.apellidos, p.celular, e.correoInstitucional, e.fechaIngreso, e.fechaEgreso , e.promedio FROM estudiante e INNER JOIN persona p ON e.documento= p.documento WHERE e.egresado=$tipo");
             $statement->execute();
             $resultado = $statement->fetchAll(PDO::FETCH_ASSOC);
             return  $resultado;
         } catch (PDOException $e) {
             return null;
-        }
+        }}
     }
 
     function listarEstudiantesActualizar($codigo)
@@ -638,8 +648,10 @@ class directorDao extends Model
 
     function eliminarEvento($codigo){
         try {
-            $statement = $this->db->connect()->prepare("DELETE FROM evento WHERE id = $codigo");
-            $statement->execute();
+            $statement = $this->db->connect()->prepare("DELETE FROM evento WHERE id = :id");
+            $statement->execute([
+                ':id' => $codigo
+            ]);
             return  true;
         } catch (PDOException $e) {
             return null;
@@ -832,9 +844,12 @@ class directorDao extends Model
     }
 
     function eliminarEmpresa($codigo){
+        echo $codigo;
         try {
-            $statement = $this->db->connect()->prepare("DELETE FROM empresas WHERE nitEmpresa = $codigo");
-            $statement->execute();
+            $statement = $this->db->connect()->prepare("DELETE FROM empresas WHERE nitEmpresa = :id");
+            $statement->execute([
+                ':id' => $codigo
+            ]);
             return  true;
         } catch (PDOException $e) {
             return null;

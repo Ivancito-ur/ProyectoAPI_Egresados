@@ -7,6 +7,9 @@
         <div class="col">
           <h6 class="text-uppercase text-muted ls-1 mb-1">Listas</h6>
           <h5 class="h3 mb-0">Lista de todos los estudiantes registrados</h5>
+          <h3 style="margint-top:25px">Desea listar por..</h3>
+          <button onclick="return cargarEstudiantes(1) "type="button" class="btn btn-success">Estudiantes</button>
+          <button onclick="return cargarEstudiantes(0) "type="button" class="btn btn-danger">Egresados</button>
         </div>
       </div>
     </div>

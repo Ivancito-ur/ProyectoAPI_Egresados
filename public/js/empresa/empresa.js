@@ -3,6 +3,9 @@ const URLD = "http://localhost/ProyectoAPI_Egresados/";
 let templateTesis = '';
 listarOfertas();
 
+
+
+
 function loadTe() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
@@ -193,7 +196,6 @@ function loadOl() {
     httpRequest(URLD + "empresaControl/crearOferta/" + inputEmpleo + "/" + inputJornada + "/" + inputSalario + "/" +
     inputTelefono + "/" + descripcion + "/" + requermiento, function () {
       const resp = this.responseText;
-      alert(resp);
       $('#alertCorreo2').show();
       $('#alertCorreo').hide();
       $('#respuestaCorreo2').text("Creado Correctamente");
@@ -274,6 +276,15 @@ function loadOl() {
     });
     
   }
+
+
+ 
+  $(function () {
+      $('#datetimepicker3').datetimepicker({
+          format: 'LT'
+      });
+  });
+
 
  
   

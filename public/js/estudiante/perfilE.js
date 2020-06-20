@@ -74,8 +74,6 @@ $('#alert2').hide();
   }
 
 
-
-
   function loadOl() {
 
     var xhttp = new XMLHttpRequest();
@@ -178,7 +176,7 @@ $('#alert2').hide();
   }
 
   function loadDtnot(id) {
-    setTimeout(function () {
+  
      
   
     var xhttp = new XMLHttpRequest();
@@ -189,7 +187,7 @@ $('#alert2').hide();
     };
     xhttp.open("GET", "vista/estudiante/noticiaDt.php", true);
     xhttp.send();
-
+    setTimeout(function () {
     httpRequest(URLD + "estudianteControl/getNoticia/"+ id, function () {
 
       var response = this.responseText;
@@ -205,7 +203,7 @@ $('#alert2').hide();
 
 
     });
-  }, 100)
+    }, 200)
   }
 
   function loadTe() {
@@ -317,21 +315,22 @@ function actualizarDatos(e){
   var empresa=$('#empresa').val();
   var dt = new Date();
   var fecha = dt.getFullYear() + "-" + dt.getMonth() + "-" + dt.getHours() ;
-  var respT="";
+
 
   httpRequest(URLD + "estudianteControl/getEmpresa/" + empresa ,function(){
           
-    respT = this.responseText;
-    if(respT==0){
-      $(".empresaO").css("color", "red");
-      $(".empresaO").text("Nit de la empresa invalido");
-      return;
-    }else{
-      $(".empresaO").css("color", "green");
-      $(".empresaO").text("Nit de la empresa valido");
-    }
+    var respT = this.responseText;
+  
+  if(respT==0){
+    $(".empresaO").css("color", "red");
+    $(".empresaO").text("Nit de la empresa invalido");
+    return;
+  }
+    $(".empresaO").css("color", "green");
+    $(".empresaO").text("Nit de la empresa valido");
+  
 
-  });   
+
   if(celular=="" || telefono=="" || direccion=="" || correo==""){
     $('#respuestaACTU').text("Por favor, Introduce todos los valores");
     $('#alertACTU2').hide();  
@@ -356,7 +355,7 @@ function actualizarDatos(e){
   
   });   
   return false;
-  
+}); 
 }
 
 function verificarVacio(param){

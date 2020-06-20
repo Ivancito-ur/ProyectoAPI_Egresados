@@ -37,9 +37,8 @@
 
   <link rel="stylesheet" href="<?php echo constant('URL') ?>public/css/director/estiloAdm.css">
 
+  <link rel="stylesheet" href="<?php echo constant('URL') ?>public/assets/css/bootstrap-datetimepicker.min.css">
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
-  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 </head>
 
@@ -253,6 +252,8 @@
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script src="<?php echo constant('URL') ?>public/js/empresa/empresa.js"></script>
+
+
   <!-- Argon Scripts -->
   <!-- Core -->
   <script src="<?php echo constant('URL') ?>public/assets/vendor/jquery/dist/jquery.min.js"></script>

@@ -230,9 +230,9 @@ class directorControl extends Controller
         }
     }
 
-    function ListarEstudiante()
+    function ListarEstudiante($param)
     {
-        $estudiante = $this->model->listarEstudiantes();
+        $estudiante = $this->model->listarEstudiantes($param[0]);
         $json = array();
         foreach ($estudiante as $est) {
             $json[] = array(
@@ -301,7 +301,7 @@ class directorControl extends Controller
     function cargaEstudianteTesis()
     {
         $this->view->datos = $this->model->cargarEstuTesis();
-        $this->view->cantidad = $this->model->listarEstudiantes();
+        $this->view->cantidad = $this->model->listarEstudiantes("no");
         $this->view->cantidadTesis = $this->model->getTesis();
         $this->view->cantidadEmpresa = $this->model->listarEmpresa();
     }
