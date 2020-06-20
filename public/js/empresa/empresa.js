@@ -14,7 +14,10 @@ function loadTe() {
     xhttp.send();
 
     templateTesis = '';
-    recargaTesis();
+    setTimeout(function () {
+      recargaTesis();
+    }, 100)
+ 
 }
 
 
@@ -29,7 +32,9 @@ function loadTa() {
     xhttp.send();
 
     templateTesisA = '';
-    recargaTesisAlumno();
+    setTimeout(function () {
+      recargaTesisAlumno();
+    }, 100)
 }
 
 function loadOl() {
@@ -43,7 +48,10 @@ function loadOl() {
   xhttp.send();
 
   templateTesisA = '';
-  recargaTesisAlumno();
+  setTimeout(function () {
+    recargaTesisAlumno();
+  }, 100)
+  
 }
 
 
