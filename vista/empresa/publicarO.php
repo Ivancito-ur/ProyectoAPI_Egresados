@@ -12,7 +12,7 @@
             <div class="card-body">
                 <div class="box box-primary" style="border-top: 3px solid #3c8dbc; background-color: white; padding-bottom: 10px;">
                         <form>
-                            <div class="form-row">
+                            <div class=" form-row">
                                 <div class="form-group col-md-6">
                                     <label for="inputEmpleo">Empleo</label>
                                     <input type="text" class="form-control" id="inputEmpleo">
