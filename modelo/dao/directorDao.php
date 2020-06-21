@@ -256,17 +256,27 @@ class directorDao extends Model
         }
     }
 
+    
+    function listarEstudiantes($tipo){
 
-    function listarEstudiantes()
-    {
+        if($tipo=="no"){
+            try {
+                $statement = $this->db->connect()->prepare("SELECT e.codigoEstudiante, e.documento, p.nombres, p.apellidos, p.celular, e.correoInstitucional, e.fechaIngreso, e.fechaEgreso , e.promedio FROM estudiante e INNER JOIN persona p ON e.documento= p.documento");
+                $statement->execute();
+                $resultado = $statement->fetchAll(PDO::FETCH_ASSOC);
+                return  $resultado;
+            } catch (PDOException $e) {
+                return null;
+            }
+        }else{
         try {
-            $statement = $this->db->connect()->prepare("SELECT e.codigoEstudiante, e.documento, p.nombres, p.apellidos, p.celular, e.correoInstitucional, e.fechaIngreso, e.fechaEgreso , e.promedio FROM estudiante e INNER JOIN persona p ON e.documento= p.documento");
+            $statement = $this->db->connect()->prepare("SELECT e.codigoEstudiante, e.documento, p.nombres, p.apellidos, p.celular, e.correoInstitucional, e.fechaIngreso, e.fechaEgreso , e.promedio FROM estudiante e INNER JOIN persona p ON e.documento= p.documento WHERE e.egresado=$tipo");
             $statement->execute();
             $resultado = $statement->fetchAll(PDO::FETCH_ASSOC);
             return  $resultado;
         } catch (PDOException $e) {
             return null;
-        }
+        }}
     }
 
     function listarEstudiantesActualizar($codigo)
@@ -502,7 +512,7 @@ class directorDao extends Model
     function listarEstudiantesANotasPRO()
     {
         try {
-            $statement = $this->db->connect()->prepare("SELECT e.codigoEstudiante, pro.lectura_critica, 
+            $statement = $this->db->connect()->prepare("SELECT DISTINCT (e.codigoEstudiante) as codigoEstudiante , pro.lectura_critica, 
             pro.razonamiento_cuantitativo, pro.competencias_ciudadana, pro.comunicacion_escrita, pro.ingles , 
             p.nombres , p.apellidos FROM estudiante e INNER JOIN historial h ON e.codigoEstudiante=h.codigoEstudiante INNER JOIN pruebassaberpro pro 
             ON h.idSaberPro=pro.idSaberPro  INNER JOIN persona p ON p.documento=e.documento WHERE e.egresado=1 ORDER BY e.codigoEstudiante  ASC ");
@@ -518,7 +528,7 @@ class directorDao extends Model
     function listarEstudiantesANotas11()
     {
         try {
-            $statement = $this->db->connect()->prepare("SELECT e.codigoEstudiante,  p11.lectura_critica,
+            $statement = $this->db->connect()->prepare("SELECT DISTINCT (e.codigoEstudiante) as codigoEstudiante ,  p11.lectura_critica,
              p11.matematica, p11.sociales_ciudadanas, p11.naturales, p11.ingles , p.nombres , p.apellidos FROM estudiante e INNER JOIN historial h ON e.codigoEstudiante=h.codigoEstudiante INNER JOIN pruebassaber11 p11 ON p11.idSaber11=h.idSaber11 INNER JOIN persona p ON p.documento=e.documento WHERE e.egresado=1 ORDER BY e.codigoEstudiante  ASC");
             $statement->execute();
             $resultado = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -532,7 +542,7 @@ class directorDao extends Model
     function listarEgresadosANotasPRO()
     {
         try {
-            $statement = $this->db->connect()->prepare("SELECT e.codigoEstudiante, pro.lectura_critica, 
+            $statement = $this->db->connect()->prepare("SELECT  DISTINCT (e.codigoEstudiante) as codigoEstudiante , pro.lectura_critica, 
             pro.razonamiento_cuantitativo, pro.competencias_ciudadana, pro.comunicacion_escrita, pro.ingles , 
             p.nombres , p.apellidos FROM estudiante e INNER JOIN historial h ON e.codigoEstudiante=h.codigoEstudiante INNER JOIN pruebassaberpro pro 
             ON h.idSaberPro=pro.idSaberPro  INNER JOIN persona p ON p.documento=e.documento WHERE e.egresado=0 ORDER BY e.codigoEstudiante  ASC ");
@@ -548,7 +558,7 @@ class directorDao extends Model
     function listarEgresadosANotas11()
     {
         try {
-            $statement = $this->db->connect()->prepare("SELECT e.codigoEstudiante, p11.lectura_critica,
+            $statement = $this->db->connect()->prepare("SELECT  DISTINCT (e.codigoEstudiante) as codigoEstudiante, p11.lectura_critica,
              p11.matematica, p11.sociales_ciudadanas, p11.naturales, p11.ingles , p.nombres , p.apellidos FROM estudiante e INNER JOIN historial h ON e.codigoEstudiante=h.codigoEstudiante 
              INNER JOIN pruebassaber11 p11 ON p11.idSaber11=h.idSaber11 INNER JOIN persona p ON p.documento=e.documento WHERE e.egresado=0 ORDER BY e.codigoEstudiante  ASC");
             $statement->execute();
@@ -638,8 +648,10 @@ class directorDao extends Model
 
     function eliminarEvento($codigo){
         try {
-            $statement = $this->db->connect()->prepare("DELETE FROM evento WHERE id = $codigo");
-            $statement->execute();
+            $statement = $this->db->connect()->prepare("DELETE FROM evento WHERE id = :id");
+            $statement->execute([
+                ':id' => $codigo
+            ]);
             return  true;
         } catch (PDOException $e) {
             return null;
@@ -832,9 +844,12 @@ class directorDao extends Model
     }
 
     function eliminarEmpresa($codigo){
+        echo $codigo;
         try {
-            $statement = $this->db->connect()->prepare("DELETE FROM empresas WHERE nitEmpresa = $codigo");
-            $statement->execute();
+            $statement = $this->db->connect()->prepare("DELETE FROM empresas WHERE nitEmpresa = :id");
+            $statement->execute([
+                ':id' => $codigo
+            ]);
             return  true;
         } catch (PDOException $e) {
             return null;

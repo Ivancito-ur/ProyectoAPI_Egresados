@@ -64,7 +64,7 @@
         <label for="inputPassword" class="sr-only">Contraseña</label>
         <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" required>
 
-        <button type="submit" class="btn btn-danger btn-block btn-flat" id="ingresar">Iniciar Sesión</button>
+        <button onclick="return verificarDatosEstu(event)" type="submit" class="btn btn-danger btn-block btn-flat" id="ingresar">Iniciar Sesión</button>
 
 
       </form>

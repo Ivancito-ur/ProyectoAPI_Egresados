@@ -28,7 +28,8 @@
                                         </label>
                                     </div>
                                 </div>
-                                <button type="button" id="guardaExcel" class=" btn btn-primary" onclick="cargarExcel(event, '#guardaExcel')" style="background-color: #dd4b39; border-color: #dd4b39;">Guardar</button>
+                                <button type="button" id="guardaExcel" class=" btn btn-primary" onclick="cargarExcel(event, '#guardaExcel')" style="display:inline-block; background-color: #dd4b39; border-color: #dd4b39;">Guardar</button>
+                                <button  onclick="descargarFormato()" style="display:inline-block" type="button" class="btn btn-success">Descargar Formato</button>
                                 <div style="display:none; text-align:center; padding:10px ; margin-top:15px" id="alert" class="alert alert-warning alert-dismissible fade show" role="alert">
                                     <p class="respuesta" id="respuesta"></p>
                                 </div>

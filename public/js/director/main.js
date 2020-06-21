@@ -379,12 +379,10 @@ function loadLe() {
   };
   xhttp.open("GET", "vista/director/listarEmpresa.php", true);
   xhttp.send();
-  recargarEmpresa();
-
-
-
-
-
+  setTimeout(function () {
+    recargarEmpresa();
+  }, 100)
+ 
 }
 
 function loadEn() {
@@ -525,8 +523,12 @@ function loadLi() {
   };
   xhttp.open("GET", "vista/director/listarEstudiantes.php", true);
   xhttp.send();
+  
+}
 
-  httpRequest(URLD + "directorControl/ListarEstudiante", function () {
+function cargarEstudiantes(tipo){
+  $('#buscador').val("");
+  httpRequest(URLD + "directorControl/ListarEstudiante/" + tipo, function () {
     const resp = this.responseText;
     var aux = resp.split("\n").join("");
     const task = JSON.parse(aux);
@@ -547,12 +549,13 @@ function loadLi() {
     });
     //console.log(template);
     $('#estudiantesCarga').html(template);
-
+ 
   });
 }
 
 function capturar(e) {
   let busca = $('#buscador').val();
+  if($('#buscador').val()!=""){
   httpRequest(URLD + "directorControl/buscarEstudiante/" + busca, function () {
     var response = this.responseText;
     if (!response.error) {
@@ -573,7 +576,7 @@ function capturar(e) {
       //console.log(template);
       $('tbody').html(template);
     }
-  });
+  });}
 }
 
 function httpRequest(url, callback) {
@@ -1625,6 +1628,7 @@ function recargarEmpresa(){
     for (var m = 0; m < tasks.length / 3; m++) {
       templateEmpresa += `<div class="card-group">`
       for (var j = i; j < tasks.length; j++) {
+        var aux =tasks[j].nitEmpresa;
         i++;
         templateEmpresa += `      
         <div class="card" style="margin: 10px 10px 10px 10px">
@@ -1645,7 +1649,7 @@ function recargarEmpresa(){
 
           <p class="card-text" style="color:blue">${tasks[j].fecha_registro}</p>
         </div>
-        <button onclick="eliminarEmpresa(${tasks[j].nitEmpresa})" type="button" class="btn btn-light" style="background-color: #dd4b39; border-color: #dd4b39; width: 50%;">Eliminar</button>
+        <button onclick="eliminarEmpresa(${aux})" type="button" class="btn btn-light" style="background-color: #dd4b39; border-color: #dd4b39; width: 50%;">Eliminar</button>
         </div>
         `;
         if ((i % 3) == 0) {
@@ -1660,10 +1664,10 @@ function recargarEmpresa(){
     $('.cajaE').html(templateEmpresa);
   });
 
+
 }
 
 function eliminarEmpresa(codigo){
-
   swal({
     title: "¿Realmente desea eliminar la empresa?",
     text: "Esta opcion es irreversible",
@@ -1677,11 +1681,18 @@ function eliminarEmpresa(codigo){
         icon: "success",
       });
       httpRequest(URLD + "directorControl/eliminarEmpresa/" + codigo,function () {
-        recargarEmpresa();
+        alert(this.responseText);
+        setTimeout(function () {
+          recargarEmpresa();
+        }, 100)
        });
     } 
   });
     
+}
+
+function descargarFormato(){
+  window.open(URLD + "directorControl/descargarFormato");
 }
 
   
