@@ -15,12 +15,6 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
 
-
-
-
-
-
-
   <title>Empresa Agroindustrial</title>
   <!-- Favicon -->
   <!--<link rel="icon" href="<?php echo constant('URL') ?>public/assets/img/brand/favicon.png" type="image/png">-->
@@ -36,9 +30,7 @@
   <link rel="stylesheet" href="<?php echo constant('URL') ?>public/assets/css/argon.css?v=1.2.0" type="text/css">
 
   <link rel="stylesheet" href="<?php echo constant('URL') ?>public/css/director/estiloAdm.css">
-
-  <link rel="stylesheet" href="<?php echo constant('URL') ?>public/assets/css/bootstrap-datetimepicker.min.css">
-
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 </head>
 
@@ -49,7 +41,7 @@
       <!-- Brand -->
       <div class="sidenav-header  align-items-center">
         <a class="navbar-brand" href="javascript:void(0)">
-          <img src="<?php echo constant('URL') ?>public/assets/img/ufps/logo-horizontal.jpg" class="navbar-brand-img" alt="...">
+          <img src="<?php echo constant('URL') ?>public/assets/img/ufps/logo-horizontal.jpg" class="navbar-brand-img" alt="">
         </a>
       </div>
       <div class="navbar-inner">

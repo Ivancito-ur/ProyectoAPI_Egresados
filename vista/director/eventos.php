@@ -95,6 +95,22 @@
                             </p>
                         </div>
                     </div>
+             <form class="formularioFoto form-horizontal" id="formularioFoto"  enctype="multipart/form-data">
+                <div class="input-group">
+                    <legend>Subir Imagen</legend>
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroupFileAddon01">Cargar</span>
+                    </div>
+                    <div class="custom-file">
+                        <input id="foto" name="foto" style="display:none" onchange="fileValidation(foto)" type="file" class="custom-file-input" id="inputGroupFile01"
+                        aria-describedby="inputGroupFileAddon01">
+                        <label name="foto" class="custom-file-label" for="foto">Buscar Imagen</label>
+                    </div>
+                </div>
+            </form>
+
+
+                <div style="text-align:center; width:100%;height:50%; display:block; border: 1px solid #ddd;border-radius: 4px;padding: 5px ;margin-top:20px; color:red" id="imagePreview"></div>
                 </div>
             </div>
         </div>

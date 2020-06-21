@@ -858,6 +858,23 @@ class directorDao extends Model
 
     }
 
+    function idTesis(){
+
+         $query = $this->db->connect()->prepare(" SELECT `AUTO_INCREMENT` as id
+         FROM  INFORMATION_SCHEMA.TABLES
+         WHERE TABLE_SCHEMA = 'egresados_agroindustrial'
+         AND   TABLE_NAME   = 'tesis'");
+        try {
+            $query->execute();
+            $resultado = $query->fetch();
+            return  $resultado;
+        } catch (PDOException $e) {
+            return false;
+        }
+
+
+    }
+
 
 
 
