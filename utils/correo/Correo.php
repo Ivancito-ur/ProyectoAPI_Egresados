@@ -83,6 +83,8 @@ class Correo {
                 //Recipients
                 if($cual==0){
                 $mail->setFrom('apiegresados2@gmail.com', 'Invitacion de Evento Ing.Agroindustrial');
+                $archivo = 'public/imgEvento/1001.png';
+                $mail->AddAttachment($archivo,$archivo);
                 }else{
                     $mail->setFrom('apiegresados2@gmail.com', 'Encuesta Organizada Ing.Agroindustrial');
                 }

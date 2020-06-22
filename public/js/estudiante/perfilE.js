@@ -222,13 +222,13 @@ $('#alert2').hide();
       const task = JSON.parse(aux);
       console.log(task[0].archivo);
       if(task[0].archivo!=null){
-        templateTesis = `<div class="form-group">
+        templateTesis = `<div class="form-group"">
         <div class="embed-responsive embed-responsive-16by9" id="pdf">
             <iframe class="embed-responsive-item" src="${task[0].archivo}" allowfullscreen></iframe>
         </div>
     </div>
     <div class="card-body">
-        <h5 class="card-title">${task[0].titulo}</h5>
+        <h5 class="card-title">Titulo: ${task[0].titulo}</h5>
       
     </div>`;
       }
@@ -320,12 +320,14 @@ function actualizarDatos(e){
   httpRequest(URLD + "estudianteControl/getEmpresa/" + empresa ,function(){
           
     var respT = this.responseText;
-  
+    $('#alertACTU2').hide(); 
   if(respT==0){
+    $(".empresaO").show();
     $(".empresaO").css("color", "red");
     $(".empresaO").text("Nit de la empresa invalido");
     return;
   }
+    
     $(".empresaO").css("color", "green");
     $(".empresaO").text("Nit de la empresa valido");
   
@@ -344,11 +346,13 @@ function actualizarDatos(e){
     return;
     
   }
+  $(".empresaO").hide();
   $('#alertACTU').hide();
   httpRequest(URLD + "estudianteControl/actualizarDatos/" + celular + "/" + telefono + "/" + direccion + "/" + correo + "/" + empresa  + "/" + fecha,function(){
           
   var resp = this.responseText;
   console.log(resp);
+  
   $('#alertACTU').hide();  
   $('#alertACTU2').show();
   window.location.href = URLD + "estudianteControl" ;

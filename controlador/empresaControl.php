@@ -64,7 +64,9 @@
 
 
         function crearOferta($param){
-          echo $this->model->crearOferta($param[0], $param[1],$param[2],$param[3], $param[4],$param[5],  $_SESSION["empresa"] );
+          $nombreEmpleo= $param[0];
+          $jornada = $param[1];
+          echo $this->model->crearOferta($nombreEmpleo, $jornada ,$param[2],$param[3], $param[4],$param[5],  $_SESSION["empresa"] );
         }
 
 
