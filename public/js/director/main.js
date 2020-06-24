@@ -10,6 +10,7 @@ let templateTesis = '';
 var validacionT = "Promedio";
 var globalIdEvento="";
 var globalIdNoticia="";
+var gropu="";
 
 
 
@@ -825,7 +826,7 @@ function cargaTesis() {
 function guardarTesis(e) {
   e.preventDefault();
   var titulo = $('#titulo').val();
-  var gropu = $('#inputGroupFile01').val();
+   gropu = $('#inputGroupFile01').val();
   if (lista.length === 0) {
     $('#alertTesis2').hide();
     $('#alertTesis').show();
@@ -874,7 +875,6 @@ function enviarTesis(e) {
     processData: false,
     success: function (data) {
       var aux = data.split("\n").join("");
-      console.log(aux);
       if (aux == 0) {
         templateCodigos = '';
         consta = '';
@@ -887,16 +887,17 @@ function enviarTesis(e) {
         $('#alertTesis').hide();
         $('#alertTesis2').show();
         $('#respuestaTesis2').text("Cargado Correctamente");
+        $("#inputGroupFile01").val("");
+        
         templateTesis = '';
+        //extTesis="";
+        gropu="";
         $('.caja').html("");
         recargaTesis();
         setTimeout(function () {
           $("#alertTesis2").fadeOut(1500);
-        }, 3000);
-        return;
-      }
-
-
+        }, 3000);}
+      return;
     },
     error: function (r) {
       alert("Error del servidor");
@@ -1114,8 +1115,9 @@ function insertarEvento(e) {
   var responsable =$('#responsable').val();
   var descripcion = $('#descripcion').val();
   var opcion = $('input:radio[name=envio]:checked').val(); 
+  var foto = fileValidation(document.getElementById('foto'));    
 
-  if(titulo=="" || direccion=="" || ciudad=="" || fecha=="" || hora=="" || responsable=="" || descripcion=="" ){
+  if(foto=="" ||  titulo=="" || direccion=="" || ciudad=="" || fecha=="" || hora=="" || responsable=="" || descripcion=="" ){
 
     $('#alertCorreo').show();
     $('#alertCorreo2').hide();
@@ -1123,7 +1125,20 @@ function insertarEvento(e) {
     return;
 
   }
- 
+  var parametros = new FormData($(".formularioFoto")[0]);
+  $.ajax({
+    url: URLD + "directorControl/subirImagen",
+    data: parametros,
+    type: "post",
+    contentType: false,
+    processData: false,
+    success: function (data) {
+      console.log(data);
+    },
+    complete: function () {
+      console.log("Todo listo");
+    }
+  });
 
   $("body").css('cursor', 'wait');
 
@@ -1566,7 +1581,6 @@ function insertaEmpresa(e) {
     return false;
   }
   else if(isNaN(telefono)){
-    $('#alertCorreo2').hide();
     $('#alertCorreo').show();
     $('#respuestaCorreo').text("El telefono debe ser un numero");
     return false;
@@ -1586,6 +1600,7 @@ function insertaEmpresa(e) {
     $('#respuestaCorreo').text("error de extension, " + extTesis + "  " + "Por favor seleccione un archivo .pdf");
     return;
   }
+  $('#alertCorreo').hide();
   $('#alertCorreo2').hide();
 
 
@@ -1642,14 +1657,14 @@ function recargarEmpresa(){
           </div>
         </div>
         <div class="card-body">
-          <h5 class="card-title">${tasks[j].nombre}</h5>
-          <p class="card-text">${tasks[j].correo}</p>
-          <p class="card-text">${tasks[j].telefono}</p>
-          <p class="card-text">${tasks[j].celular}</p>
-          <p class="card-text">${tasks[j].direccion}</p>
-          <p class="card-text">${tasks[j].ciudad}</p>
+          <h5 class="card-title">Nombre: ${tasks[j].nombre}</h5>
+          <p class="card-text">Correo: ${tasks[j].correo}</p>
+          <p class="card-text">Telefono: ${tasks[j].telefono}</p>
+          <p class="card-text">Celular: ${tasks[j].celular}</p>
+          <p class="card-text">Direccion: ${tasks[j].direccion}</p>
+          <p class="card-text">Ciudad: ${tasks[j].ciudad}</p>
 
-          <p class="card-text" style="color:blue">${tasks[j].fecha_registro}</p>
+          <p class="card-text" style="color:blue">Fecha registro: ${tasks[j].fecha_registro}</p>
         </div>
         <button onclick="eliminarEmpresa(${aux})" type="button" class="btn btn-light" style="background-color: #dd4b39; border-color: #dd4b39; width: 50%;">Eliminar</button>
         </div>
@@ -1683,7 +1698,6 @@ function eliminarEmpresa(codigo){
         icon: "success",
       });
       httpRequest(URLD + "directorControl/eliminarEmpresa/" + codigo,function () {
-        alert(this.responseText);
         setTimeout(function () {
           recargarEmpresa();
         }, 100)
@@ -1695,6 +1709,26 @@ function eliminarEmpresa(codigo){
 
 function descargarFormato(){
   window.open(URLD + "directorControl/descargarFormato");
+}
+
+function fileValidation(param){
+  var fileInput = param;
+  var filePath = fileInput.value;
+  var allowedExtensions = /(.jpg|.jpeg|.png|.gif)$/i;
+  if(!allowedExtensions.exec(filePath)){
+      document.getElementById('imagePreview').innerHTML = 'Por favor seleccione un archivo con alguna de las siguientes opciones .jpeg/.jpg/.png/.gif only.';
+      fileInput.value = '';
+      return false;
+  }else{
+      //Image preview
+      if (fileInput.files && fileInput.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function(e) {
+              document.getElementById('imagePreview').innerHTML = '<img style="width:100%;height:100% " src="'+e.target.result+'"/>';
+          };
+          reader.readAsDataURL(fileInput.files[0]);
+      }
+  }
 }
 
   

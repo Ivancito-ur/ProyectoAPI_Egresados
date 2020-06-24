@@ -1,6 +1,8 @@
 
 const URLD = "http://localhost/ProyectoAPI_Egresados/";
 let templateTesis = '';
+var horaInicioT="";
+var horaFinT ="";
 listarOfertas();
 
 
@@ -176,14 +178,13 @@ function loadOl() {
     e.preventDefault();
 
     var inputEmpleo = $('#inputEmpleo').val();
-    var inputJornada = $('#inputJornada').val();
     var inputSalario = $('#inputSalario').val();
     var inputTelefono= $('#inputTelefono').val();
     var descripcion = $('#exampleFormControlDescripcion').val();
     var requermiento =$('#exampleFormControlRequerimientos').val();
 
   
-    if(inputEmpleo=="" || inputJornada=="" || inputSalario=="" || inputTelefono=="" || descripcion=="" || requermiento==""){
+    if(horaFin=="" ||  inputEmpleo=="" || horaInicio=="" || inputSalario=="" || inputTelefono=="" || descripcion=="" || requermiento==""){
   
       $('#alertCorreo').show();
       $('#alertCorreo2').hide();
@@ -192,7 +193,7 @@ function loadOl() {
   
     }
     $('#alertCorreo').hide();
-
+    var inputJornada = horaInicioT + " - " + horaFinT;
     httpRequest(URLD + "empresaControl/crearOferta/" + inputEmpleo + "/" + inputJornada + "/" + inputSalario + "/" +
     inputTelefono + "/" + descripcion + "/" + requermiento, function () {
       const resp = this.responseText;
@@ -201,13 +202,17 @@ function loadOl() {
       $('#respuestaCorreo2').text("Creado Correctamente");
       $('#inputEmpleo').val("");
       $('#inputJornada').val("");
+      $('#horaInicio').val("");
+      $('#horaFin').val("");
       $('#inputSalario').val("");
       $('#inputTelefono').val("");
+      horaInicioT="";
+      horaFinT ="";
       $('#exampleFormControlDescripcion').val("");
       $('#exampleFormControlRequerimientos').val("");
       setTimeout(function () {
         $("#alertCorreo2").fadeOut(1500);
-      }, 3000)
+      }, 2500)
     });
 
 
@@ -277,13 +282,56 @@ function loadOl() {
     
   }
 
+  
 
- 
-  $(function () {
-      $('#datetimepicker3').datetimepicker({
-          format: 'LT'
-      });
-  });
+
+  function onTimeChange() {
+    var inputEle =  document.getElementById('horaInicio');
+    var timeSplit = inputEle.value.split(':'),
+      hours,
+      minutes,
+      meridian;
+    hours = timeSplit[0];
+    minutes = timeSplit[1];
+    if (hours > 12) {
+      meridian = 'PM';
+      hours -= 12;
+    } else if (hours < 12) {
+      meridian = 'AM';
+      if (hours == 0) {
+        hours = 12;
+      }
+    } else {
+      meridian = 'PM';
+    }
+    horaInicioT = hours + ':' + minutes + ' ' + meridian;
+  }
+
+  function onTimeChange2() {
+    var inputEle2 = document.getElementById('horaFin');
+    var timeSplit = inputEle2.value.split(':'),
+      hours,
+      minutes,
+      meridian;
+    hours = timeSplit[0];
+    minutes = timeSplit[1];
+    if (hours > 12) {
+      meridian = 'PM';
+      hours -= 12;
+    } else if (hours < 12) {
+      meridian = 'AM';
+      if (hours == 0) {
+        hours = 12;
+      }
+    } else {
+      meridian = 'PM';
+    }
+    horaFinT = hours + ':' + minutes + ' ' + meridian;
+  }
+
+  
+
+
 
 
  

@@ -18,8 +18,9 @@
                                     <input type="text" class="form-control" id="inputEmpleo">
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="inputJornada">Jornada</label>
-                                    <input type="text" class="form-control" id="inputJornada">
+                                    <label style="margin-top:2%; display:block" for="">Jornada</label>
+                                    <p style="display:inline-block; margin-right:10px">Inicio Jornada: </p><input style="width:25%; display:inline-block"  type="time" onchange="onTimeChange()" id="horaInicio" required>
+                                    <p style="display:inline-block ; margin-right:10px" >Fin  Jornada: </p><input style="width:25%; display:inline-block" type="time" onchange="onTimeChange2()" id="horaFin" required>
                                 </div>
                             </div>
                             <div class="form-row">

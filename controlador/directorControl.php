@@ -440,7 +440,6 @@ class directorControl extends Controller
 
     function insertTesis($param = null)
     {
-        //$resultado = $this->model->insertTesis($codigo);
         $listCodigos = $_POST['codigo'];
         $titulo = $_POST['titulo'];
         $ruta = $_FILES['archivo']['tmp_name'];
@@ -448,9 +447,16 @@ class directorControl extends Controller
 
         $array = explode("/", $listCodigos);
 
+        
 
-        $destino = "almacen/tesis/" . $nombre;
-
+        $maxP = $this->model->getMaxIdTesis();
+        if($maxP['id']==""){
+              $maxP = $this->model->idTesis();
+              $destino = "almacen/tesis/" .  $maxP['id'] . $nombre ;
+        }else{
+            $maxP = $maxP['id'] + 1;
+           $destino = "almacen/tesis/" . $maxP  . $nombre ;
+        }
 
         $maxArray = sizeof($array);
 
@@ -459,20 +465,21 @@ class directorControl extends Controller
         if ($ruta != "") {
             if (copy($ruta, $destino)) { //Se copia el archivo de la ruta a la carpeta del server
 
+           
+            $this->model->insertTesis($destino, $titulo);
+            $max = $this->model->getMaxIdTesis();
 
-                $this->model->insertTesis($destino, $titulo);
-                $max = $this->model->getMaxIdTesis();
-
-
-                for ($i = 0; $i < $maxArray; $i++) {
-                    $this->model->insertEstudiante_Tesis($max['id'], date('d/m/y'), $array[$i]);
-                }
+            for ($i = 0; $i < $maxArray; $i++) {
+                   $this->model->insertEstudiante_Tesis($max['id'], date('d/m/y'), $array[$i]);
+            }
             } else {
                 echo 1;
+            
             }
         }
 
         echo 0;
+    
     }
 
     function getTesis()
@@ -863,8 +870,9 @@ class directorControl extends Controller
     function eliminarEmpresa($param)
     {
         $codigo = $param[0];
+        unlink("almacen/convenio/" . $codigo . ".pdf");
         $this->model->eliminarEmpresa($codigo);
-        echo "Evento eliminado";
+        echo "Empresa eliminado";
     }
 
 
@@ -877,5 +885,25 @@ class directorControl extends Controller
         header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
         header('Content-Length: ' . filesize($archivo));
         readfile($archivo);
+    }
+
+    function subirImagen(){
+     
+        $ruta =$_FILES['foto']['tmp_name'];
+        $nombre = $_FILES['foto']['name'];
+        echo $ruta;
+        
+        $codigo = "1001";
+        $destino = "public/imgEvento/" . $codigo . ".png" ;
+ 
+        if ($ruta != "") {
+            if (copy($ruta, $destino)) { //Se copia el archivo de la ruta a la carpeta del server
+                echo 1;
+            }else{
+                echo 0;
+            }
+        }
+
+        echo 0;
     }
 }
