@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-06-2020 a las 14:09:39
+-- Tiempo de generación: 24-06-2020 a las 15:53:33
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.2.29
 
@@ -53,21 +53,12 @@ CREATE TABLE `empresas` (
   `correo` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `telefono` int(9) NOT NULL,
   `celular` int(13) NOT NULL,
-  `direccion` int(25) NOT NULL,
+  `direccion` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `ciudad` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
   `fecha_registro` date NOT NULL,
   `contrasena` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `documento_convenio` varchar(50) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Volcado de datos para la tabla `empresas`
---
-
-INSERT INTO `empresas` (`nitEmpresa`, `nombre`, `correo`, `telefono`, `celular`, `direccion`, `ciudad`, `fecha_registro`, `contrasena`, `documento_convenio`) VALUES
-('012', 'aa', 'garcia@gmail.com', 11111, 1111, 0, 'dd', '2020-06-03', '12', 'almacen/convenio/012.pdf'),
-('1121', 'confanorte', 'empresa@gmail.com', 1212, 1111, 1111, '', '2020-05-12', 'qwwwqq', ''),
-('121', 'aaa', 'garcia@gmail.com', 1111, 12, 0, 'ee', '2020-06-23', 'ee', 'almacen/convenio/121.pdf');
 
 -- --------------------------------------------------------
 
@@ -76,18 +67,10 @@ INSERT INTO `empresas` (`nitEmpresa`, `nombre`, `correo`, `telefono`, `celular`,
 --
 
 CREATE TABLE `empresa_estudiante` (
-  `id` int(11) NOT NULL,
   `codigoEstudiante` int(7) NOT NULL,
   `fecha_registro` date NOT NULL,
   `empresaNit` varchar(50) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Volcado de datos para la tabla `empresa_estudiante`
---
-
-INSERT INTO `empresa_estudiante` (`id`, `codigoEstudiante`, `fecha_registro`, `empresaNit`) VALUES
-(3, 1151687, '2020-05-12', '012');
 
 -- --------------------------------------------------------
 
@@ -114,18 +97,18 @@ CREATE TABLE `estudiante` (
 --
 
 INSERT INTO `estudiante` (`codigoEstudiante`, `contrasena`, `documento`, `egresado`, `correoInstitucional`, `semestreCursado`, `materiasAprobadas`, `promedio`, `fechaIngreso`, `fechaEgreso`, `id_historial`) VALUES
-(1151656, 'AUU42AUL9DA', 1682022524, 1, 'gabrielarturogq@ufps.edu.co', '9', 40, 3.8, '2016-02-22', '2020-06-14', 114),
+(1151654, 'AUU42AUL9DA', 1682022524, 0, 'gabrielarturogq@ufps.edu.co', '9', 40, 3.8, '2016-02-22', '2020-06-18', 114),
 (1151687, 'KJH08AME7YV', 1093799851, 0, 'danielcaos@ufps.edu.co', '10', 30, 3.6, '2015-02-22', '2020-02-22', 113),
 (1579977, 'CPB48LVQ7AQ', 1637021271, 0, 'ornare.In@ufps.edu.co', '12', 28, 2.9, '1900-01-05', '1900-01-20', 111),
 (1621965, 'VRB16FXQ0CZ', 1627072999, 0, 'nunc@ufps.edu.co', '15', 27, 3, '1900-01-21', '1900-01-18', 109),
-(1708278, 'BWE35XYO1ZO', 1685081889, 1, 'Suspendisse.aliquet@ufps.edu.co', '9', 15, 2, '1900-01-12', '1900-01-16', 100),
+(1708278, 'BWE35XYO1ZO', 1685081889, 1, 'Suspendisse.aliquet@ufps.edu.co', '9', 15, 2, '1900-01-12', '0000-00-00', 100),
 (2528059, 'MWU80CCB8AD', 1671052798, 0, 'nunc.sed@ufps.edu.co', '5', 22, 5, '1900-01-18', '1900-01-04', 97),
-(2827305, 'YAU98EYL1HR', 1617061315, 1, 'convallis.erat@ufps.edu.co', '14', 27, 2, '1900-01-08', '1900-01-25', 108),
-(3000542, 'TNT57NQN5HE', 1697112981, 1, 'nibh@ufps.edu.co', '3', 18, 3.7, '1900-01-20', '1900-01-11', 104),
+(2827305, 'YAU98EYL1HR', 1617061315, 1, 'convallis.erat@ufps.edu.co', '14', 27, 2, '1900-01-08', '0000-00-00', 108),
+(3000542, 'TNT57NQN5HE', 1697112981, 1, 'nibh@ufps.edu.co', '3', 18, 3.7, '1900-01-20', '0000-00-00', 104),
 (3537838, 'VPT11FGR1GL', 1639091715, 0, 'Aliquam.adipiscing.lobortis@ufps.edu.co', '14', 29, 3, '1900-01-27', '1900-01-02', 106),
-(5694888, 'UMR86ZCZ6FQ', 1644091517, 1, 'et.risus.Quisque@ufps.edu.co', '4', 20, 5, '1900-01-24', '1900-01-29', 99),
-(5934656, 'HWO82GQK4MP', 1676011930, 1, 'Integer.vitae@ufps.edu.co', '2', 22, 4, '1900-01-22', '1900-01-09', 107),
-(6273738, 'ESA35ZYK2GN', 1687042392, 1, 'ipsum@ufps.edu.co', '2', 23, 3.5, '1900-01-18', '1900-01-29', 105),
+(5694888, 'UMR86ZCZ6FQ', 1644091517, 1, 'et.risus.Quisque@ufps.edu.co', '4', 20, 5, '1900-01-24', '0000-00-00', 99),
+(5934656, 'HWO82GQK4MP', 1676011930, 1, 'Integer.vitae@ufps.edu.co', '2', 22, 4, '1900-01-22', '0000-00-00', 107),
+(6273738, 'ESA35ZYK2GN', 1687042392, 1, 'ipsum@ufps.edu.co', '2', 23, 3.5, '1900-01-18', '0000-00-00', 105),
 (6525751, 'PCL66YYX4WI', 1616041104, 0, 'mi@ufps.edu.co', '15', 30, 3, '1900-01-31', '1900-01-13', 101),
 (6546378, 'YJV54OMC1WU', 1692050897, 0, 'Aliquam.rutrum@ufps.edu.co', '8', 17, 4, '1900-01-01', '1900-01-12', 98),
 (7659518, 'LGC13DCN1LJ', 1669112257, 1, 'Praesent.eu.nulla@ufps.edu.co', '8', 28, 3, '1900-01-19', '1900-01-06', 94),
@@ -134,7 +117,7 @@ INSERT INTO `estudiante` (`codigoEstudiante`, `contrasena`, `documento`, `egresa
 (9039662, 'UUK18ZUR7LQ', 1601081299, 1, 'feugiat.metus@ufps.edu.co', '14', 22, 4, '1900-01-15', '1900-01-19', 110),
 (9229367, 'ZOA05ZLN4QB', 1689121961, 1, 'est.ac.facilisis@ufps.edu.co', '8', 24, 2, '1900-01-27', '1900-01-28', 95),
 (9356275, 'LRU15VES2QT', 1628101197, 0, 'nisi.Aenean@ufps.edu.co', '1', 30, 3.3, '1900-01-25', '1900-01-08', 112),
-(9683011, 'NTE38YTR8IK', 1634100784, 1, 'justo@ufps.edu.co', '13', 26, 2, '1900-01-01', '1900-01-26', 103),
+(9683011, 'NTE38YTR8IK', 1634100784, 0, 'justo@ufps.edu.co', '13', 26, 2, '1900-01-01', '1900-01-10', 103),
 (9704369, 'AXU50FLE5CC', 1630030614, 0, 'ante.dictum.cursus@ufps.edu.co', '4', 28, 4.2, '1900-01-30', '1900-01-19', 102);
 
 -- --------------------------------------------------------
@@ -160,8 +143,7 @@ CREATE TABLE `evento` (
 --
 
 INSERT INTO `evento` (`id`, `titulo`, `direccion`, `fecha`, `hora`, `responsable`, `ciudad`, `descripcion`, `destinatario`) VALUES
-(6, 'ua mas para el camino', 'feliz año', '1998-07-02', '00:00:00', 'gabriel garcia', '1998-07-02', 'mmmmmmmmmmmmmmmmmmmmmmbbbb', 'EGRESADOS'),
-(8, 'aaaa', 'sss', '2020-06-03', '01:01:00', 'sssss', 'ss', 'bveujbfvuebviebvi', 'TODOS');
+(9, 'nuevo evento', 'calle 13', '2020-06-02', '02:02:00', 'yo', 'cucuta', 'sss', 'TODOS');
 
 -- --------------------------------------------------------
 
@@ -211,7 +193,7 @@ INSERT INTO `historial` (`id`, `materiasAprobadas`, `promedio`, `idSaberPro`, `i
 (111, 28, 2.9, '18954600199', '9244033799', 1579977),
 (112, 30, 3.3, '79403974399', '56514665999', 9356275),
 (113, 30, 3.6, '21802658199', '17644946699', 1151687),
-(114, 40, 3.8, '36823586299', '29724389099', 1151656),
+(114, 40, 3.8, '36823586299', '29724389099', 1151654),
 (116, 117, 3.5, '1313', '1212', 1111111),
 (117, 1, 1, '1', '1', 555555),
 (118, 12, 3.5, '1', '1', 12),
@@ -381,7 +363,7 @@ CREATE TABLE `hojavida` (
 --
 
 INSERT INTO `hojavida` (`archivo`, `codigoEstudiante`, `autorizar`) VALUES
-('almacen/hojasDeVida/1151687.pdf', 1151687, '1');
+('almacen/hojasDeVida/1151656.pdf', 1151654, '1');
 
 -- --------------------------------------------------------
 
@@ -398,17 +380,6 @@ CREATE TABLE `noticia` (
   `destinatario` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Volcado de datos para la tabla `noticia`
---
-
-INSERT INTO `noticia` (`id`, `fecha_publicacion`, `titulo`, `cuerpo`, `autor`, `destinatario`) VALUES
-(5, '2020-06-18', 'dddd', 'dd', 'dd', 'ESTUDIANTES'),
-(6, '2020-06-02', 'ssss', 'qqqqqqqqqq', 'qqq', 'ESTUDIANTES'),
-(7, '2020-05-16', 'ee', 'ddd', '12', 'ESTUDIANTES'),
-(10, '2020-05-16', 'Nuevas tecnologias IOT', 'ella no me quiere', 'gabrieñ', 'TODOS'),
-(11, '2020-05-16', 'aaaaa', 'aaa', 'aaa', 'ESTUDIANTES');
-
 -- --------------------------------------------------------
 
 --
@@ -418,24 +389,13 @@ INSERT INTO `noticia` (`id`, `fecha_publicacion`, `titulo`, `cuerpo`, `autor`, `
 CREATE TABLE `oferta` (
   `id` int(11) NOT NULL,
   `empleo` varchar(150) NOT NULL,
-  `jornada` date NOT NULL,
+  `jornada` varchar(50) NOT NULL,
   `salario` varchar(100) NOT NULL,
   `telefono` varchar(50) NOT NULL,
   `descripcion` varchar(300) NOT NULL,
   `requerimientos` varchar(300) NOT NULL,
   `nitEmpresa` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `oferta`
---
-
-INSERT INTO `oferta` (`id`, `empleo`, `jornada`, `salario`, `telefono`, `descripcion`, `requerimientos`, `nitEmpresa`) VALUES
-(2, 'empleo 1', '2020-06-12', '2000000', 'x222', 'hola mundo gls', 'no lo se', '012'),
-(10, '111111111111111111', '2020-06-17', 'fcdsfcdc', '221212', 'rrrr', 'aaaaaaa', '121'),
-(12, 'ransengan', '2020-06-03', 'wwww', '', 'vvvffd', 'hola soy yo de nuevo', '012'),
-(15, 'chidory', '2020-06-03', 'aaaa', '', 'dddddddddddddddddddddddddddddddddddddd ddddddddddd d d d                          ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd vvvvvvvvvvvvvvvvvvvvvvvvvv', 'hola soy yo de nuevo', '012'),
-(17, '111111111111111111', '2020-06-17', 'fcdsfcdc', '221212', 'rrrr', 'aaaaaaa', '121');
 
 -- --------------------------------------------------------
 
@@ -484,7 +444,7 @@ INSERT INTO `persona` (`documento`, `nombres`, `apellidos`, `celular`, `correo`,
 (1669112257, 'Abbot', 'Gill', '3931655651', 'non@gmail.com', '7857330', 'CC', '7895 Molestie R'),
 (1671052798, 'Chancellor', 'Guerrero', '3654041778', 'semper.egestas@gmail.com', '7569275', 'CC', 'P.O. Box 740, 1'),
 (1676011930, 'Kitra', 'Hayes', '8453737902', 'nulla.In@gmail.com', '4106996', 'CC', 'Ap #951-769 Viv'),
-(1682022524, 'Gabriel Arturo', 'Garcia Quintero', '1111', 'garciaquinteroga@gmail.com', '1102506', 'CC', 'P.O. Box 842, 5'),
+(1682022524, 'Gabriel', 'Garcia', '1111', 'garciaquinteroga@gmail.com', '1102506', 'CC', 'P.O. Box 842, 5'),
 (1685081889, 'Kato', 'Morris', '8456224085', 'volutpat.Nulla.dignissim@gmail.com', '6255565', 'CC', 'P.O. Box 632, 7'),
 (1687042392, 'Quemby', 'Finley', '2404324799', 'est@gmail.com', '7978122', 'CC', '495-345 Turpis.'),
 (1689121961, 'Prescott', 'Hodges', '9627736149', 'aliquet.lobortis.nisi@gmail.com', '3009169', 'CC', 'Ap #693-839 Eni'),
@@ -612,8 +572,11 @@ CREATE TABLE `tesis` (
 --
 
 INSERT INTO `tesis` (`archivo`, `titulo`, `id`) VALUES
-('almacen/tesis/Actividad Independiente 4(1).pdf', 'arturo', 55),
-('almacen/tesis/Actividad Independiente 4(1).pdf', 'ssss', 56);
+('almacen/tesis/87Realidad.pdf', 'primera tesis', 86),
+('almacen/tesis/8672427020-Problemas-Rsueltos-PL.pdf', 'segunda tesis', 87),
+('almacen/tesis/8872427020-Problemas-Rsueltos-PL.pdf', 'tercera tesis', 88),
+('almacen/tesis/89Rv_limitaciones.pdf', 'cuarta tesis', 89),
+('almacen/tesis/90pau-programacion.pdf', 'quinta tesis', 90);
 
 -- --------------------------------------------------------
 
@@ -626,6 +589,17 @@ CREATE TABLE `tesis_estudiante` (
   `codigoEstudiante` int(11) NOT NULL,
   `id_tesis` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `tesis_estudiante`
+--
+
+INSERT INTO `tesis_estudiante` (`fecha_asignacion`, `codigoEstudiante`, `id_tesis`) VALUES
+('2021-06-20', 1151654, 86),
+('2021-06-20', 1151687, 87),
+('2021-06-20', 1579977, 88),
+('2021-06-20', 1708278, 89),
+('2021-06-20', 2528059, 90);
 
 --
 -- Índices para tablas volcadas
@@ -648,8 +622,7 @@ ALTER TABLE `empresas`
 -- Indices de la tabla `empresa_estudiante`
 --
 ALTER TABLE `empresa_estudiante`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `codigoEstudiante` (`codigoEstudiante`),
+  ADD PRIMARY KEY (`codigoEstudiante`,`empresaNit`) USING BTREE,
   ADD KEY `ksdcij` (`empresaNit`);
 
 --
@@ -731,16 +704,10 @@ ALTER TABLE `tesis_estudiante`
 --
 
 --
--- AUTO_INCREMENT de la tabla `empresa_estudiante`
---
-ALTER TABLE `empresa_estudiante`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
 -- AUTO_INCREMENT de la tabla `evento`
 --
 ALTER TABLE `evento`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `historial`
@@ -758,13 +725,13 @@ ALTER TABLE `noticia`
 -- AUTO_INCREMENT de la tabla `oferta`
 --
 ALTER TABLE `oferta`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT de la tabla `tesis`
 --
 ALTER TABLE `tesis`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
 
 --
 -- Restricciones para tablas volcadas
@@ -780,8 +747,7 @@ ALTER TABLE `director`
 -- Filtros para la tabla `empresa_estudiante`
 --
 ALTER TABLE `empresa_estudiante`
-  ADD CONSTRAINT `empresa_estudiante_ibfk_1` FOREIGN KEY (`codigoEstudiante`) REFERENCES `estudiante` (`codigoEstudiante`),
-  ADD CONSTRAINT `empresa_estudiante_ibfk_2` FOREIGN KEY (`empresaNit`) REFERENCES `empresas` (`nitEmpresa`);
+  ADD CONSTRAINT `empresa_estudiante_ibfk_2` FOREIGN KEY (`empresaNit`) REFERENCES `empresas` (`nitEmpresa`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `estudiante`
@@ -807,14 +773,14 @@ ALTER TABLE `hojavida`
 -- Filtros para la tabla `oferta`
 --
 ALTER TABLE `oferta`
-  ADD CONSTRAINT `fk_1` FOREIGN KEY (`nitEmpresa`) REFERENCES `empresas` (`nitEmpresa`);
+  ADD CONSTRAINT `fk_1` FOREIGN KEY (`nitEmpresa`) REFERENCES `empresas` (`nitEmpresa`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `tesis_estudiante`
 --
 ALTER TABLE `tesis_estudiante`
   ADD CONSTRAINT `tesis_estudiante_ibfk_1` FOREIGN KEY (`codigoEstudiante`) REFERENCES `estudiante` (`codigoEstudiante`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `tesis_estudiante_ibfk_2` FOREIGN KEY (`id_tesis`) REFERENCES `tesis` (`id`);
+  ADD CONSTRAINT `tesis_estudiante_ibfk_2` FOREIGN KEY (`id_tesis`) REFERENCES `tesis` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
