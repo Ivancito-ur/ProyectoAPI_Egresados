@@ -159,33 +159,43 @@ class directorControl extends Controller
                     $fecha_ingreso_g = $objPHPExcel->getActiveSheet()->getCell('L' . $i);
                     $fecha_egreso_g = $objPHPExcel->getActiveSheet()->getCell('M' . $i);
 
+                    //variable egresado
+                    $egresado = 0;
+
                     if ($i != 1) {
                         $fecha_ingreso = $fecha_ingreso_g->getValue();
                         if (PHPExcel_Shared_Date::isDateTime($fecha_ingreso_g)) {
                             $fecha_ingreso = date($format = "Y-m-d", PHPExcel_Shared_Date::ExcelToPHP($fecha_ingreso));
                         }
 
-                        $fecha_egreso = $fecha_egreso_g->getValue();
-                        if (PHPExcel_Shared_Date::isDateTime($fecha_egreso_g)) {
-                            $fecha_egreso = date($format = "Y-m-d", PHPExcel_Shared_Date::ExcelToPHP($fecha_egreso));
+                        if ($fecha_egreso_g == "" || $fecha_egreso_g == "0") {
+                            $fecha_egreso = null;
+                            $egresado = 1;
+                        } else {
+
+                            $fecha_egreso = $fecha_egreso_g->getValue();
+                            if (PHPExcel_Shared_Date::isDateTime($fecha_egreso_g)) {
+                                $fecha_egreso = date($format = "Y-m-d", PHPExcel_Shared_Date::ExcelToPHP($fecha_egreso));
+                                $egresado = 0;
+                            }
                         }
                     }
 
+                    // ////////////////////////////////////
+                    // $egresado = $objPHPExcel->getActiveSheet()->getCell('N' . $i);
+                    // if ((strcasecmp($egresado, "True") == 0 || strcasecmp($egresado, "Si" == 0)) && $fecha_egreso != null) {
+                    //     $egresado = 0;
+                    // } else {
+                    //     $egresado = 1;
+                    // }
 
 
 
-                    ////////////////////////////////////
-                    $egresado = $objPHPExcel->getActiveSheet()->getCell('N' . $i);
-                    if (strcasecmp($egresado, "True") == 0 || strcasecmp($egresado, "Si" == 0)) {
-                        $egresado = 0;
-                    } else {
-                        $egresado = 1;
-                    }
-                    $contraseña = $objPHPExcel->getActiveSheet()->getCell('O' . $i);
-                    $materias_aprobadas = $objPHPExcel->getActiveSheet()->getCell('P' . $i);
-                    $promedio = $objPHPExcel->getActiveSheet()->getCell('Q' . $i);
-                    $codigo_icfes_11 = $objPHPExcel->getActiveSheet()->getCell('R' . $i);
-                    $codigo_icfes_pro = $objPHPExcel->getActiveSheet()->getCell('S' . $i);
+                    $contraseña = $objPHPExcel->getActiveSheet()->getCell('N' . $i);
+                    $materias_aprobadas = $objPHPExcel->getActiveSheet()->getCell('O' . $i);
+                    $promedio = $objPHPExcel->getActiveSheet()->getCell('P' . $i);
+                    $codigo_icfes_11 = $objPHPExcel->getActiveSheet()->getCell('Q' . $i);
+                    $codigo_icfes_pro = $objPHPExcel->getActiveSheet()->getCell('R' . $i);
 
 
                     if ($i == 1) {
@@ -194,7 +204,7 @@ class directorControl extends Controller
                             || $telefono != "TELEFONO" || $direccion != "DIRECCION" || $tipo_documento != "TIPO DOCUMENTO" || $correo_institucional != "CORREO INSTITUCIONAL"
                             || $correo != "CORREO" || $semestre_cursado != "SEMESTRE CURSADO" || $fecha_ingreso_g != "FECHA INGRESO" || $fecha_egreso_g != "FECHA EGRESO"
                             || $contraseña != "CONTRASENA" || $materias_aprobadas != "MATERIAS APROBADAS" || $promedio != "PROMEDIO" || $codigo_icfes_11 != "CODIGO ICFES 11"
-                            || $codigo_icfes_pro != "CODIGO ICFES PRO" || $egresado != "EGRESADO"
+                            || $codigo_icfes_pro != "CODIGO ICFES PRO"
                         ) {
 
                             echo  $this->model->falla_formato(3);
@@ -213,7 +223,7 @@ class directorControl extends Controller
                         if ($codigo != "") {
                             # code... 
                             $aux = $this->model->validar_historial($codigo, $conexion);
-                            if ($aux  == "true") {
+                            if ($aux) {
                                 $this->model->insertar_historial($materias_aprobadas, $promedio, $codigo_icfes_11, $codigo_icfes_pro, $codigo, $conexion);
                             }
                             $id_temp_historial =  $this->model->traer_id_historial($codigo, $conexion);
@@ -556,7 +566,6 @@ class directorControl extends Controller
                 $pdfN->AddPage();
                 $pdfN->agregarImagen();
                 $pdfN->Output('reporte_promedioA.pdf', 'I');
-
             }
         } else if ($param[0] == "Empresa Convenio") {
 
@@ -867,13 +876,14 @@ class directorControl extends Controller
     }
 
 
-    function descargarFormato(){
+    function descargarFormato()
+    {
         $archivo = "almacen/formato/copia_estudiantes_formato_prueba.xlsx";
         $nombre = "copia_estudiantes_formato_prueba.xlsx";
-        header('Content-Disposition: attachment; filename=' . $nombre );
+        header('Content-Disposition: attachment; filename=' . $nombre);
         header("Content-Type: application/vnd.openxmlformats-   officedocument.spreadsheetml.sheet");
         header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-        header('Content-Length: '.filesize($archivo));
+        header('Content-Length: ' . filesize($archivo));
         readfile($archivo);
     }
 

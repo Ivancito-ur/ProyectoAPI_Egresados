@@ -181,7 +181,10 @@ class directorDao extends Model
             ));
             $resultado = $statement->fetch();
 
-            return "true";
+            if (empty($resultado)) {
+               return true;
+            }
+            return false;
         } catch (PDOException $e) {
             return null;
         }
