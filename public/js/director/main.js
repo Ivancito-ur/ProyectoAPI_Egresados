@@ -99,7 +99,7 @@ function cargaDatos(e) {
   httpRequest(URLD + "directorControl/buscarCodigo/" + busquedaCodigo, function () {
     const resp = this.responseText;
     var aux = resp.split("\n").join("");
-    console.log(aux);
+   // console.log(aux);
 
     if (aux == 1) {
       $('#alert2Codigo').hide();
@@ -114,7 +114,9 @@ function cargaDatos(e) {
     $("#nombreF").val(task[0].nombres);
     $("#codigoF").val(task[0].codigoEstudiante);
     $("#fechaiF").val(task[0].fechaIngreso);
-    if (task[0].fechaEgreso != '0000-00-00') {
+    //console.log(task[0].fechaEgreso + "HOLA");
+    if (task[0].fechaEgreso != null) {
+      console.log("XXXXX");
       $('#alert2Codigo').hide();
       $('#alertCodigo').show();
       $('.respuesta').text("¡Usuario con fecha ya actualizada!");
