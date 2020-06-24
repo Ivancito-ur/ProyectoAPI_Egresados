@@ -327,6 +327,7 @@ class directorControl extends Controller
 
         $json[] = array(
             'codigoEstudiante' => $resultado['codigoEstudiante'],
+            'egresado' => $resultado['egresado'],
             'nombres' => $resultado['nombres'],
             'fechaIngreso' => $resultado['fechaIngreso'],
             'fechaEgreso' => $resultado['fechaEgreso']

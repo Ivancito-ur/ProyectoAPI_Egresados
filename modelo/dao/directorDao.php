@@ -219,11 +219,11 @@ class directorDao extends Model
     public function getDatos($codigo)
     {
         try {
-            $statement = $this->db->connect()->prepare("SELECT e.codigoEstudiante, p.nombres, p.apellidos,  e.fechaIngreso, e.fechaEgreso FROM estudiante e INNER JOIN persona p ON e.documento= p.documento WHERE e.codigoEstudiante=:codigoEstudiante");
+            $statement = $this->db->connect()->prepare("SELECT e.egresado, e.codigoEstudiante, p.nombres, p.apellidos,  e.fechaIngreso, e.fechaEgreso FROM estudiante e INNER JOIN persona p ON e.documento= p.documento WHERE e.codigoEstudiante=:codigoEstudiante");
             $statement->execute(array(
                 ':codigoEstudiante' =>  $codigo
             ));
-            $resultado = $statement->fetch();
+            $resultado = $statement->fetch(PDO::FETCH_ASSOC);
             return  $resultado;
         } catch (PDOException $e) {
             return null;

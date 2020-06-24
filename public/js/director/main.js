@@ -83,6 +83,14 @@ function cargaHojaVida() {
 function cargaDatos(e) {
   $('#actu2').hide();
   $('#actu1').hide();
+  $("#fechaeF").val("");
+  $("#fechaeF").prop("disabled", false);
+ // $('#busquedaCodigoF').val("");
+  $("#nombreF").val("");
+  $("#codigoF").val("");
+  $("#fechaiF").val("");
+
+
   var busquedaCodigo = $('#busquedaCodigoF').val();
 
   if (parseInt(busquedaCodigo, 10) < 1) {
@@ -113,25 +121,33 @@ function cargaDatos(e) {
 
    
 
-    if (task[0].fechaEgreso != null) {
-      console.log("XXXXX");
+    if (task[0].egresado == 0) {
       $('#alert2Codigo').hide();
       $('#alertCodigo').show();
       $('.respuesta').text("¡Usuario con fecha ya actualizada!");
+      $('#busquedaCodigoF').val("");
       $("#fechaeF").val(task[0].fechaEgreso);
+      $("#nombreF").val(task[0].nombres);
+      $("#codigoF").val(task[0].codigoEstudiante);
+      $("#fechaiF").val(task[0].fechaIngreso);
       $("#fechaeF").prop("disabled", true);
       return;
+    }else{
+      $("#fechaeF").val(task[0].fechaEgreso);
+      $("#fechaeF").prop("disabled", false);
+  
+      $('#busquedaCodigoF').val("");
+      $("#nombreF").val(task[0].nombres);
+      $("#codigoF").val(task[0].codigoEstudiante);
+      $("#fechaiF").val(task[0].fechaIngreso);
+  
+      $('#alertCodigo').hide();
+      $('#alert2Codigo').show();
     }
-    $("#fechaeF").val(task[0].fechaEgreso);
-    $("#fechaeF").prop("disabled", false);
+   
 
-    $('#busquedaCodigoF').val("");
-    $("#nombreF").val(task[0].nombres);
-    $("#codigoF").val(task[0].codigoEstudiante);
-    $("#fechaiF").val(task[0].fechaIngreso);
 
-    $('#alertCodigo').hide();
-    $('#alert2Codigo').show();
+    /**/
   });
 
 }
@@ -149,7 +165,6 @@ function cargarDatosActualizar(e) {
 
     const resp = this.responseText;
     var aux = resp.split("\n").join("");
-    console.log(aux);
     $('#actualizarE').hide();
     const task = JSON.parse(aux);
     $("#codigo").val(task[0].codigoEstudiante);
@@ -212,7 +227,7 @@ function actualizarDatosEstudiante(e) {
       $('#gar2').show();
       setTimeout(function () {
         $("#gar2").fadeOut(1500);
-      }, 3000)
+      }, 2200)
 
       $("#codigo").val("");
       $("#nombre").val("");
@@ -262,6 +277,9 @@ function actualizarFecha(e) {
       $('#actu2').show();
       $('#actu1').hide();
       $('#alert2Codigo').hide();
+      $("#nombreF").val("");
+      $("#codigoF").val("");
+      $("#fechaiF").val("");
       setTimeout(function () {
         $("#actu2").fadeOut(1500);
       }, 3000)
