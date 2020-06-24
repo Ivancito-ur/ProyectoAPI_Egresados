@@ -109,13 +109,10 @@ function cargaDatos(e) {
       return;
     }
 
-
     const task = JSON.parse(resp);
 
-    $("#nombreF").val(task[0].nombres);
-    $("#codigoF").val(task[0].codigoEstudiante);
-    $("#fechaiF").val(task[0].fechaIngreso);
-    //console.log(task[0].fechaEgreso + "HOLA");
+   
+
     if (task[0].fechaEgreso != null) {
       console.log("XXXXX");
       $('#alert2Codigo').hide();
@@ -129,9 +126,9 @@ function cargaDatos(e) {
     $("#fechaeF").prop("disabled", false);
 
     $('#busquedaCodigoF').val("");
-    $("#nombreF").val("");
-    $("#codigoF").val("");
-    $("#fechaiF").val("");
+    $("#nombreF").val(task[0].nombres);
+    $("#codigoF").val(task[0].codigoEstudiante);
+    $("#fechaiF").val(task[0].fechaIngreso);
 
     $('#alertCodigo').hide();
     $('#alert2Codigo').show();
