@@ -878,7 +878,7 @@ class directorControl extends Controller
 
     function descargarFormato()
     {
-        $archivo = "almacen/formato/copia_estudiantes_formato_prueba.xlsx";
+        $archivo = "almacen/formato/FORMATO CARGA EGRESADOS.xlsx";
         $nombre = "copia_estudiantes_formato_prueba.xlsx";
         header('Content-Disposition: attachment; filename=' . $nombre);
         header("Content-Type: application/vnd.openxmlformats-   officedocument.spreadsheetml.sheet");
