@@ -3,7 +3,7 @@
   class reportePDF extends FPDF {
 
     function Header(){
-        $this->Image('public/img/agro.png',243,8,30);
+        $this->Image('public/img/agro.png',290,8,30);
         $this->SetFont('Arial','B',15);
         $this->Cell(45);
         $this->SetTextColor(0,0,0);
@@ -24,7 +24,7 @@
         
 
         //cabecera
-        $this->Cell(10);
+        $this->Cell(20);
         for($i=0;$i<count($header);$i++){
         $aux =35;
         if($i==4){
@@ -49,13 +49,18 @@
             }
             $cont++;
             
-            $this->Cell(10);
+            $this->Cell(20);
             $this->Cell(35,6,$value['codigoEstudiante'],1,0,'C',$fill);
             $this->Cell(35,6,$value['documento'],1,0,'C',$fill);
             $this->Cell(35,6,$value['nombres'],1,0,'C',$fill);
             $this->Cell(35,6,$value['apellidos'],1,0,'C',$fill);
             $this->Cell(80,6,$value['correoInstitucional'],1,0,'C',$fill);
             $this->Cell(35,6,$value['promedio'],1,0,'C',$fill);
+            if($value['nombre']==""){
+                $this->Cell(35,6,"N/A",1,0,'C',$fill);
+            }else{
+                $this->Cell(35,6,$value['nombre'],1,0,'C',$fill);
+            }
             $this->Ln();
             
         }

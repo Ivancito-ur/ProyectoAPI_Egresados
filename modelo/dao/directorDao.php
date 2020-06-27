@@ -502,7 +502,7 @@ class directorDao extends Model
     function listarEstudiantesEgresados()
     {
         try {
-            $statement = $this->db->connect()->prepare("SELECT e.codigoEstudiante, e.documento, p.nombres, p.apellidos, p.celular, e.correoInstitucional, e.fechaIngreso, e.fechaEgreso , e.promedio FROM estudiante e INNER JOIN persona p ON e.documento= p.documento WHERE e.egresado=0");
+            $statement = $this->db->connect()->prepare("SELECT s.nombre , e.codigoEstudiante, e.documento, p.nombres, p.apellidos, p.celular, e.correoInstitucional, e.fechaIngreso, e.fechaEgreso , e.promedio FROM estudiante e INNER JOIN persona p ON e.documento= p.documento LEFT JOIN empresa_estudiante ee ON ee.codigoEstudiante = e.codigoEstudiante LEFT JOIN empresas s ON ee.empresaNit =s.nitEmpresa WHERE e.egresado=0 ");
             $statement->execute();
             $resultado = $statement->fetchAll(PDO::FETCH_ASSOC);
             return  $resultado;

@@ -15,6 +15,8 @@ class directorControl extends Controller
         $this->view->cantidad = [];
         $this->view->cantidadTesis = [];
         $this->view->cantidadEmpresa = [];
+        $this->view->cantidadEstudiante = [];
+        $this->view->cantidadGraduado = [];
     }
 
 
@@ -311,7 +313,10 @@ class directorControl extends Controller
     function cargaEstudianteTesis()
     {
         $this->view->datos = $this->model->cargarEstuTesis();
+        $this->view->cantidadGraduado = $this->model->listarEstudiantes("0");
         $this->view->cantidad = $this->model->listarEstudiantes("no");
+        $this->view->cantidadEstudiante = $this->model->listarEstudiantes("1");
+      
         $this->view->cantidadTesis = $this->model->getTesis();
         $this->view->cantidadEmpresa = $this->model->listarEmpresa();
     }
@@ -505,6 +510,7 @@ class directorControl extends Controller
         if ($param[0] == "Alumno") {
 
             if ($param[1] == "Promedio") {
+                
                 require('utils/fPDF/reportePDF.php');
                 $_SESSION['repor'] = "Reporte Promedio Alumno";
                 $pdf = new reportePDF('L', 'mm', 'A4');
@@ -513,7 +519,11 @@ class directorControl extends Controller
                 $header = array('Codigo', 'Documento', 'Nombre', 'Apellido', 'Correo Institucional', 'Promedio');
                 $pdf->TablaPromedio($header, $resultado);
                 $pdf->Output('reporte_promedioA.pdf', 'I');
+
+
             } else if ($param[1] == "Notas pruebas Saber 11 y Pro") {
+
+
                 require('utils/fPDF/reporteNota.php');
                 $_SESSION['repor'] = "Reporte Notas Alumno";
                 $_SESSION['tamaño'] = "si";
@@ -537,14 +547,19 @@ class directorControl extends Controller
         } else if ($param[0] == "Egresado") {
 
             if ($param[1] == "Promedio") {
+
+
                 require('utils/fPDF/reportePDF.php');
                 $_SESSION['repor'] = "Reporte Promedio Egresado";
-                $pdf = new reportePDF('L', 'mm', 'A4');
+                $pdf = new reportePDF('L', 'mm', 'legal');
                 $resultado = $this->model->listarEstudiantesEgresados();
                 $pdf->AddPage();
-                $header = array('Codigo', 'Documento', 'Nombre', 'Apellido', 'Correo Institucional', 'Promedio');
+                $header = array('Codigo', 'Documento', 'Nombre', 'Apellido', 'Correo Institucional', 'Promedio', 'Empresa Atual');
                 $pdf->TablaPromedio($header, $resultado);
                 $pdf->Output('reporte_promedioE.pdf', 'I');
+
+
+
             } else if ($param[1] == "Notas pruebas Saber 11 y Pro") {
 
                 require('utils/fPDF/reporteNota.php');
