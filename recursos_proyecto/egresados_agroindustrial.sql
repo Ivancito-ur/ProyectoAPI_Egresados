@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-06-2020 a las 15:53:33
--- Versión del servidor: 10.4.11-MariaDB
--- Versión de PHP: 7.2.29
+-- Tiempo de generación: 10-07-2020 a las 23:13:47
+-- Versión del servidor: 10.4.13-MariaDB
+-- Versión de PHP: 7.4.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -563,7 +563,7 @@ INSERT INTO `pruebassaberpro` (`idSaberPro`, `lectura_critica`, `razonamiento_cu
 
 CREATE TABLE `tesis` (
   `archivo` varchar(100) NOT NULL,
-  `titulo` varchar(50) NOT NULL,
+  `titulo` varchar(250) NOT NULL,
   `id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -576,7 +576,8 @@ INSERT INTO `tesis` (`archivo`, `titulo`, `id`) VALUES
 ('almacen/tesis/8672427020-Problemas-Rsueltos-PL.pdf', 'segunda tesis', 87),
 ('almacen/tesis/8872427020-Problemas-Rsueltos-PL.pdf', 'tercera tesis', 88),
 ('almacen/tesis/89Rv_limitaciones.pdf', 'cuarta tesis', 89),
-('almacen/tesis/90pau-programacion.pdf', 'quinta tesis', 90);
+('almacen/tesis/90pau-programacion.pdf', 'quinta tesis', 90),
+('almacen/tesis/91articulo_revision_ejemplo.pdf', 'Calidad y servicio den infra estructura de las man', 91);
 
 -- --------------------------------------------------------
 
@@ -599,7 +600,9 @@ INSERT INTO `tesis_estudiante` (`fecha_asignacion`, `codigoEstudiante`, `id_tesi
 ('2021-06-20', 1151687, 87),
 ('2021-06-20', 1579977, 88),
 ('2021-06-20', 1708278, 89),
-('2021-06-20', 2528059, 90);
+('2021-06-20', 2528059, 90),
+('2010-07-20', 9683011, 91),
+('2010-07-20', 9704369, 91);
 
 --
 -- Índices para tablas volcadas
@@ -731,7 +734,7 @@ ALTER TABLE `oferta`
 -- AUTO_INCREMENT de la tabla `tesis`
 --
 ALTER TABLE `tesis`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
 
 --
 -- Restricciones para tablas volcadas

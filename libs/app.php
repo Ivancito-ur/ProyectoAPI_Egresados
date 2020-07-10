@@ -55,7 +55,7 @@
             }
 
             $controller->loadModel($url[0]);
-            //numero de elentos del arreglo
+            //numero de elementos del arreglo
             $nparam = sizeof($url);
             if($nparam>1){
                 $def = method_exists($controller,$url[1]);

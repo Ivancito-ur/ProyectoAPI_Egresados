@@ -40,7 +40,7 @@
                     Generando Informe...
                   </div>
 
-                  <div id="C2" style="margin: auto; width=200;height=200;">
+                  <div id="C2" style="margin: auto;">
                   <canvas id="popChart"  width="400" height="200" ></canvas>
                   </div>
 

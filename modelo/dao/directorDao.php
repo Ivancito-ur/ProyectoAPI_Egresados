@@ -453,8 +453,22 @@ class directorDao extends Model
     function getTesis()
     {
         try {
-            $statement = $this->db->connect()->prepare("SELECT t.titulo, t.archivo FROM tesis t ");
+            $statement = $this->db->connect()->prepare("SELECT t.titulo, t.archivo, t.id FROM tesis t ");
             $statement->execute();
+            $resultado = $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $resultado;
+        } catch (PDOException $e) {
+            return null;
+        }
+    }
+
+    function getEstudiantesTesis($id_tesis){
+        try {
+            $statement = $this->db->connect()->prepare("SELECT p.nombres, t.fecha_asignacion FROM persona p, estudiante e, tesis_estudiante t 
+            WHERE id_tesis = :id_tesis AND p.documento = e.documento AND e.codigoEstudiante = t.codigoEstudiante");
+            $statement->execute([
+                ':id_tesis' => $id_tesis
+            ]);
             $resultado = $statement->fetchAll(PDO::FETCH_ASSOC);
             return $resultado;
         } catch (PDOException $e) {

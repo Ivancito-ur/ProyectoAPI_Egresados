@@ -8,11 +8,14 @@ var extConvenio = "";
 var consta = "";
 let templateTesis = '';
 var validacionT = "Promedio";
-var globalIdEvento="";
-var globalIdNoticia="";
-var gropu="";
+var globalIdEvento = "";
+var globalIdNoticia = "";
+var gropu = "";
 
 
+function visualizarPdf(direccion) {  
+    window.open(direccion);
+}
 
 
 function recargaTesis() {
@@ -22,29 +25,41 @@ function recargaTesis() {
     let tasks = JSON.parse(resp);
     var i = 0;
     for (var m = 0; m < tasks.length / 3; m++) {
-      templateTesis += ` <div style="margin-bottom:10px"class="card-group">`
+      templateTesis += `<div class="container">`
       for (var j = i; j < tasks.length; j++) {
         i++;
         templateTesis += `
-                <div class="card">
-                    <div class="form-group">
-                        <div class="embed-responsive embed-responsive-16by9" id="pdf">
-                            <iframe class="embed-responsive-item" src="${tasks[j].archivo}" allowfullscreen></iframe>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">${tasks[j].titulo}</h5>
-                        
-                    </div>
-                </div>`;
-        if ((i % 3) == 0) {
-          templateTesis += `</div>`;
-          break;
-        }
+
+        <div class="card mb-3" style="max-width: 800px;">
+        <div class="row no-gutters">
+          <div class="col-md-4">
+            <div class="embed-responsive embed-responsive-1by1" id="pdf">
+              <iframe class="embed-responsive-item" id="direccion" value="${tasks[j].archivo}" src="${tasks[j].archivo}" allowfullscreen></iframe>
+            </div>
+          </div>
+         <div class="col-md-8">
+          <div class="card-body">
+           <h5 class="card-title">${tasks[j].titulo}</h5>
+            <p class="card-text">
+              Estudiantes autores de la tesis:`
+            for (var k = 0; k < tasks[j].estudiantes.length; k++) {              
+              templateTesis += " " + tasks[j].estudiantes[k] + ".";              
+            }            
+              templateTesis += `</p>
+            <p class="card-text"><small class="text-muted">Agregado el: ${tasks[j].fecha}</small></p>
+            <a class="btn btn-info" onclick="visualizarPdf('${tasks[j].archivo}')">Ver documento <a/>
+          </div>
+         </div>
+        </div>
+      </div>`;
+        // if ((i % 3) == 0) {
+        //   templateTesis += `</div>`;
+        //   break;
+        // }
       }
     }
 
-    templateTesis += `</div>`
+    // templateTesis += `</div>`
 
     $('.caja').html(templateTesis);
 
@@ -85,7 +100,7 @@ function cargaDatos(e) {
   $('#actu1').hide();
   $("#fechaeF").val("");
   $("#fechaeF").prop("disabled", false);
- // $('#busquedaCodigoF').val("");
+  // $('#busquedaCodigoF').val("");
   $("#nombreF").val("");
   $("#codigoF").val("");
   $("#fechaiF").val("");
@@ -108,7 +123,7 @@ function cargaDatos(e) {
   httpRequest(URLD + "directorControl/buscarCodigo/" + busquedaCodigo, function () {
     const resp = this.responseText;
     var aux = resp.split("\n").join("");
-   // console.log(aux);
+    // console.log(aux);
 
     if (aux == 1) {
       $('#alert2Codigo').hide();
@@ -119,7 +134,7 @@ function cargaDatos(e) {
 
     const task = JSON.parse(resp);
 
-   
+
 
     if (task[0].egresado == 0) {
       $('#alert2Codigo').hide();
@@ -132,19 +147,19 @@ function cargaDatos(e) {
       $("#fechaiF").val(task[0].fechaIngreso);
       $("#fechaeF").prop("disabled", true);
       return;
-    }else{
+    } else {
       $("#fechaeF").val(task[0].fechaEgreso);
       $("#fechaeF").prop("disabled", false);
-  
+
       $('#busquedaCodigoF').val("");
       $("#nombreF").val(task[0].nombres);
       $("#codigoF").val(task[0].codigoEstudiante);
       $("#fechaiF").val(task[0].fechaIngreso);
-  
+
       $('#alertCodigo').hide();
       $('#alert2Codigo').show();
     }
-   
+
 
 
     /**/
@@ -400,7 +415,7 @@ function loadLe() {
   setTimeout(function () {
     recargarEmpresa();
   }, 100)
- 
+
 }
 
 function loadEn() {
@@ -438,8 +453,8 @@ function loadNo() {
   };
   xhttp.open("GET", "vista/director/agregarN.php", true);
   xhttp.send();
-  
-  
+
+
 }
 
 function loadLno() {
@@ -452,11 +467,11 @@ function loadLno() {
   xhttp.open("GET", "vista/director/listarNoticia.php", true);
   xhttp.send();
   recargarNoticias();
- 
-  
+
+
 }
 
-function loadAnot(id,fecha,titulo,cuerpo,autor, destinatario) {
+function loadAnot(id, fecha, titulo, cuerpo, autor, destinatario) {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
@@ -466,11 +481,11 @@ function loadAnot(id,fecha,titulo,cuerpo,autor, destinatario) {
   xhttp.open("GET", "vista/director/actualizarN.php", true);
   xhttp.send();
   setTimeout(function () {
-    cargaDatosNoticia(id,fecha,titulo,cuerpo,autor, destinatario);
+    cargaDatosNoticia(id, fecha, titulo, cuerpo, autor, destinatario);
   }, 100)
-  
-  
-  
+
+
+
 }
 
 function loadLev() {
@@ -516,7 +531,7 @@ function loadPr() {
   //pruebaICFES("myChart");
 }
 
-function loadAev(id, titulo,direccion,fecha,hora,ciudad,descripcion,responsable, destinatario) {
+function loadAev(id, titulo, direccion, fecha, hora, ciudad, descripcion, responsable, destinatario) {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
@@ -526,10 +541,10 @@ function loadAev(id, titulo,direccion,fecha,hora,ciudad,descripcion,responsable,
   xhttp.open("GET", "vista/director/actualizarEvento.php", true);
   xhttp.send();
   setTimeout(function () {
-    cargaDatosEvento(id, titulo,direccion,fecha,hora,ciudad,descripcion,responsable, destinatario);
+    cargaDatosEvento(id, titulo, direccion, fecha, hora, ciudad, descripcion, responsable, destinatario);
   }, 100)
-  
- 
+
+
 }
 
 function loadLi() {
@@ -541,10 +556,10 @@ function loadLi() {
   };
   xhttp.open("GET", "vista/director/listarEstudiantes.php", true);
   xhttp.send();
-  
+
 }
 
-function cargarEstudiantes(tipo){
+function cargarEstudiantes(tipo) {
   $('#buscador').val("");
   httpRequest(URLD + "directorControl/ListarEstudiante/" + tipo, function () {
     const resp = this.responseText;
@@ -567,20 +582,20 @@ function cargarEstudiantes(tipo){
     });
     //console.log(template);
     $('#estudiantesCarga').html(template);
- 
+
   });
 }
 
 function capturar(e) {
   let busca = $('#buscador').val();
-  if($('#buscador').val()!=""){
-  httpRequest(URLD + "directorControl/buscarEstudiante/" + busca, function () {
-    var response = this.responseText;
-    if (!response.error) {
-      let tasks = JSON.parse(response);
-      let template = '';
-      tasks.forEach(ta => {
-        template += `<tr>
+  if ($('#buscador').val() != "") {
+    httpRequest(URLD + "directorControl/buscarEstudiante/" + busca, function () {
+      var response = this.responseText;
+      if (!response.error) {
+        let tasks = JSON.parse(response);
+        let template = '';
+        tasks.forEach(ta => {
+          template += `<tr>
         <td >${ta.codigoEstudiante}</td>
         <td >${ta.documento}</td>
         <td >${ta.nombres}</td>
@@ -590,11 +605,12 @@ function capturar(e) {
         <td >${ta.fechaIngreso}</td>
         <td >${ta.fechaEgreso}</td>
         </tr>`
-      });
-      //console.log(template);
-      $('tbody').html(template);
-    }
-  });}
+        });
+        //console.log(template);
+        $('tbody').html(template);
+      }
+    });
+  }
 }
 
 function httpRequest(url, callback) {
@@ -841,7 +857,7 @@ function cargaTesis() {
 function guardarTesis(e) {
   e.preventDefault();
   var titulo = $('#titulo').val();
-   gropu = $('#inputGroupFile01').val();
+  gropu = $('#inputGroupFile01').val();
   if (lista.length === 0) {
     $('#alertTesis2').hide();
     $('#alertTesis').show();
@@ -903,15 +919,16 @@ function enviarTesis(e) {
         $('#alertTesis2').show();
         $('#respuestaTesis2').text("Cargado Correctamente");
         $("#inputGroupFile01").val("");
-        
+
         templateTesis = '';
         //extTesis="";
-        gropu="";
+        gropu = "";
         $('.caja').html("");
         recargaTesis();
         setTimeout(function () {
           $("#alertTesis2").fadeOut(1500);
-        }, 3000);}
+        }, 3000);
+      }
       return;
     },
     error: function (r) {
@@ -1125,14 +1142,14 @@ function insertarEvento(e) {
   var titulo = $('#titulo').val();
   var direccion = $('#direccion').val();
   var ciudad = $('#ciudad').val();
-  var fecha= $('#fecha').val();
+  var fecha = $('#fecha').val();
   var hora = $('#hora').val();
-  var responsable =$('#responsable').val();
+  var responsable = $('#responsable').val();
   var descripcion = $('#descripcion').val();
-  var opcion = $('input:radio[name=envio]:checked').val(); 
-  var foto = fileValidation(document.getElementById('foto'));    
+  var opcion = $('input:radio[name=envio]:checked').val();
+  var foto = fileValidation(document.getElementById('foto'));
 
-  if(foto=="" ||  titulo=="" || direccion=="" || ciudad=="" || fecha=="" || hora=="" || responsable=="" || descripcion=="" ){
+  if (foto == "" || titulo == "" || direccion == "" || ciudad == "" || fecha == "" || hora == "" || responsable == "" || descripcion == "") {
 
     $('#alertCorreo').show();
     $('#alertCorreo2').hide();
@@ -1161,41 +1178,41 @@ function insertarEvento(e) {
   $('#alertCorreo').hide();
   $('#respuestaCorreo2').text("Enviando...");
   httpRequest(URLD + "directorControl/crearEvento/" + titulo + "/" + direccion + "/" + ciudad + "/" +
-  fecha + "/" + hora + "/" + responsable + "/" + descripcion + "/" + opcion, function () {
-    $("body").css('cursor', 'default');
-    const resp = this.responseText;
-    $('#alertCorreo2').show();
-    $('#alertCorreo').hide();
-    $('#respuestaCorreo2').text("Creado y enviado Correctamente");
-    $('#cuerpo').val("");
-    $('#asunto').val("");
-    $('#titulo').val("");
-    $('#direccion').val("");
-    $('#ciudad').val("");
-    $('#fecha').val("");
-    $('#hora').val("");
-    $('#responsable').val("");
-    $('#descripcion').val("");
-    $("body").css('cursor', 'default');
-    setTimeout(function () {
-      $("#alertCorreo2").fadeOut(1500);
-    }, 3000)
-  });
+    fecha + "/" + hora + "/" + responsable + "/" + descripcion + "/" + opcion, function () {
+      $("body").css('cursor', 'default');
+      const resp = this.responseText;
+      $('#alertCorreo2').show();
+      $('#alertCorreo').hide();
+      $('#respuestaCorreo2').text("Creado y enviado Correctamente");
+      $('#cuerpo').val("");
+      $('#asunto').val("");
+      $('#titulo').val("");
+      $('#direccion').val("");
+      $('#ciudad').val("");
+      $('#fecha').val("");
+      $('#hora').val("");
+      $('#responsable').val("");
+      $('#descripcion').val("");
+      $("body").css('cursor', 'default');
+      setTimeout(function () {
+        $("#alertCorreo2").fadeOut(1500);
+      }, 3000)
+    });
 
 }
 
-function recargarEventos(){
+function recargarEventos() {
   httpRequest(URLD + "directorControl/listarEventos", function () {
 
     var response = this.responseText;
     var resp = response.split("\n").join("");
     let tasks = JSON.parse(resp);
-    let templateEventos= '';
+    let templateEventos = '';
     var i = 0;
     for (var m = 0; m < tasks.length / 3; m++) {
       templateEventos += ` <div style="margin-bottom:10px"class="card-group">`
       for (var j = i; j < tasks.length; j++) {
-        var idE= tasks[j].id;
+        var idE = tasks[j].id;
         i++;
         templateEventos += `
               <div class="card" style=" margin: 10px 10px 10px 10px;"> 
@@ -1231,7 +1248,7 @@ function recargarEventos(){
 
 }
 
-function eliminarEvento(codigo){
+function eliminarEvento(codigo) {
   swal({
     title: "¿Realmente desea eliminar el evento?",
     text: "Esta opcion es irreversible",
@@ -1239,32 +1256,32 @@ function eliminarEvento(codigo){
     buttons: true,
     dangerMode: true,
   })
-  .then((willDelete) => {
-    if (willDelete) {
-      swal("Evento eliminado de la lista!", {
-        icon: "success",
-      });
-      httpRequest(URLD + "directorControl/eliminarEvento/" + codigo,function () {
-        recargarEventos();
-       });
-    } 
-  });
+    .then((willDelete) => {
+      if (willDelete) {
+        swal("Evento eliminado de la lista!", {
+          icon: "success",
+        });
+        httpRequest(URLD + "directorControl/eliminarEvento/" + codigo, function () {
+          recargarEventos();
+        });
+      }
+    });
 
 }
 
-function traerEvento(codigo){
+function traerEvento(codigo) {
 
-  httpRequest(URLD + "directorControl/traerEvento/" + codigo,function () {
+  httpRequest(URLD + "directorControl/traerEvento/" + codigo, function () {
     var response = this.responseText;
     var resp = response.split("\n").join("");
     let tasks = JSON.parse(resp);
-    loadAev(tasks[0].id, tasks[0].titulo,tasks[0].direccion,tasks[0].fecha,tasks[0].hora,tasks[0].ciudad,tasks[0].descripcion,tasks[0].responsable, tasks[0].destinatario );
+    loadAev(tasks[0].id, tasks[0].titulo, tasks[0].direccion, tasks[0].fecha, tasks[0].hora, tasks[0].ciudad, tasks[0].descripcion, tasks[0].responsable, tasks[0].destinatario);
   });
 
 }
 
-function cargaDatosEvento(id, titulo,direccion,fecha,hora,ciudad,descripcion,responsable, destinatario){
- 
+function cargaDatosEvento(id, titulo, direccion, fecha, hora, ciudad, descripcion, responsable, destinatario) {
+
   $("#tituloAc").val(titulo);
   $('#direccionAc').val(direccion);
   $('#ciudadaC').val(ciudad);
@@ -1272,21 +1289,21 @@ function cargaDatosEvento(id, titulo,direccion,fecha,hora,ciudad,descripcion,res
   $('#horaAc').val(hora);
   $('#responsableAc').val(responsable);
   $('#descripcionAc').val(descripcion);
-  globalIdEvento=id;
+  globalIdEvento = id;
 }
 
-function actualizarEvento(e){
-e.preventDefault();
+function actualizarEvento(e) {
+  e.preventDefault();
   var titulo = $('#tituloAc').val();
   var direccion = $('#direccionAc').val();
   var ciudad = $('#fechaAc').val();
-  var fecha= $('#fechaAc').val();
+  var fecha = $('#fechaAc').val();
   var hora = $('#horaAc').val();
-  var responsable =$('#responsableAc').val();
+  var responsable = $('#responsableAc').val();
   var descripcion = $('#descripcionAc').val();
-  var opcion = $('input:radio[name=envioAc]:checked').val(); 
+  var opcion = $('input:radio[name=envioAc]:checked').val();
 
-  if(titulo=="" || direccion=="" || ciudad=="" || fecha=="" || hora=="" || responsable=="" || descripcion=="" ){
+  if (titulo == "" || direccion == "" || ciudad == "" || fecha == "" || hora == "" || responsable == "" || descripcion == "") {
 
     $('#alertCorreo').show();
     $('#alertCorreo2').hide();
@@ -1295,26 +1312,26 @@ e.preventDefault();
 
   }
   httpRequest(URLD + "directorControl/actualizarEvento/" + globalIdEvento + "/" + titulo + "/" + direccion + "/" + ciudad + "/" +
-  fecha + "/" + hora + "/" + responsable + "/" + descripcion + "/" + opcion  ,function () {
-  $('#tituloAc').val("");
-  $('#direccionAc').val("");
-  $('#fechaAc').val("");
-  $('#fechaAc').val("");
-  $('#horaAc').val("");
-  $('#responsableAc').val("");
-  $('#descripcionAc').val("");
-  swal({
-    title: "Actualizacion de evento",
-    text: "Accion exitosa",
-    icon: "success",
-    button: "Ok",
-  });
-  loadLev();
-  });
-return false;
+    fecha + "/" + hora + "/" + responsable + "/" + descripcion + "/" + opcion, function () {
+      $('#tituloAc').val("");
+      $('#direccionAc').val("");
+      $('#fechaAc').val("");
+      $('#fechaAc').val("");
+      $('#horaAc').val("");
+      $('#responsableAc').val("");
+      $('#descripcionAc').val("");
+      swal({
+        title: "Actualizacion de evento",
+        text: "Accion exitosa",
+        icon: "success",
+        button: "Ok",
+      });
+      loadLev();
+    });
+  return false;
 }
 
-function generarReporteEmpresa(){
+function generarReporteEmpresa() {
   $("#informe").show();
   $("#reporEmprea").hide();
   setTimeout(function () {
@@ -1323,14 +1340,14 @@ function generarReporteEmpresa(){
   }, 3000)
 }
 
-function tomarReporteEmpresa(){
+function tomarReporteEmpresa() {
   $("#reporEmprea").show();
   var estudiante = $('#exampleFormControlSelect1').val();
-  var tipoReporte ="";
+  var tipoReporte = "";
   window.open(URLD + "directorControl/generarReporte/" + estudiante + "/" + tipoReporte);
 }
 
-function bloquear(){
+function bloquear() {
   var estudiante = $('#exampleFormControlSelect1').val();
   $('#exampleFormControlSelect2').hide();
   $('#id1').hide();
@@ -1339,7 +1356,7 @@ function bloquear(){
   $('#reporEmprea').show();
 }
 
-function desbloquear(){
+function desbloquear() {
   $('#exampleFormControlSelect2').show();
   $('#id1').show();
   $('#C2').show();
@@ -1349,25 +1366,25 @@ function desbloquear(){
 
 function enviarCorreoEncuesta(e) {
   e.preventDefault();
-  var cuerpo,asunto,url,expresion;
-  expresion=/docs.google.com/;
-  url=$("#url").val();
-  cuerpo=$("#cuerpo").val();
-  asunto=$("#asunto").val();
+  var cuerpo, asunto, url, expresion;
+  expresion = /docs.google.com/;
+  url = $("#url").val();
+  cuerpo = $("#cuerpo").val();
+  asunto = $("#asunto").val();
   var opcion = $('input:radio[name=envio]:checked').val(); //Obtiene el valor sobre a quienes se envías
   // 0 para todos ; 1 para egresados ; 2 para estudiantes
-  if (cuerpo === "" || asunto === "" || url==="") {
+  if (cuerpo === "" || asunto === "" || url === "") {
     $('#alertCorreo2').hide();
     $('#alertCorreo').show();
     $('#respuestaCorreo').text("Por favor, Llene todos los campos antes de enviar.");
     return;
-  }else if(!expresion.test(url)){
+  } else if (!expresion.test(url)) {
     $('#alertCorreo2').hide();
     $('#alertCorreo').show();
     $('#respuestaCorreo').text("Esta no es una direccion valida de formulario");
     return;
   }
-  cuerpo=$("#cuerpo").val() +"\n Direccion del Formulario: "+url;
+  cuerpo = $("#cuerpo").val() + "\n Direccion del Formulario: " + url;
   $("body").css('cursor', 'wait');
   $('#alertCorreo').hide();
   $('#alertCorreo2').show();
@@ -1375,7 +1392,7 @@ function enviarCorreoEncuesta(e) {
   $.ajax({
     url: URLD + "directorControl/enviarCorreoEncuesta",
     data: {
-       asuntoE:asunto, cuerpoE :cuerpo, opcionE:opcion
+      asuntoE: asunto, cuerpoE: cuerpo, opcionE: opcion
     },
     type: "post",
     success: function (data) {
@@ -1394,23 +1411,23 @@ function enviarCorreoEncuesta(e) {
   });
 }
 
-function insetarNoticia(e){
+function insetarNoticia(e) {
   e.preventDefault();
-  var titulo=$("#titulo").val();
-  var autor=$("#autor").val();
+  var titulo = $("#titulo").val();
+  var autor = $("#autor").val();
   var dt = new Date();
-  var fecha = dt.getFullYear() + "-" + dt.getMonth() + "-" + dt.getHours() ;
-  var cuerpo=$("#cuerpo").val();
-  var opcion = $('input:radio[name=envioN]:checked').val(); 
+  var fecha = dt.getFullYear() + "-" + dt.getMonth() + "-" + dt.getHours();
+  var cuerpo = $("#cuerpo").val();
+  var opcion = $('input:radio[name=envioN]:checked').val();
 
-  if(titulo=="" || autor=="" || fecha=="" || cuerpo=="" ){
+  if (titulo == "" || autor == "" || fecha == "" || cuerpo == "") {
     $('#alertCorreo').show();
     $('#alertCorreo2').hide();
     $('#respuestaCorreo').text("Por favor llene todos los campos");
     return;
   }
   $('#alertCorreo').hide();
-  httpRequest(URLD + "directorControl/crearNoticia/" + titulo + "/" + autor + "/" + fecha + "/" + cuerpo + "/" + opcion ,function () {
+  httpRequest(URLD + "directorControl/crearNoticia/" + titulo + "/" + autor + "/" + fecha + "/" + cuerpo + "/" + opcion, function () {
     $('#alertCorreo2').show();
     $('#alertCorreo').hide();
     $('#respuestaCorreo2').text("Noticia Creada Correctamente");
@@ -1426,16 +1443,16 @@ function insetarNoticia(e){
 
 }
 
-function recargarNoticias(){
+function recargarNoticias() {
   httpRequest(URLD + "directorControl/listarNoticias", function () {
 
     var response = this.responseText;
     var resp = response.split("\n").join("");
     let tasks = JSON.parse(resp);
-    let templateNoticias= '';
-    for (var m = 0; m < tasks.length ; m++) {
-      templateNoticias += 
-      `<table class="table">
+    let templateNoticias = '';
+    for (var m = 0; m < tasks.length; m++) {
+      templateNoticias +=
+        `<table class="table">
         <thead>
             <tr>
                 <th scope="col">Fecha de publicacion</th>
@@ -1458,52 +1475,52 @@ function recargarNoticias(){
   });
 }
 
-function traerNoticia(codigo){
-  httpRequest(URLD + "directorControl/traerNoticia/" + codigo,function () {
+function traerNoticia(codigo) {
+  httpRequest(URLD + "directorControl/traerNoticia/" + codigo, function () {
     var response = this.responseText;
     var resp = response.split("\n").join("");
     let tasks = JSON.parse(resp);
-    loadAnot(tasks[0].id, tasks[0].fecha,tasks[0].titulo,tasks[0].cuerpo,tasks[0].autor, tasks[0].destinatario );
+    loadAnot(tasks[0].id, tasks[0].fecha, tasks[0].titulo, tasks[0].cuerpo, tasks[0].autor, tasks[0].destinatario);
   });
 }
 
-function cargaDatosNoticia(id,fecha,titulo,cuerpo,autor, destinatario){
- 
+function cargaDatosNoticia(id, fecha, titulo, cuerpo, autor, destinatario) {
+
   $("#tituloN").val(titulo);
   $('#autorN').val(autor);
   $('#cuerpoN').val(cuerpo);
-  globalIdNoticia=id;
+  globalIdNoticia = id;
 }
 
-function actualizarNoticia(e){
+function actualizarNoticia(e) {
   e.preventDefault();
-    var titulo = $('#tituloN').val();
-    var autor = $('#autorN').val();
-    var cuerpo = $('#cuerpoN').val();
-    var dt = new Date();
-    var fecha = dt.getFullYear() + "-" + dt.getMonth() + "-" + dt.getHours() ;
-    var opcion = $('input:radio[name=envioNO]:checked').val(); 
-  
-    if(titulo=="" || autor=="" || cuerpo=="" ){
-  
-      $('#alertCorreo').show();
-      $('#alertCorreo2').hide();
-      $('#respuestaCorreo').text("Por favor llene todos los campos");
-      return;
-  
-    }
-    httpRequest(URLD + "directorControl/actualizarNoticia/" + globalIdNoticia + "/" + titulo + "/" + autor + "/" + cuerpo + "/" +
-    fecha + "/"+ opcion  ,function () {
-    $('#tituloN').val("");
-    $('#autorN').val("");
-    $('#cuerpoN').val("");
-    swal({
-      title: "Actualizacion de noticia",
-      text: "Accion exitosa",
-      icon: "success",
-      button: "Ok",
-    });
-    loadLno();
+  var titulo = $('#tituloN').val();
+  var autor = $('#autorN').val();
+  var cuerpo = $('#cuerpoN').val();
+  var dt = new Date();
+  var fecha = dt.getFullYear() + "-" + dt.getMonth() + "-" + dt.getHours();
+  var opcion = $('input:radio[name=envioNO]:checked').val();
+
+  if (titulo == "" || autor == "" || cuerpo == "") {
+
+    $('#alertCorreo').show();
+    $('#alertCorreo2').hide();
+    $('#respuestaCorreo').text("Por favor llene todos los campos");
+    return;
+
+  }
+  httpRequest(URLD + "directorControl/actualizarNoticia/" + globalIdNoticia + "/" + titulo + "/" + autor + "/" + cuerpo + "/" +
+    fecha + "/" + opcion, function () {
+      $('#tituloN').val("");
+      $('#autorN').val("");
+      $('#cuerpoN').val("");
+      swal({
+        title: "Actualizacion de noticia",
+        text: "Accion exitosa",
+        icon: "success",
+        button: "Ok",
+      });
+      loadLno();
     });
   return false;
 }
@@ -1543,73 +1560,73 @@ function insertaEmpresa(e) {
   direccion = document.getElementById("direccionEmpresa").value;
   contra = document.getElementById("contraEmpresa").value;
   var gropu = $('#inputGroupFile012').val();
-  var ciudadEmpresa = $('#ciudadEmpresa').val(); 
+  var ciudadEmpresa = $('#ciudadEmpresa').val();
   var fecha = $('#fecha').val();
 
 
-  httpRequest(URLD + "directorControl/getCodigoConvenio/" + nit  ,function () {
-    
+  httpRequest(URLD + "directorControl/getCodigoConvenio/" + nit, function () {
+
     var response = this.responseText;
     var resp = response.split("\n").join("");
-    if(resp==0){
+    if (resp == 0) {
       $('#codigoConvenio').show();
       return;
     }
   });
   $('#codigoConvenio').hide();
-  
-  var expresion=/\w+@\w+\.+[a-z]/;
- if (ciudadEmpresa =="" || fecha =="" ||  nit === "" || nombre === "" || correo === "" || telefono === "" || celular === "" || direccion === "" || contra === "") {
+
+  var expresion = /\w+@\w+\.+[a-z]/;
+  if (ciudadEmpresa == "" || fecha == "" || nit === "" || nombre === "" || correo === "" || telefono === "" || celular === "" || direccion === "" || contra === "") {
     $('#alertCorreo2').hide();
     $('#alertCorreo').show();
     $('#respuestaCorreo').text("Por favor, Llene todos los campos antes de Continuar.");
     return false;
-  } else if(nit.length>100){
+  } else if (nit.length > 100) {
     $('#alertCorreo2').hide();
     $('#alertCorreo').show();
     $('#respuestaCorreo').text("El Nit de la empresa no puede ser tan largo.");
     return false;
-  }else if(nombre.length>25){
+  } else if (nombre.length > 25) {
     $('#alertCorreo2').hide();
     $('#alertCorreo').show();
     $('#respuestaCorreo').text("El Nombre de la empresa no puede superar los 25 caracteres.");
     return false;
-  }else if(correo.length>50){
+  } else if (correo.length > 50) {
     $('#alertCorreo2').hide();
     $('#alertCorreo').show();
     $('#respuestaCorreo').text("El Correo de la empresa no puede superar los 50 caracteres.");
     return false;
-  }else if(telefono.length>9){
+  } else if (telefono.length > 9) {
     $('#alertCorreo2').hide();
     $('#alertCorreo').show();
     $('#respuestaCorreo').text("Telefono invalido (Supera los 9 digitos permitidos)");
     return false;
-  }else if(celular.length>25){
+  } else if (celular.length > 25) {
     $('#alertCorreo2').hide();
     $('#alertCorreo').show();
     $('#respuestaCorreo').text("Numero de Celular invalido (Supera los digitos permitidos)");
     return false;
-  }else if(contra.length>100){
+  } else if (contra.length > 100) {
     $('#alertCorreo2').hide();
     $('#alertCorreo').show();
     $('#respuestaCorreo').text("Tu contraseña es muy larga");
     return false;
   }
-  else if(isNaN(telefono)){
+  else if (isNaN(telefono)) {
     $('#alertCorreo').show();
     $('#respuestaCorreo').text("El telefono debe ser un numero");
     return false;
-  }else if(isNaN(celular)){
+  } else if (isNaN(celular)) {
     $('#alertCorreo2').hide();
     $('#alertCorreo').show();
     $('#respuestaCorreo').text("El celular debe ser un numero");
     return false;
-  }else if(!expresion.test(correo)){
+  } else if (!expresion.test(correo)) {
     $('#alertCorreo2').hide();
     $('#alertCorreo').show();
     $('#respuestaCorreo').text("El correo ingresado no es valido");
     return false;
-  }else if (extConvenio != "pdf" || gropu=="") {
+  } else if (extConvenio != "pdf" || gropu == "") {
     $('#alertCorreo2').hide();
     $('#alertCorreo').show();
     $('#respuestaCorreo').text("error de extension, " + extTesis + "  " + "Por favor seleccione un archivo .pdf");
@@ -1635,7 +1652,7 @@ function insertaEmpresa(e) {
       $('#direccionEmpresa').val("");
       $('#contraEmpresa').val("");
       $(".nameArchivo").text("...");
-      $('#ciudadEmpresa').val(""); 
+      $('#ciudadEmpresa').val("");
       $('#fecha').val("");
       swal({
         title: "Empresa Registrada Correctamente",
@@ -1643,24 +1660,24 @@ function insertaEmpresa(e) {
         icon: "success",
         button: "Ok",
       });
-      
+
     }
   });
   return false;
 }
 
-function recargarEmpresa(){
+function recargarEmpresa() {
   httpRequest(URLD + "directorControl/listarEmpresa", function () {
 
     var response = this.responseText;
     var resp = response.split("\n").join("");
     let tasks = JSON.parse(resp);
-    let templateEmpresa= '';
+    let templateEmpresa = '';
     var i = 0;
     for (var m = 0; m < tasks.length / 3; m++) {
       templateEmpresa += `<div class="card-group">`
       for (var j = i; j < tasks.length; j++) {
-        var aux =tasks[j].nitEmpresa;
+        var aux = tasks[j].nitEmpresa;
         i++;
         templateEmpresa += `      
         <div class="card" style="margin: 10px 10px 10px 10px">
@@ -1699,7 +1716,7 @@ function recargarEmpresa(){
 
 }
 
-function eliminarEmpresa(codigo){
+function eliminarEmpresa(codigo) {
   swal({
     title: "¿Realmente desea eliminar la empresa?",
     text: "Esta opcion es irreversible",
@@ -1707,46 +1724,46 @@ function eliminarEmpresa(codigo){
     buttons: true,
     dangerMode: true,
   })
-  .then((willDelete) => {
-    if (willDelete) {
-      swal("Empresa eliminada de la lista!", {
-        icon: "success",
-      });
-      httpRequest(URLD + "directorControl/eliminarEmpresa/" + codigo,function () {
-        setTimeout(function () {
-          recargarEmpresa();
-        }, 100)
-       });
-    } 
-  });
-    
+    .then((willDelete) => {
+      if (willDelete) {
+        swal("Empresa eliminada de la lista!", {
+          icon: "success",
+        });
+        httpRequest(URLD + "directorControl/eliminarEmpresa/" + codigo, function () {
+          setTimeout(function () {
+            recargarEmpresa();
+          }, 100)
+        });
+      }
+    });
+
 }
 
-function descargarFormato(){
+function descargarFormato() {
   window.open(URLD + "directorControl/descargarFormato");
 }
 
-function fileValidation(param){
+function fileValidation(param) {
   var fileInput = param;
   var filePath = fileInput.value;
   var allowedExtensions = /(.jpg|.jpeg|.png|.gif)$/i;
-  if(!allowedExtensions.exec(filePath)){
-      document.getElementById('imagePreview').innerHTML = 'Por favor seleccione un archivo con alguna de las siguientes opciones .jpeg/.jpg/.png/.gif only.';
-      fileInput.value = '';
-      return false;
-  }else{
-      //Image preview
-      if (fileInput.files && fileInput.files[0]) {
-          var reader = new FileReader();
-          reader.onload = function(e) {
-              document.getElementById('imagePreview').innerHTML = '<img style="width:100%;height:100% " src="'+e.target.result+'"/>';
-          };
-          reader.readAsDataURL(fileInput.files[0]);
-      }
+  if (!allowedExtensions.exec(filePath)) {
+    document.getElementById('imagePreview').innerHTML = 'Por favor seleccione un archivo con alguna de las siguientes opciones .jpeg/.jpg/.png/.gif only.';
+    fileInput.value = '';
+    return false;
+  } else {
+    //Image preview
+    if (fileInput.files && fileInput.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        document.getElementById('imagePreview').innerHTML = '<img style="width:100%;height:100% " src="' + e.target.result + '"/>';
+      };
+      reader.readAsDataURL(fileInput.files[0]);
+    }
   }
 }
 
-  
+
 
 
 

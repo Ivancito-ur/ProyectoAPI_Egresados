@@ -493,10 +493,21 @@ class directorControl extends Controller
         $resultado = $this->model->getTesis();
         $json = array();
         foreach ($resultado as $est) {
-            $json[] = array(
-                'titulo' => $est['titulo'],
-                'archivo' => $est['archivo'],
+            $id = $est['id'];
+            $datos = $this->model->getEstudiantesTesis($id);
+            $array_estudiantes = array();
+            $fecha="";
+            foreach ($datos as $d){
+                array_push($array_estudiantes,$d['nombres']);
+                $fecha=$d['fecha_asignacion'];
+            }
 
+            $json[] = array(
+                'id' => $est['id'],
+                'titulo' => $est['titulo'],
+                'archivo' => $est['archivo'],    
+                'estudiantes' => $array_estudiantes,
+                'fecha' => $fecha       
             );
         }
         $JString = json_encode($json);
