@@ -7,16 +7,16 @@
   <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
   <meta name="author" content="Creative Tim">
 
-  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+  
+
 
   <!-- Bootstrap core CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-
-
-
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
 
 
@@ -35,10 +35,10 @@
   <!-- Argon CSS -->
   <link rel="stylesheet" href="<?php echo constant('URL') ?>public/assets/css/argon.css?v=1.2.0" type="text/css">
 
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+
   <link rel="stylesheet" href="<?php echo constant('URL') ?>public/css/director/estiloAdm.css">
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
-
   
 
 
@@ -74,7 +74,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a onclick="loadAc()" class="nav-link"href="#">
+              <a onclick="loadAc()" class="nav-link" href="#">
                 <i class="fas fa-edit"></i>
                 <span class="nav-link-text">Actualizar estudiantes</span>
               </a>
@@ -92,6 +92,13 @@
               </a>
             </li>
             <li class="nav-item">
+              <!-- Listado de las tesis Documentos -->
+              <a onclick="loadLte()" class="nav-link" href="#"> 
+                <i class="fas fa-file-pdf"></i>
+                <span class="nav-link-text">Ver tesis de grado</span>
+              </a>
+            </li>
+            <li class="nav-item">
               <a onclick="loadSe()" class="nav-link" href="#">
                 <i class="fas fa-envelope"></i>
                 <span class="nav-link-text">Envío de correos electronicos</span>
@@ -104,7 +111,7 @@
               </a>
             </li>
             <li class="nav-item">
-            <a onclick="loadR()" class="nav-link" href="#">
+              <a onclick="loadR()" class="nav-link" href="#">
                 <i class="fas fa-file-alt"></i>
                 <span class="nav-link-text">Reportes</span>
               </a>
@@ -150,7 +157,7 @@
                 <i class="fas fa-newspaper"></i>
                 <span class="nav-link-text">Noticias publicadas</span>
               </a>
-            </li>   
+            </li>
           </ul>
           <!-- Divider -->
           <hr class="my-3">
@@ -183,8 +190,8 @@
       </div>
     </div>
   </nav>
-  
-  <!-- Main content -->
+
+  <!-- Main content :v  -->
   <div class="main-content" id="panel">
     <!-- Topnav -->
     <nav class="navbar navbar-top navbar-expand navbar-dark bg-primary border-bottom">
@@ -260,7 +267,7 @@
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
-                        <i class="fas fa-graduation-cap"></i>
+                        <i class="fas fa-user-friends"></i>
                       </div>
                     </div>
                   </div>
@@ -270,7 +277,7 @@
               </div>
             </div>
             <!---->
-              <div class="col-xl-3 col-md-6">
+            <div class="col-xl-3 col-md-6">
               <div class="card card-stats">
                 <!-- Card body -->
                 <div class="card-body">
@@ -281,7 +288,7 @@
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
-                      <i class="fas fa-user-graduate"></i>
+                        <i class="fas fa-user-graduate"></i>
                       </div>
                     </div>
                   </div>
@@ -290,7 +297,7 @@
                 </div>
               </div>
             </div>
-            
+
             <div class="col-xl-3 col-md-6">
               <div class="card card-stats">
                 <!-- Card body -->
@@ -354,9 +361,6 @@
       </div>
     </div>
     <!-- Page content -->
-    
-  
-
 
     <div class="container-fluid mt--6" id="contenedor">
 
@@ -365,7 +369,7 @@
           <div class="col-xl-6">
             <div class="card">
               <div class="card-header border-0">
-                <div class="row align-items-center">
+                <div class="row">
                   <div class="col">
                     <h3 class="mb-0">Estudiantes sin tesis</h3>
                   </div>
@@ -374,9 +378,8 @@
                   </div>
                 </div>
               </div>
-              <div class="table-responsive" style="margin-bottom:20px">
                 <!-- Projects table -->
-                <table class="table align-items-center table-flush">
+                <table class="table" id="examplegg">
                   <thead class="thead-light">
                     <tr>
                       <th scope="col">Nombre</th>
@@ -384,23 +387,23 @@
                       <th scope="col">N° Documento</th>
                     </tr>
                   </thead>
+                  <tbody>
                   <?php for ($m = 0; $m < count($this->datos); $m++) : ?>
-                    <tbody>
                       <tr>
-                        <th scope="row">
-                          <?php echo $this->datos[$m]['nombres'] ?>
-                        </th>
-                        <td>
-                          <?php echo $this->datos[$m]['apellidos'] ?>
-                        </td>
-                        <td>
-                          <?php echo $this->datos[$m]['codigoEstudiante'] ?>
-                        </td>
+                        <th><?php echo rtrim($this->datos[$m]['nombres']," ")  ?></th>
+                        <td><?php echo rtrim($this->datos[$m]['apellidos']," ") ?></td>
+                        <td><?php echo rtrim($this->datos[$m]['codigoEstudiante']," ") ?></td>
                       </tr>
                     <?php endfor; ?>
                     </tbody>
+                    <tfoot>
+                    <tr>
+                      <th scope="col">Nombre</th>
+                      <th scope="col">Apellidos</th>
+                      <th scope="col">N° Documento</th>
+                    </tfoot>
                 </table>
-              </div>
+             
             </div>
           </div>
           <div class="col-xl-3">
@@ -408,7 +411,7 @@
               <div class="card-header border-0">
                 <div class="row align-items-center">
                   <div class="col">
-                    <h3 class="mb-0">Mision     <i class="fab fa-monero"></i></h3>
+                    <h3 class="mb-0">Mision <i class="fab fa-monero"></i></h3>
                   </div>
                   <div class="col text-right">
 
@@ -438,7 +441,7 @@
                 <div class="row align-items-center">
                   <div class="col">
                     <h3 class="mb-0">Vision <i class="fas fa-angle-double-right"></i> </h3>
-                   
+
                   </div>
                   <div class="col text-right">
 
@@ -455,7 +458,7 @@
                     transferencia de ciencia y tecnología y por la formación de profesionales
                     con sentido de responsabilidad social, que facilitaran la transformación
                     de la comunidad desde el ámbito local hacia lo global.
-                    </strong>
+                  </strong>
                 </p>
 
               </div>
@@ -465,7 +468,7 @@
       </div>
 
     </div>
-  
+
 
 
 
@@ -504,7 +507,7 @@
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script src="<?php echo constant('URL') ?>public/js/director/main.js"></script>
- 
+
   <!-- Argon Scripts -->
   <!-- Core -->
   <script src="<?php echo constant('URL') ?>public/assets/vendor/jquery/dist/jquery.min.js"></script>
@@ -515,8 +518,28 @@
   <!-- Optional JS -->
   <script src="<?php echo constant('URL') ?>public/assets/vendor/chart.js/dist/Chart.min.js"></script>
   <script src="<?php echo constant('URL') ?>public/assets/vendor/chart.js/dist/Chart.extension.js"></script>
+
+
   <!-- Argon JS -->
   <script src="<?php echo constant('URL') ?>public/assets/js/argon.js?v=1.2.0"></script>
+  
+<script>
+ $(document).ready(function() {  
+  console.log('assadjsahdjks')
+ $('#examplegg').DataTable();
+} );
+
+$(document).ready(function () {
+    console.log('prueba de tesis');
+    $('#exampleTesis').DataTable();
+  });
+</script>
+
+
+
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.21/datatables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+
 
 
 </body>

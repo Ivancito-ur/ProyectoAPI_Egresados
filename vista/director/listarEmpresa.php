@@ -11,7 +11,7 @@
       </div>
     </div>
     <div class="card-body">
-      <div class="cajaE" style="border-top: 3px solid #3c8dbc; background-color: white; padding-bottom: 10px;">
+      <div class="contenido_lista_empresa" style="border-top: 3px solid #3c8dbc; background-color: white; padding-bottom: 10px; padding-top:10px;">
     
             
       </div>

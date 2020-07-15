@@ -9,7 +9,7 @@
                 </div>
             </div>
         </div>
-        
+
 
         <div class="card-body">
 
@@ -20,59 +20,96 @@
                 <form class="formularioTesis" enctype="multipart/form-data">
                     <label for="codigo">Codigo</label>
                     <div class="input-group mb-3">
-                        <input name="" maxlength="7"  id="codigo" type="number" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2" required>
+                        <input name="" maxlength="7" id="codigo" type="number" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2" required>
                         <div class="input-group-append">
                             <button onclick="return explodeCodigo(event)" class="btn btn-outline-secondary" type="button" id="button-addon2" style="background-color: #dd4b39; color: white;">Agregar</button>
                         </div>
                     </div>
-                    <p style="color:red"class="verificarC"></p>
+                    <p style="color:red" class="verificarC"></p>
                     <div class="form-group">
                         <label for="titulo">Titulo Tesis</label>
                         <input name="titulo" type="text" class="form-control" id="titulo" required>
                     </div>
                     <table class="table" id="tblUsuario">
-                    <thead>
-                        <tr>
-                            <th scope="col">Codigo</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Apellido</th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody id="agregar">
-                    </tbody>
-                     </table>
+                        <thead>
+                            <tr>
+                                <th scope="col">Codigo</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Apellido</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="agregar">
+                        </tbody>
+                    </table>
                     <div class="input-group mb-3" style="padding-left: 10px; padding-right: 10px;">
                         <div class="input-group-prepend">
-                            <span  class="input-group-text" id="inputGroupFileAddon01">Cargar</span>
+                            <span class="input-group-text" id="inputGroupFileAddon01">Cargar</span>
                         </div>
                         <input id="listCodigos" type="text" name="codigo" id="" style="display:none">
                         <div class="custom-file">
-                            <input name="archivo" onchange="cargaTesis()" style="display:none"type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-                            <label class="custom-file-label" for="inputGroupFile01"><p class="nameArchivoTesis">...</p></label>
+                            <input name="archivo" onchange="cargaTesis()" style="display:none" type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                            <label class="custom-file-label" for="inputGroupFile01">
+                                <p class="nameArchivoTesis">...</p>
+                            </label>
                         </div>
                     </div>
                     <button onclick=" return guardarTesis(event)" type="submit" class="btn btn-primary" style="background-color: #dd4b39; border-color: #dd4b39;">Cargar</button>
-                    <div style="display:none; text-align:center; padding:10px ; margin-top:15px" id="alertTesis"class="alert alert-danger" role="alert">
-                        <p class="respuestaTesis" id="respuestaTesis" ></p></div>
-                        <div style="display:none; text-align:center; padding:10px ; margin-top:15px" id="alertTesis2" class="alert alert-success" role="alert">
+                    <div style="display:none; text-align:center; padding:10px ; margin-top:15px" id="alertTesis" class="alert alert-danger" role="alert">
+                        <p class="respuestaTesis" id="respuestaTesis"></p>
+                    </div>
+                    <div style="display:none; text-align:center; padding:10px ; margin-top:15px" id="alertTesis2" class="alert alert-success" role="alert">
                         <p class="respuestaTesis2"></p>
-                        </div>
+                    </div>
                 </form>
             </div>
             <br>
             <div style="border-top: 3px solid #3c8dbc; background-color: white; padding-bottom: 10px;">
-            <div class="caja">
-            
-            
+
             </div>
-               
+            <p class="h2">Documentos cargados</p>
+            <div class="container">
+                
+            </div>
+            <div class="caja container">
 
+            </div>
+            <!-- <table id="exampleTesis" class="table table-hover" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Estudiantes</th>
+                        <th>Fecha de subida</th>
+                        <th>Accion</th>
+                    </tr>
+                </thead>
+                <tbody>  
+                    <tr>
+                                       
+                    </tr>                 
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Estudiantes</th>
+                        <th>Fecha de subida</th>
+                        <th>Accion</th>
+                    </tr>
+                </tfoot>
+            </table> -->
 
-                
-                
-                
+            <div style="border-top: 3px solid #3c8dbc; background-color: white; padding-bottom: 10px;">
+
             </div>
         </div>
     </div>
 </div>
+<!-- <script>
+    // $(document).ready(function() {
+    //     console.log('prueba de tesis');
+    //     $('#exampleTesis').DataTable();
+    // });
+    // recargaTesis();
+</script> -->
+
+<?php echo '' ?>

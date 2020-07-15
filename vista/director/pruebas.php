@@ -22,7 +22,7 @@
                 </div>
             </div>
             <div style="margin-bottom:15px;font-size:15px"class="input-group">
-            <div style="" class="input-group-prepend">
+            <div class="input-group-prepend">
                 <span  class="input-group-text">Nombre(s) y Apellido(s)</span>
             </div>
             <input type="text" id="name" aria-label="First name" class="form-control" disabled>

@@ -13,55 +13,99 @@ var globalIdNoticia = "";
 var gropu = "";
 
 
-function visualizarPdf(direccion) {  
-    window.open(direccion);
+function visualizarPdf(direccion) {
+  window.open(direccion);
 }
 
 
 function recargaTesis() {
+
   httpRequest(URLD + "directorControl/getTesis", function () {
     var response = this.responseText;
     var resp = response.split("\n").join("");
     let tasks = JSON.parse(resp);
     var i = 0;
-    for (var m = 0; m < tasks.length / 3; m++) {
-      templateTesis += `<div class="container">`
-      for (var j = i; j < tasks.length; j++) {
-        i++;
-        templateTesis += `
 
-        <div class="card mb-3" style="max-width: 800px;">
-        <div class="row no-gutters">
-          <div class="col-md-4">
-            <div class="embed-responsive embed-responsive-1by1" id="pdf">
-              <iframe class="embed-responsive-item" id="direccion" value="${tasks[j].archivo}" src="${tasks[j].archivo}" allowfullscreen></iframe>
-            </div>
-          </div>
-         <div class="col-md-8">
-          <div class="card-body">
-           <h5 class="card-title">${tasks[j].titulo}</h5>
-            <p class="card-text">
-              Estudiantes autores de la tesis:`
-            for (var k = 0; k < tasks[j].estudiantes.length; k++) {              
-              templateTesis += " " + tasks[j].estudiantes[k] + ".";              
-            }            
-              templateTesis += `</p>
-            <p class="card-text"><small class="text-muted">Agregado el: ${tasks[j].fecha}</small></p>
-            <a class="btn btn-info" onclick="visualizarPdf('${tasks[j].archivo}')">Ver documento <a/>
-          </div>
-         </div>
-        </div>
-      </div>`;
-        // if ((i % 3) == 0) {
-        //   templateTesis += `</div>`;
-        //   break;
-        // }
+    var template = "";
+    var titulo = "";
+    var nombres = "";
+    var fecha = "";
+    var accion = "";
+
+    template += `<table id="exampleTesis" class="table table-bordered table-danger" style="width:100%">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Estudiantes</th>
+            <th>Fecha de subida</th>
+            <th>Accion</th>
+        </tr>
+    </thead>
+    <tbody>`
+    for (var j = 0; j < tasks.length; j++) {
+      titulo = tasks[j].titulo;
+      for (var k = 0; k < tasks[j].estudiantes.length; k++) {
+        nombres += " " + tasks[j].estudiantes[k] + ".";
       }
+      fecha = tasks[j].fecha;
+      accion = tasks[j].archivo;
+      template += `
+        <tr>        
+          <td style="white-space:normal">${titulo}</td>
+          <td style="white-space:normal">${nombres}</td>
+          <td>${fecha}</td>
+          <td> <a href="#" class="badge badge-success" onclick="visualizarPdf('${accion}')">Ver documento <a/></td>
+        </tr>
+        `;
+
+      nombres = "";
+
+
+      //   templateTesis += `
+
+      //   <div class="card mb-3" style="max-width: 800px;">
+      //   <div class="row no-gutters">
+      //     <div class="col-md-4">
+      //       <div class="embed-responsive embed-responsive-1by1" id="pdf">
+      //         <iframe class="embed-responsive-item" id="direccion" value="${tasks[j].archivo}" src="${tasks[j].archivo}" allowfullscreen></iframe>
+      //       </div>
+      //     </div>
+      //    <div class="col-md-8">
+      //     <div class="card-body">
+      //      <h5 class="card-title">${tasks[j].titulo}</h5>
+      //       <p class="card-text">
+      //         Estudiantes autores de la tesis:`
+      //   for (var k = 0; k < tasks[j].estudiantes.length; k++) {
+      //     templateTesis += " " + tasks[j].estudiantes[k] + ".";
+      //   }
+      //   templateTesis += `</p>
+      //       <p class="card-text"><small class="text-muted">Agregado el: ${tasks[j].fecha}</small></p>
+      //       <a class="btn btn-info" onclick="visualizarPdf('${tasks[j].archivo}')">Ver documento <a/>
+      //     </div>
+      //    </div>
+      //   </div>
+      // </div>`;
+      // if ((i % 3) == 0) {
+      //   templateTesis += `</div>`;
+      //   break;
+      // }
     }
+    template += `</tbody>
+      <tfoot>
+          <tr>
+              <th>Nombre</th>
+              <th>Estudiantes</th>
+              <th>Fecha de subida</th>
+              <th>Accion</th>
+          </tr>
+      </tfoot>
+  </table>`;
+
 
     // templateTesis += `</div>`
 
-    $('.caja').html(templateTesis);
+    $('.caja').html(template);
+    $('#exampleTesis').DataTable();
 
   });
 }
@@ -404,14 +448,27 @@ function loadAe() {
 }
 
 function loadLe() {
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      document.getElementById("contenedor").innerHTML = this.responseText;
+
+  $.ajax({
+    data: '', //datos que se envian a traves de ajax
+    url: 'vista/director/listarEmpresa.php', //archivo que recibe la peticion
+    type: 'get', //método de envio
+    beforeSend: function () {
+      $("#contenedor").html("Procesando, espere por favor...");
+    },
+    success: function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
+      $("#contenedor").html(response);
     }
-  };
-  xhttp.open("GET", "vista/director/listarEmpresa.php", true);
-  xhttp.send();
+  });
+
+  // var xhttp = new XMLHttpRequest();
+  // xhttp.onreadystatechange = function () {
+  //   if (this.readyState == 4 && this.status == 200) {
+  //     document.getElementById("contenedor").innerHTML = this.responseText;
+  //   }
+  // };
+  // xhttp.open("GET", "vista/director/listarEmpresa.php", true);
+  // xhttp.send();
   setTimeout(function () {
     recargarEmpresa();
   }, 100)
@@ -432,6 +489,7 @@ function loadEn() {
 }
 
 function loadEv() {
+  
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
@@ -489,33 +547,49 @@ function loadAnot(id, fecha, titulo, cuerpo, autor, destinatario) {
 }
 
 function loadLev() {
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      document.getElementById("contenedor").innerHTML = this.responseText;
+
+
+  $.ajax({
+    data: '', //datos que se envian a traves de ajax
+    url: 'vista/director/listadoEvento.php', //archivo que recibe la peticion
+    type: 'get', //método de envio
+    beforeSend: function () {
+      $("#contenedor").html("Procesando, espere por favor...");
+    },
+    success: function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
+      $("#contenedor").html(response);
     }
-  };
-  xhttp.open("GET", "vista/director/listadoEvento.php", true);
-  xhttp.send();
+  });
+
+  // var xhttp = new XMLHttpRequest();
+  // xhttp.onreadystatechange = function () {
+  //   if (this.readyState == 4 && this.status == 200) {
+  //     document.getElementById("contenedor").innerHTML = this.responseText;
+  //   }
+  // };
+  // xhttp.open("GET", "vista/director/listadoEvento.php", true);
+  // xhttp.send();
   recargarEventos();
 }
 
 function loadTe() {
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      document.getElementById("contenedor").innerHTML = this.responseText;
+
+  $.ajax({
+    data: '', //datos que se envian a traves de ajax
+    url: 'vista/director/tesis.php', //archivo que recibe la peticion
+    type: 'get', //método de envio
+    beforeSend: function () {
+      $("#contenedor").html("Procesando, espere por favor...");
+    },
+    success: function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
+      $("#contenedor").html(response);
     }
-  };
-  xhttp.open("GET", "vista/director/tesis.php", true);
-  xhttp.send();
+  });
   templateCodigos = '';
   lista = [];
   consta = '';
   templateTesis = '';
   recargaTesis();
-
-
 }
 
 function loadPr() {
@@ -1209,40 +1283,97 @@ function recargarEventos() {
     let tasks = JSON.parse(resp);
     let templateEventos = '';
     var i = 0;
-    for (var m = 0; m < tasks.length / 3; m++) {
-      templateEventos += ` <div style="margin-bottom:10px"class="card-group">`
-      for (var j = i; j < tasks.length; j++) {
-        var idE = tasks[j].id;
-        i++;
-        templateEventos += `
-              <div class="card" style=" margin: 10px 10px 10px 10px;"> 
-              <div class="card-header">${tasks[j].titulo}</div>
-              <div class="card-body">
-                <h5 class="card-title">Ubicacion: ${tasks[j].ciudad}</h5>
-                <h5 class="card-title">Horario: Fecha  ${tasks[j].fecha} / Hora ${tasks[j].hora}</h5>
-                <p class="card-text">${tasks[j].descripcion}</p>
-                <p class="card-text" style="color:blue">Reponsable: ${tasks[j].responsable}</p>
-                <p class="card-text" style="color:black">Destinatarios: ${tasks[j].destinatario}</p>
-              </div>
-              <div style="padding:10px">                  
-                  <button type="button" onclick="traerEvento(${idE})"class="btn btn-secondary btn-lg" style="background-color: #dd4b39; border-color: #dd4b39; color: white;">Actualizar</button>
-                  <button type="button" onclick="eliminarEvento(${idE})"class="btn btn-secondary btn-lg" style="background-color: #dd4b39; border-color: #dd4b39; color: white;">Eliminar</button>
-              </div>
-            </div>
-               `;
-        if ((i % 3) == 0) {
-          templateEventos += `</div>`;
-          break;
-        }
-      }
+    // for (var m = 0; m < tasks.length / 3; m++) {
+    //   templateEventos += ` <div style="margin-bottom:10px"class="card-group">`
+    //   for (var j = i; j < tasks.length; j++) {
+    //     var idE = tasks[j].id;
+    //     i++;
+    //     templateEventos += `
+    //           <div class="card" style=" margin: 10px 10px 10px 10px;"> 
+    //           <div class="card-header">${tasks[j].titulo}</div>
+    //           <div class="card-body">
+    //             <h5 class="card-title">Ubicacion: ${tasks[j].ciudad}</h5>
+    //             <h5 class="card-title">Horario: Fecha  ${tasks[j].fecha} / Hora ${tasks[j].hora}</h5>
+    //             <p class="card-text">${tasks[j].descripcion}</p>
+    //             <p class="card-text" style="color:blue">Reponsable: ${tasks[j].responsable}</p>
+    //             <p class="card-text" style="color:black">Destinatarios: ${tasks[j].destinatario}</p>
+    //           </div>
+    //           <div style="padding:10px">                  
+    //               <button type="button" onclick="traerEvento(${idE})"class="btn btn-secondary btn-lg" style="background-color: #dd4b39; border-color: #dd4b39; color: white;">Actualizar</button>
+    //               <button type="button" onclick="eliminarEvento(${idE})"class="btn btn-secondary btn-lg" style="background-color: #dd4b39; border-color: #dd4b39; color: white;">Eliminar</button>
+    //           </div>
+    //         </div>
+    //            `;
+    //     if ((i % 3) == 0) {
+    //       templateEventos += `</div>`;
+    //       break;
+    //     }
+    //   }
+    // }
+
+    template = "";
+
+    template += `<table id="exampleEventos" class="table table-bordered table-danger" style="width:100%">
+    <thead>
+        <tr>
+            <th>Titulo</th>
+            <th>Ubicacion</th>
+            <th>Fecha</th>
+            <th>Responsable</th>
+            <th>Destinatario</th>
+            <th>Accion</th>
+        </tr>
+    </thead>
+    <tbody>`;
+
+    titulo="";
+    ubicacion="";
+    fecha="";
+    responsable="";
+    destinatario="";
+    id="";
+
+    for (let index = 0; index < tasks.length; index++) {
+      titulo=tasks[index].titulo;
+      console.log(tasks);
+      ubicacion=tasks[index].ciudad;
+      fecha=tasks[index].fecha + " - " + tasks[index].hora;
+      responsable=tasks[index].responsable;
+      destinatario=tasks[index].destinatario;
+      id=tasks[index].id;
+
+      template+= `
+      <tr>        
+        <td style="white-space:normal">${titulo}</td>
+        <td style="white-space:normal">${ubicacion}</td>
+        <td>${fecha}</td>
+        <td>${responsable}</td>
+        <td>${destinatario}</td>
+        <td> <a href="#" class="badge badge-success" onclick="traerEvento('${id}')">Actualizar<a/>
+        <a href="#" class="badge badge-danger" onclick="eliminarEvento('${id}')">Eliminar<a/></td>
+      </tr>
+      `;
+
     }
 
-    templateEventos += `</div>`
+    template += `</tbody>
+      <tfoot>
+          <tr>
+            <th>Titulo</th>
+            <th>Ubicacion</th>
+            <th>Fecha</th>
+            <th>Responsable</th>
+            <th>Destinatario</th>
+            <th>Accion</th>
+          </tr>
+      </tfoot>
+  </table>`;
 
-    $('.cajaE').html(templateEventos);
+    // templateEventos += `</div>`
 
-
-
+    $('.contenido_lista_eventos').html(template);
+    $('#exampleEventos').DataTable();
+    // $('.cajaE').html(templateEventos);
   });
 
 
@@ -1672,45 +1803,80 @@ function recargarEmpresa() {
     var response = this.responseText;
     var resp = response.split("\n").join("");
     let tasks = JSON.parse(resp);
-    let templateEmpresa = '';
-    var i = 0;
-    for (var m = 0; m < tasks.length / 3; m++) {
-      templateEmpresa += `<div class="card-group">`
-      for (var j = i; j < tasks.length; j++) {
-        var aux = tasks[j].nitEmpresa;
-        i++;
-        templateEmpresa += `      
-        <div class="card" style="margin: 10px 10px 10px 10px">
-        <div class="form-group">
-          <h4 class="control-label" style="padding-left: 10px;">Convenio</h4>
-          <div class="embed-responsive embed-responsive-16by9" id="pdf">
-              <iframe class="embed-responsive-item" src="${tasks[j].documento_convenio}"
-                  allowfullscreen></iframe>
-          </div>
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">Nombre: ${tasks[j].nombre}</h5>
-          <p class="card-text">Correo: ${tasks[j].correo}</p>
-          <p class="card-text">Telefono: ${tasks[j].telefono}</p>
-          <p class="card-text">Celular: ${tasks[j].celular}</p>
-          <p class="card-text">Direccion: ${tasks[j].direccion}</p>
-          <p class="card-text">Ciudad: ${tasks[j].ciudad}</p>
 
-          <p class="card-text" style="color:blue">Fecha registro: ${tasks[j].fecha_registro}</p>
-        </div>
-        <button onclick="eliminarEmpresa(${aux})" type="button" class="btn btn-light" style="background-color: #dd4b39; border-color: #dd4b39; width: 50%;">Eliminar</button>
-        </div>
-        `;
-        if ((i % 3) == 0) {
-          templateEmpresa += `</div>`;
-          break;
-        }
-      }
+    template = "";
+
+    template += `<table id="table_empresa" class="table table-bordered table-danger" style="width:100%">
+    <thead>
+        <tr>
+            <th>  Nombre  </th>
+            <th>Correo</th>
+            <th>Telefono</th>
+            <th>Celular</th>
+            <th>Direccion</th>
+            <th>Ciudad</th>
+            <th>Fecha</th>
+            <th>Accion</th>
+        </tr>
+    </thead>
+    <tbody>`;
+
+    var nombre="";
+    var correo="";
+    var telefono="";
+    var celular="";
+    var direccion="";
+    var ciudad="";
+    var fecha_registro="";
+    var nitEmpresa="";
+    var documento="";
+    for (let index = 0; index < tasks.length; index++) {
+      nombre=tasks[index].nombre;
+      correo=tasks[index].correo;
+      celular=tasks[index].celular;
+      telefono=tasks[index].telefono;
+      direccion=tasks[index].direccion;
+      ciudad=tasks[index].ciudad;
+      fecha_registro=tasks[index].fecha_registro;
+      nitEmpresa=tasks[index].nitEmpresa;
+      documento=tasks[index].documento_convenio;
+      template+= `
+      <tr>        
+        <td style="white-space:normal">${nombre}</td>
+        <td style="white-space:normal">${correo}</td>
+        <td>${telefono}</td>
+        <td>${celular}</td>
+        <td>${direccion}</td>
+        <td>${ciudad}</td>
+        <td>${fecha_registro}</td>
+        <td>
+        <a href="#" class="badge badge-danger" onclick="eliminarEmpresa('${nitEmpresa}')">Eliminar<a/>
+        <a href="#" class="badge badge-success" onclick="visualizarPdf('${documento}')">Ver convenio<a/></td>
+      </tr>
+      `;
+
     }
 
-    templateEmpresa += `</div>`
+    template += `</tbody>
+      <tfoot>
+          <tr>
+          <th>Nombre</th>
+          <th>Correo</th>
+          <th>Telefono</th>
+          <th>Celular</th>
+          <th>Direccion</th>
+          <th>Ciudad</th>
+          <th>Fecha</th>
+          <th>Accion</th>
+          </tr>
+      </tfoot>
+  </table>`;
 
-    $('.cajaE').html(templateEmpresa);
+    // templateEventos += `</div>`
+
+    $('.contenido_lista_empresa').html(template);
+    $('#table_empresa').DataTable();
+
   });
 
 
@@ -1731,7 +1897,7 @@ function eliminarEmpresa(codigo) {
         });
         httpRequest(URLD + "directorControl/eliminarEmpresa/" + codigo, function () {
           setTimeout(function () {
-            recargarEmpresa();
+            loadLe();
           }, 100)
         });
       }
@@ -1762,9 +1928,6 @@ function fileValidation(param) {
     }
   }
 }
-
-
-
 
 
 

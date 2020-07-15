@@ -11,6 +11,10 @@
         </div>
         <div class="card-body">
             <div style="border-top: 3px solid #3c8dbc; background-color: white; padding-bottom: 10px;">
+                <div class="contenido_lista_eventos" style="margin-top: 10px;">
+                </div>
+            </div>
+            <div style="border-top: 3px solid #3c8dbc; background-color: white; padding-bottom: 10px;">
 
                 <div class="cajaE">
 
